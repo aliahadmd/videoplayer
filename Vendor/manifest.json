@@ -1,0 +1,688 @@
+{
+  "architecture": "arm64",
+  "origin": "Homebrew bottles; extracted without installation",
+  "formulae": [
+    {
+      "formula": "mpv",
+      "version": "0.42.0",
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "source": {
+        "url": "https://github.com/mpv-player/mpv/archive/refs/tags/v0.42.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd"
+      },
+      "bottle": "43ca94006335eefbf59527dd98e67ccc14e402b4c1d8256c6b30c51a9fcda0d1--mpv--0.42.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "0d9ff71b2875fd4e816285816338399f6532f86e721c50fd369fb588f01fcce6",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/mpv/blobs/sha256:0d9ff71b2875fd4e816285816338399f6532f86e721c50fd369fb588f01fcce6"
+    },
+    {
+      "formula": "libass",
+      "version": "0.17.5",
+      "license": "ISC",
+      "source": {
+        "url": "https://github.com/libass/libass/releases/download/0.17.5/libass-0.17.5.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "2dca25c0e0c837ddf00b52011b3f82cac1e4ddd3ad018227806b0c2288864acc"
+      },
+      "bottle": "5e34ce02837ef2219e28a9c9f22181c3ca9b5daba05e60975717e8ba924aa38e--libass--0.17.5_1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "a066041fedbe188a5330faff55c9e3baac12f5d2ca156b7ae7d4cb1826ed8d84",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libass/blobs/sha256:a066041fedbe188a5330faff55c9e3baac12f5d2ca156b7ae7d4cb1826ed8d84"
+    },
+    {
+      "formula": "freetype",
+      "version": "2.15.0",
+      "license": "FTL",
+      "source": {
+        "url": "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5"
+      },
+      "bottle": "67aff03487a676d5c489892a745dd1afe2c6425e401bb0ddd7f11e0ce37db341--freetype--2.15.0.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "14bc1768b07e0c28391877d3ead21f66f76fd70fea699ad996a693c01a5f660f",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/freetype/blobs/sha256:14bc1768b07e0c28391877d3ead21f66f76fd70fea699ad996a693c01a5f660f"
+    },
+    {
+      "formula": "libpng",
+      "version": "1.6.59",
+      "license": "libpng-2.0",
+      "source": {
+        "url": "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389"
+      },
+      "bottle": "bf903e7864533ac32de13dec49424db277da9334155f8c29ca9b56e70814ae78--libpng--1.6.59.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "7e04225ac0bc048d2b12c603f678e5fa36459909812f2f1306dbd97af337cdec",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libpng/blobs/sha256:7e04225ac0bc048d2b12c603f678e5fa36459909812f2f1306dbd97af337cdec"
+    },
+    {
+      "formula": "brotli",
+      "version": "1.2.1",
+      "license": "MIT",
+      "source": {
+        "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f"
+      },
+      "bottle": "11d0cbd6fb67039bc64c4b94af17ede4b695f46e5dd07bccf2c3e96d3de511cf--brotli--1.2.1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "ba4564da654b3cbc6a143d98194a5c0a4971976d5190c5627ed0b76c5c971b8f",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/brotli/blobs/sha256:ba4564da654b3cbc6a143d98194a5c0a4971976d5190c5627ed0b76c5c971b8f"
+    },
+    {
+      "formula": "fribidi",
+      "version": "1.0.18",
+      "license": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "source": {
+        "url": "https://github.com/fribidi/fribidi/releases/download/v1.0.18/fribidi-1.0.18.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "1de5e8073d035388b71d0b2d452b1da1f8caeea8a7702997b401fe1b6250727f"
+      },
+      "bottle": "41f619bd30b62be22119df3d6585c31ba6670635a375bb8dee2369f389986d67--fribidi--1.0.18.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "8509ef7fdecd81cce30f0831067a8f33453f836ec560a73809ccef32d6a8e1b6",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/fribidi/blobs/sha256:8509ef7fdecd81cce30f0831067a8f33453f836ec560a73809ccef32d6a8e1b6"
+    },
+    {
+      "formula": "harfbuzz",
+      "version": "15.1.0",
+      "license": "MIT",
+      "source": {
+        "url": "https://github.com/harfbuzz/harfbuzz/releases/download/15.1.0/harfbuzz-15.1.0.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "0fc7c565443a5f4be7da65ac5ee5bd737d9b158dc908708b7689a0a5796b0c8d"
+      },
+      "bottle": "991d7a6e3b7e19770a2c01d86cc25c099c936d80f742c3bd681340864e080c8b--harfbuzz--15.1.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "df90d0a72867ebebc59b4bbae968d7667eb3114bff7759fd2cd26f191caf407d",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/harfbuzz/blobs/sha256:df90d0a72867ebebc59b4bbae968d7667eb3114bff7759fd2cd26f191caf407d"
+    },
+    {
+      "formula": "glib",
+      "version": "2.90.1",
+      "license": "LGPL-2.1-or-later",
+      "source": {
+        "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.1.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396"
+      },
+      "bottle": "b68d727ef728bb915b1daa2dd478d9ed52fbbe42ce2d02e381a6a2bc0b1f0d62--glib--2.90.1.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "5ccb7a549258ed35cddc280882a11a854bd0ef1b2329a1ce77e43e39d2d98e3a",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/glib/blobs/sha256:5ccb7a549258ed35cddc280882a11a854bd0ef1b2329a1ce77e43e39d2d98e3a"
+    },
+    {
+      "formula": "gettext",
+      "version": "1.0",
+      "license": "GPL-3.0-or-later AND LGPL-2.1-or-later",
+      "source": {
+        "url": "https://ftpmirror.gnu.org/gettext/gettext-1.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a"
+      },
+      "bottle": "9c20776253ca4f620e70f669ba5d55d9daac6e96aaa9dfbe4913dc364c7daa5b--gettext--1.0.arm64_golden_gate.bottle.2.tar.gz",
+      "sha256": "4db034aa2ae4b1f18d86906707ece14c895198090ad028d2fb1ae4fbeb3ca6fd",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/gettext/blobs/sha256:4db034aa2ae4b1f18d86906707ece14c895198090ad028d2fb1ae4fbeb3ca6fd"
+    },
+    {
+      "formula": "pcre2",
+      "version": "10.49",
+      "license": "BSD-3-Clause",
+      "source": {
+        "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384"
+      },
+      "bottle": "a3831b4d49ccf8d788edbe7d14f63afa57a09d92b1e18ca8fe4fd76aadf2642d--pcre2--10.49.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "5cac44323243138490ca74a2499fd347fa836df6b5fffa789944be12110e91ff",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/pcre2/blobs/sha256:5cac44323243138490ca74a2499fd347fa836df6b5fffa789944be12110e91ff"
+    },
+    {
+      "formula": "graphite2",
+      "version": "1.3.15",
+      "license": "MIT OR MPL-2.0 OR LGPL-2.1-or-later OR GPL-2.0-or-later",
+      "source": {
+        "url": "https://github.com/silnrsi/graphite/releases/download/1.3.15/graphite2-1.3.15.tgz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "c6bc8b4252724665297f7cad0c55897285c673f9b8e6db3522ace833593fe0b1"
+      },
+      "bottle": "9c7467ab0d23d073108f96fcddc5a97aed43944ee08200133b9d892502dbc315--graphite2--1.3.15.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "b6a50a657282bc4b277e2b8247bdd507962f90f4343298afe601fafdb2f959d5",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/graphite2/blobs/sha256:b6a50a657282bc4b277e2b8247bdd507962f90f4343298afe601fafdb2f959d5"
+    },
+    {
+      "formula": "libunibreak",
+      "version": "8.0",
+      "license": "Zlib",
+      "source": {
+        "url": "https://github.com/adah1972/libunibreak/releases/download/libunibreak_8_0/libunibreak-8.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4"
+      },
+      "bottle": "f6085fc85be51b8d1d95ce47c81eb51e3ce140fcb61211fdf42ba1379c14db07--libunibreak--8.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "aacd69ecf3c43aca5ffd2b37d41cb7de99fd5a1d2e48ffc9cdf2c0a66c717408",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libunibreak/blobs/sha256:aacd69ecf3c43aca5ffd2b37d41cb7de99fd5a1d2e48ffc9cdf2c0a66c717408"
+    },
+    {
+      "formula": "ffmpeg",
+      "version": "9.0.2",
+      "license": "GPL-3.0-or-later",
+      "source": {
+        "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
+      },
+      "bottle": "3b5fca52c3f448e1defdc91c58e5cb74704cd4ce7f824bb0685b3218cab5497a--ffmpeg--9.0.2_1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "d521452157b1117f909f441ce90165c360a7dcd9785c87d14cabc28934572a90",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/ffmpeg/blobs/sha256:d521452157b1117f909f441ce90165c360a7dcd9785c87d14cabc28934572a90"
+    },
+    {
+      "formula": "openssl@4",
+      "version": "4.1.0",
+      "license": "Apache-2.0",
+      "source": {
+        "url": "https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd"
+      },
+      "bottle": "187231066fff02a0627b545c1df2958c238face8b04cca6a8de65f4f9703171f--openssl@4--4.1.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "d239639f77a275caa217707e126790b3f5f5c86e5bc6e2a996e5df7fdaed44a6",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/openssl/4/blobs/sha256:d239639f77a275caa217707e126790b3f5f5c86e5bc6e2a996e5df7fdaed44a6"
+    },
+    {
+      "formula": "libvpx",
+      "version": "1.17.0",
+      "license": "BSD-3-Clause",
+      "source": {
+        "url": "https://github.com/webmproject/libvpx/archive/refs/tags/v1.17.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "1020f184046187baa2985dbde38e0691f49c44088bca7a1842b0236c6081dc0a"
+      },
+      "bottle": "95524db1b84b45a4024df840c7d883d3eab4cc8c800d217444ea8a58c49fcd4f--libvpx--1.17.0.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "f9a11c2c10694acd896b66b09697b159cb82f5552837603cbb90366049562572",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libvpx/blobs/sha256:f9a11c2c10694acd896b66b09697b159cb82f5552837603cbb90366049562572"
+    },
+    {
+      "formula": "xz",
+      "version": "5.8.4",
+      "license": "0BSD AND GPL-2.0-or-later",
+      "source": {
+        "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "0014c7886930454fe8bd4228665b51af55eeae560ea135c9c4cd33f55b2591d9"
+      },
+      "bottle": "d85325d55938c770ce0f1a4d2307e5834aa4f48bbba2fdefdd25bffa7168f07e--xz--5.8.4.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "b2b5d6523153be05c20bcc51cd358ea3dd1f4bf893748fdedb779ab508ea63ce",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/xz/blobs/sha256:b2b5d6523153be05c20bcc51cd358ea3dd1f4bf893748fdedb779ab508ea63ce"
+    },
+    {
+      "formula": "dav1d",
+      "version": "1.5.4",
+      "license": "BSD-2-Clause",
+      "source": {
+        "url": "https://code.videolan.org/videolan/dav1d/-/archive/1.5.4/dav1d-1.5.4.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "2abfb0c89212e6e4733a54e0ae509ec00a5b845a6360946f918806e14aedb011"
+      },
+      "bottle": "112e6a49286d482a0ad624755ec66906fa71584b43d81bb81d68be3186ab4cc0--dav1d--1.5.4.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "7c717fd8cb95695007552885327049a18e741d3bfe3254e96a923b3c90ed4875",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/dav1d/blobs/sha256:7c717fd8cb95695007552885327049a18e741d3bfe3254e96a923b3c90ed4875"
+    },
+    {
+      "formula": "lame",
+      "version": "4.0",
+      "license": "LGPL-2.0-or-later",
+      "source": {
+        "url": "https://downloads.sourceforge.net/project/lame/lame/4.0/lame-4.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb"
+      },
+      "bottle": "54e20ddd2b885ba6f424eea0a0828c6c2f1025c5bc33221ee28f20453b692ff9--lame--4.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "c7803cbfacfe405583edef9d81056088008b8cb1e8efca6c2ab1983e1af35de6",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/lame/blobs/sha256:c7803cbfacfe405583edef9d81056088008b8cb1e8efca6c2ab1983e1af35de6"
+    },
+    {
+      "formula": "mpg123",
+      "version": "1.33.7",
+      "license": "LGPL-2.1-only",
+      "source": {
+        "url": "https://www.mpg123.de/download/mpg123-1.33.7.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "31d0e35a4ca567ec9b5ebda6c3062bb4435d6d3eacd6ef0d95cadd7854dc03ee"
+      },
+      "bottle": "91c56f9ffd22424561cb98b7579b7e63957dff1a0a0c9b3a916232bcfd1c20a8--mpg123--1.33.7.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "56935f0083f633dda54cf02b939659c5476ba40102dd520126e8c3af762633f3",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/mpg123/blobs/sha256:56935f0083f633dda54cf02b939659c5476ba40102dd520126e8c3af762633f3"
+    },
+    {
+      "formula": "opus",
+      "version": "1.6.1",
+      "license": "BSD-3-Clause",
+      "source": {
+        "url": "https://ftp.osuosl.org/pub/xiph/releases/opus/opus-1.6.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1"
+      },
+      "bottle": "15db12b7d60d2a91bc94c6751fbe019a6d9fb16c024b5e33b494febe28e31db9--opus--1.6.1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "ce5518990c125d46b25500baf13150ea733a0638d50fdd57afb1500def871b06",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/opus/blobs/sha256:ce5518990c125d46b25500baf13150ea733a0638d50fdd57afb1500def871b06"
+    },
+    {
+      "formula": "svt-av1",
+      "version": "4.3.0",
+      "license": "BSD-3-Clause",
+      "source": {
+        "url": "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v4.3.0/SVT-AV1-v4.3.0.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "9223ce06e6172ad41357ed23b3b00f036e03794b86b0e20ea9ccb3f648b8955d"
+      },
+      "bottle": "32a491bb4207d69e76c4b6b5093a19a13b23d61a6345778a2d9df7ef16e6c03f--svt-av1--4.3.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "23723b4bd9030c4bf9145e18c88778cdbe54e07a64bb606200086bd6ffa1189b",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/svt-av1/blobs/sha256:23723b4bd9030c4bf9145e18c88778cdbe54e07a64bb606200086bd6ffa1189b"
+    },
+    {
+      "formula": "x264",
+      "version": "r3222",
+      "license": "GPL-2.0-or-later",
+      "source": {
+        "url": "https://code.videolan.org/videolan/x264.git",
+        "tag": null,
+        "revision": "b35605ace3ddf7c1a5d67a2eb553f034aef41d55",
+        "using": null,
+        "checksum": null
+      },
+      "bottle": "d0e9fac568e0a1505941bf4765e291e2a857ec6e56146c9489d277cceb33c842--x264--r3222.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "e5a7b434d9bd236891bdf8ec5621ec092d358922f9b4a3417059b201fdfd870d",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/x264/blobs/sha256:e5a7b434d9bd236891bdf8ec5621ec092d358922f9b4a3417059b201fdfd870d"
+    },
+    {
+      "formula": "x265",
+      "version": "4.3",
+      "license": "GPL-2.0-or-later",
+      "source": {
+        "url": "https://github.com/Multicorewareinc/x265/releases/download/4.3/x265_4.3.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "83c53e4c8bbb8f1e33ed59e10a7d621d1d7801ca853910c3eb41f038b8ffb121"
+      },
+      "bottle": "37164eb6c7fbb58445b1a06e7e696cc41c835fde5ef6126435e4f833e94cf450--x265--4.3.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "df60f322e2ea139e4f3075fcf93e09d02249f183084d1ffa2d8f0cc9427de882",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/x265/blobs/sha256:df60f322e2ea139e4f3075fcf93e09d02249f183084d1ffa2d8f0cc9427de882"
+    },
+    {
+      "formula": "libvmaf",
+      "version": "3.2.1",
+      "license": "BSD-2-Clause-Patent",
+      "source": {
+        "url": "https://github.com/Netflix/vmaf/archive/refs/tags/v3.2.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "5df7386911bc15fd1ca783132528748d219768ae4fc5f8e0b61184f041648092"
+      },
+      "bottle": "f62977b1b22d954bb60f43f2d9ac34d47d36506c51fdb3a10d21abf3dec736b5--libvmaf--3.2.1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "962e5b553f735b609bc632da6da1dfa0774b4e84aeef8dce638b748a9aff2966",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libvmaf/blobs/sha256:962e5b553f735b609bc632da6da1dfa0774b4e84aeef8dce638b748a9aff2966"
+    },
+    {
+      "formula": "libplacebo",
+      "version": "7.387.0",
+      "license": "LGPL-2.1-or-later",
+      "source": {
+        "url": "https://code.videolan.org/videolan/libplacebo/-/archive/v7.387.0/libplacebo-v7.387.0.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "14ceeeb14d1c08fcdb1a782a06129da11f842c6fddbf3a43c1c4061406ad03d2"
+      },
+      "bottle": "7400d60771c9c241fe54e10ee1e066a5226858572ae7ac553803dd4084f14603--libplacebo--7.387.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "0e9ea5b942841c88eb8941ea2a38a5cafddd7a1210a482adf18196db40bd99f3",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libplacebo/blobs/sha256:0e9ea5b942841c88eb8941ea2a38a5cafddd7a1210a482adf18196db40bd99f3"
+    },
+    {
+      "formula": "shaderc",
+      "version": "2026.4",
+      "license": "Apache-2.0",
+      "source": {
+        "url": "https://github.com/google/shaderc/archive/refs/tags/v2026.4.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "f06ce5bcca94e5df7f34e115743597d0ad2e13c5fe9213c67dc8c76031241947"
+      },
+      "bottle": "5831c29a4507d708052e9e06c8431425ff47eff981c0c06644036994c938e154--shaderc--2026.4.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "463549d39c59ba245f05379667d89e83f223f1b035226926534fc28ede01455e",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/shaderc/blobs/sha256:463549d39c59ba245f05379667d89e83f223f1b035226926534fc28ede01455e"
+    },
+    {
+      "formula": "vulkan-loader",
+      "version": "1.4.363.0",
+      "license": "Apache-2.0",
+      "source": {
+        "url": "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "941eff558fc74f248745fb7df367640cf89a8457f216dae498a74ae14b6ba6f7"
+      },
+      "bottle": "c22a69768d11eda29980c3fd6fce8c510e6d2eb0e2d9d34d2375e455c02ffb71--vulkan-loader--1.4.363.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "65ddf6c37607565edcc225cb6b0e7ae3d46b3b0f55e961d35edfad322e72e4bf",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/vulkan-loader/blobs/sha256:65ddf6c37607565edcc225cb6b0e7ae3d46b3b0f55e961d35edfad322e72e4bf"
+    },
+    {
+      "formula": "little-cms2",
+      "version": "2.19.1",
+      "license": "MIT",
+      "source": {
+        "url": "https://downloads.sourceforge.net/project/lcms/lcms/2.19.1/lcms2-2.19.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8"
+      },
+      "bottle": "0637544f0a22d386203e2f643b28670cb4dba765cfac7c2ef7a2fa59cc9afc49--little-cms2--2.19.1.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "7bb337d2d9d577c7295721ba602ed5b49673f5285fbd359918b102ed363b3af9",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/little-cms2/blobs/sha256:7bb337d2d9d577c7295721ba602ed5b49673f5285fbd359918b102ed363b3af9"
+    },
+    {
+      "formula": "mujs",
+      "version": "1.3.11",
+      "license": "ISC",
+      "source": {
+        "url": "https://mujs.com/downloads/mujs-1.3.11.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "456a395769daf110a30f9bf6f793044261e261481d5dca33b63cdc8714774ca4"
+      },
+      "bottle": "5dab5e3dd69c88fdf0552a2e573ff32558666994af985e8eac5f493f38177d51--mujs--1.3.11.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "d15dfccde9045998d8a69ea2b2152730bd294247c16d89dd5c6dfd24e2d06456",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/mujs/blobs/sha256:d15dfccde9045998d8a69ea2b2152730bd294247c16d89dd5c6dfd24e2d06456"
+    },
+    {
+      "formula": "libarchive",
+      "version": "3.8.11",
+      "license": "BSD-2-Clause",
+      "source": {
+        "url": "https://www.libarchive.org/downloads/libarchive-3.8.11.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2"
+      },
+      "bottle": "3bfaa93d0b9c907bb88b907caca4ed836d20572a26100e4b4a8b6d09da559237--libarchive--3.8.11.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "80ad35d8783fa7650af7f21d58473d6a9eaa1b9939de5d2da2c916b9e9d92f30",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libarchive/blobs/sha256:80ad35d8783fa7650af7f21d58473d6a9eaa1b9939de5d2da2c916b9e9d92f30"
+    },
+    {
+      "formula": "zstd",
+      "version": "1.5.7",
+      "license": "(BSD-3-Clause OR GPL-2.0-only) AND BSD-2-Clause AND MIT",
+      "source": {
+        "url": "https://github.com/facebook/zstd/archive/refs/tags/v1.5.7.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "37d7284556b20954e56e1ca85b80226768902e2edabd3b649e9e72c0c9012ee3"
+      },
+      "bottle": "fb5e241be9ad5c1d1aae0265ae3945ac78b737810647df5a44cef311720cdc5b--zstd--1.5.7_1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "7fb4af03304cc4897326168cdcd53290311c5543150f5502a61c3e84b6d62765",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/zstd/blobs/sha256:7fb4af03304cc4897326168cdcd53290311c5543150f5502a61c3e84b6d62765"
+    },
+    {
+      "formula": "lz4",
+      "version": "1.11.0",
+      "license": "BSD-2-Clause",
+      "source": {
+        "url": "https://github.com/lz4/lz4/archive/refs/tags/v1.11.0.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "247e5fa64da5f7b75ee3dd3bed484076396c9ebe8254d9ccf693eb62800c5e26"
+      },
+      "bottle": "908e90ee221a18870f983b7d37323519e064288558670a148b5e16a5f653f7ee--lz4--1.11.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "464d0e2782c24627a2ffa99093daaf8a7f9e2acbdae1ac4587d8724b85f2dbf9",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/lz4/blobs/sha256:464d0e2782c24627a2ffa99093daaf8a7f9e2acbdae1ac4587d8724b85f2dbf9"
+    },
+    {
+      "formula": "libb2",
+      "version": "0.98.1",
+      "license": "CC0-1.0",
+      "source": {
+        "url": "https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e"
+      },
+      "bottle": "d5e2fbc442b380344a12c8bb0f851541c44b5ccfd7359ffab52dcd01c9c6f36b--libb2--0.98.1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "b129b1449d32b734bff99c505443981e301110ee1073131544102354acdd659f",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libb2/blobs/sha256:b129b1449d32b734bff99c505443981e301110ee1073131544102354acdd659f"
+    },
+    {
+      "formula": "libbluray",
+      "version": "1.5.0",
+      "license": "LGPL-2.1-or-later",
+      "source": {
+        "url": "https://download.videolan.org/videolan/libbluray/1.5.0/libbluray-1.5.0.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "f676408e91a5d321abf8b8d4dfdae36205c297dab5c54c3ec519639025f474a2"
+      },
+      "bottle": "c9f577eb24dc7c3cfc0e6699fc59c01cff2162d132ea03dc5616dbc1eacbe4d5--libbluray--1.5.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "e92e34f2aeea2d18dd5c3e39afc361aef1215ecd00d943922349760c468a0586",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libbluray/blobs/sha256:e92e34f2aeea2d18dd5c3e39afc361aef1215ecd00d943922349760c468a0586"
+    },
+    {
+      "formula": "fontconfig",
+      "version": "2.18.3",
+      "license": "HPND-sell-variant AND Unicode-3.0 AND MIT-Modern-Variant AND MIT AND LicenseRef-Homebrew-public-domain",
+      "source": {
+        "url": "https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/2.18.3/fontconfig-2.18.3.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3"
+      },
+      "bottle": "f0b17ed290b376a3197b260c482ffca5acc1279dbd4d6b405b617de29c438096--fontconfig--2.18.3.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "0506cd2fa83e76390bb13ff8fe9c5ab7cc1a09a204893b1ce058bb96410b2adf",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/fontconfig/blobs/sha256:0506cd2fa83e76390bb13ff8fe9c5ab7cc1a09a204893b1ce058bb96410b2adf"
+    },
+    {
+      "formula": "libudfread",
+      "version": "1.2.0",
+      "license": "LGPL-2.1-or-later",
+      "source": {
+        "url": "https://download.videolan.org/videolan/libudfread/libudfread-1.2.0.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "bb477cbd4cfbfc7787d9d05b71ee5e70430f5cfebf1297497f7e83547958050f"
+      },
+      "bottle": "23d335e10dc9a4444c09ff8f5b50687c209a2af0e76e0eae16c04c410e4ca910--libudfread--1.2.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "bf7577c2746297b4a52b3bc2afe8eeca2cb70f8f66e459684db604eec6f6baa0",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libudfread/blobs/sha256:bf7577c2746297b4a52b3bc2afe8eeca2cb70f8f66e459684db604eec6f6baa0"
+    },
+    {
+      "formula": "luajit",
+      "version": "2.1.1794160931",
+      "license": "MIT",
+      "source": {
+        "url": "https://github.com/LuaJIT/LuaJIT/archive/39207edda83ba24d6fbd582b8d9f2d02674ad25d.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "74071a03a167d3125b14aeace43b436ac406c1251d30bd83dd7443541cc54243"
+      },
+      "bottle": "e94c8f085a5dfb29a629033487890bd4260f598ed171ab58fc2d0e96cc99219e--luajit--2.1.1794160931.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "8507ca07d1465777d3d505ed313289ae0ea5556949ee1e2ad8aaeb0ab1191599",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/luajit/blobs/sha256:8507ca07d1465777d3d505ed313289ae0ea5556949ee1e2ad8aaeb0ab1191599"
+    },
+    {
+      "formula": "rubberband",
+      "version": "4.0.0",
+      "license": "GPL-2.0-or-later",
+      "source": {
+        "url": "https://breakfastquay.com/files/releases/rubberband-4.0.0.tar.bz2",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "af050313ee63bc18b35b2e064e5dce05b276aaf6d1aa2b8a82ced1fe2f8028e9"
+      },
+      "bottle": "d0f8cae157fd715097d4ed9bf7e18c6b1d2e6e55db8474cada8b1faaca7b054d--rubberband--4.0.0.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "b46420de34fcd89568fc2e70c7abf02cffcde697ff5f862e79fbfe80a32dd0ae",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/rubberband/blobs/sha256:b46420de34fcd89568fc2e70c7abf02cffcde697ff5f862e79fbfe80a32dd0ae"
+    },
+    {
+      "formula": "libsamplerate",
+      "version": "0.2.2",
+      "license": "BSD-2-Clause",
+      "source": {
+        "url": "https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "3258da280511d24b49d6b08615bbe824d0cacc9842b0e4caf11c52cf2b043893"
+      },
+      "bottle": "b1eb603c94e8c16b68ec3c367e43a875fe3d5afd639d92d9b370dbea23025a9b--libsamplerate--0.2.2.arm64_golden_gate.bottle.1.tar.gz",
+      "sha256": "d55607bb0cdb6a0bfa31e73a7490e99f459bbde18b2822ff50a0d377f4946e41",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/libsamplerate/blobs/sha256:d55607bb0cdb6a0bfa31e73a7490e99f459bbde18b2822ff50a0d377f4946e41"
+    },
+    {
+      "formula": "uchardet",
+      "version": "0.0.8",
+      "license": "MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later",
+      "source": {
+        "url": "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "e97a60cfc00a1c147a674b097bb1422abd9fa78a2d9ce3f3fdcc2e78a34ac5f0"
+      },
+      "bottle": "768d567809b95b3c9d33b899e8757b8fa6cc87035c92c07903e6f5248856f61b--uchardet--0.0.8.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "39012729aa9ccb5ac679caac6ad69e4276f5aafdebb12548a3046bf1e3e0ead2",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/uchardet/blobs/sha256:39012729aa9ccb5ac679caac6ad69e4276f5aafdebb12548a3046bf1e3e0ead2"
+    },
+    {
+      "formula": "zimg",
+      "version": "3.0.6",
+      "license": "WTFPL",
+      "source": {
+        "url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577"
+      },
+      "bottle": "184219b5033518de86161b41ea248602fc5da33c909a10381fb538dba57a5e77--zimg--3.0.6.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "8015c851b2c81c3131ab91b18e957140e2b129379bf27a7036e5d3eb03a15954",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/zimg/blobs/sha256:8015c851b2c81c3131ab91b18e957140e2b129379bf27a7036e5d3eb03a15954"
+    },
+    {
+      "formula": "jpeg-turbo",
+      "version": "3.2.1",
+      "license": "IJG AND Zlib AND BSD-3-Clause",
+      "source": {
+        "url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.1/libjpeg-turbo-3.2.1.tar.gz",
+        "tag": null,
+        "revision": null,
+        "using": null,
+        "checksum": "c27ad72a68da151177929aa969ae773a2da5ac2af9ce946079314fdac8cece7f"
+      },
+      "bottle": "29c4b11730c5d812a0cc30a230b70fe09ecf4a046f5dfee9154635b3e32ab37f--jpeg-turbo--3.2.1.arm64_golden_gate.bottle.tar.gz",
+      "sha256": "3f245f1914445713bba97fbee6b4f7cb379b4e9c91237d12e76ee52c1975ce0e",
+      "bottle_url": "https://ghcr.io/v2/homebrew/core/jpeg-turbo/blobs/sha256:3f245f1914445713bba97fbee6b4f7cb379b4e9c91237d12e76ee52c1975ce0e"
+    }
+  ],
+  "libraries": {
+    "libmpv.2.dylib": "/opt/homebrew/opt/mpv/lib/libmpv.2.dylib",
+    "libass.9.dylib": "@@HOMEBREW_PREFIX@@/opt/libass/lib/libass.9.dylib",
+    "libfreetype.6.dylib": "@@HOMEBREW_PREFIX@@/opt/freetype/lib/libfreetype.6.dylib",
+    "libpng16.16.dylib": "@@HOMEBREW_PREFIX@@/opt/libpng/lib/libpng16.16.dylib",
+    "libbrotlidec.1.dylib": "@@HOMEBREW_PREFIX@@/opt/brotli/lib/libbrotlidec.1.dylib",
+    "libbrotlicommon.1.dylib": "/opt/homebrew/opt/brotli/lib/libbrotlicommon.1.dylib",
+    "libfribidi.0.dylib": "@@HOMEBREW_PREFIX@@/opt/fribidi/lib/libfribidi.0.dylib",
+    "libharfbuzz.0.dylib": "@@HOMEBREW_PREFIX@@/opt/harfbuzz/lib/libharfbuzz.0.dylib",
+    "libglib-2.0.0.dylib": "@@HOMEBREW_PREFIX@@/opt/glib/lib/libglib-2.0.0.dylib",
+    "libintl.8.dylib": "@@HOMEBREW_PREFIX@@/opt/gettext/lib/libintl.8.dylib",
+    "libpcre2-8.0.dylib": "@@HOMEBREW_PREFIX@@/opt/pcre2/lib/libpcre2-8.0.dylib",
+    "libgraphite2.3.dylib": "@@HOMEBREW_PREFIX@@/opt/graphite2/lib/libgraphite2.3.dylib",
+    "libunibreak.8.dylib": "@@HOMEBREW_PREFIX@@/opt/libunibreak/lib/libunibreak.8.dylib",
+    "libavcodec.63.dylib": "@@HOMEBREW_PREFIX@@/opt/ffmpeg/lib/libavcodec.63.dylib",
+    "libswresample.7.dylib": "@@HOMEBREW_CELLAR@@/ffmpeg/9.0.2_1/lib/libswresample.7.dylib",
+    "libavutil.61.dylib": "@@HOMEBREW_CELLAR@@/ffmpeg/9.0.2_1/lib/libavutil.61.dylib",
+    "libssl.4.dylib": "@@HOMEBREW_PREFIX@@/opt/openssl@4/lib/libssl.4.dylib",
+    "libcrypto.4.dylib": "@@HOMEBREW_CELLAR@@/openssl@4/4.1.0/lib/libcrypto.4.dylib",
+    "libvpx.12.dylib": "@@HOMEBREW_PREFIX@@/opt/libvpx/lib/libvpx.12.dylib",
+    "liblzma.5.dylib": "@@HOMEBREW_PREFIX@@/opt/xz/lib/liblzma.5.dylib",
+    "libdav1d.7.dylib": "@@HOMEBREW_PREFIX@@/opt/dav1d/lib/libdav1d.7.dylib",
+    "libmp3lame.0.dylib": "@@HOMEBREW_PREFIX@@/opt/lame/lib/libmp3lame.0.dylib",
+    "libmpg123.0.dylib": "@@HOMEBREW_PREFIX@@/opt/mpg123/lib/libmpg123.0.dylib",
+    "libopus.0.dylib": "@@HOMEBREW_PREFIX@@/opt/opus/lib/libopus.0.dylib",
+    "libSvtAv1Enc.4.dylib": "@@HOMEBREW_PREFIX@@/opt/svt-av1/lib/libSvtAv1Enc.4.dylib",
+    "libx264.165.dylib": "@@HOMEBREW_PREFIX@@/opt/x264/lib/libx264.165.dylib",
+    "libx265.217.dylib": "@@HOMEBREW_PREFIX@@/opt/x265/lib/libx265.217.dylib",
+    "libavfilter.12.dylib": "@@HOMEBREW_PREFIX@@/opt/ffmpeg/lib/libavfilter.12.dylib",
+    "libswscale.10.dylib": "@@HOMEBREW_CELLAR@@/ffmpeg/9.0.2_1/lib/libswscale.10.dylib",
+    "libavformat.63.dylib": "@@HOMEBREW_CELLAR@@/ffmpeg/9.0.2_1/lib/libavformat.63.dylib",
+    "libvmaf.3.dylib": "@@HOMEBREW_PREFIX@@/opt/libvmaf/lib/libvmaf.3.dylib",
+    "libplacebo.387.dylib": "@@HOMEBREW_PREFIX@@/opt/libplacebo/lib/libplacebo.387.dylib",
+    "libshaderc_shared.1.dylib": "@@HOMEBREW_PREFIX@@/opt/shaderc/lib/libshaderc_shared.1.dylib",
+    "libvulkan.1.dylib": "@@HOMEBREW_PREFIX@@/opt/vulkan-loader/lib/libvulkan.1.dylib",
+    "liblcms2.2.dylib": "@@HOMEBREW_PREFIX@@/opt/little-cms2/lib/liblcms2.2.dylib",
+    "libmujs.dylib": "@@HOMEBREW_PREFIX@@/opt/mujs/lib/libmujs.dylib",
+    "libarchive.13.dylib": "@@HOMEBREW_PREFIX@@/opt/libarchive/lib/libarchive.13.dylib",
+    "libzstd.1.dylib": "@@HOMEBREW_PREFIX@@/opt/zstd/lib/libzstd.1.dylib",
+    "liblz4.1.dylib": "@@HOMEBREW_PREFIX@@/opt/lz4/lib/liblz4.1.dylib",
+    "libb2.1.dylib": "@@HOMEBREW_PREFIX@@/opt/libb2/lib/libb2.1.dylib",
+    "libavdevice.63.dylib": "@@HOMEBREW_PREFIX@@/opt/ffmpeg/lib/libavdevice.63.dylib",
+    "libbluray.4.dylib": "@@HOMEBREW_PREFIX@@/opt/libbluray/lib/libbluray.4.dylib",
+    "libfontconfig.1.dylib": "@@HOMEBREW_PREFIX@@/opt/fontconfig/lib/libfontconfig.1.dylib",
+    "libudfread.3.dylib": "@@HOMEBREW_PREFIX@@/opt/libudfread/lib/libudfread.3.dylib",
+    "libluajit-5.1.2.dylib": "@@HOMEBREW_PREFIX@@/opt/luajit/lib/libluajit-5.1.2.dylib",
+    "librubberband.3.dylib": "@@HOMEBREW_PREFIX@@/opt/rubberband/lib/librubberband.3.dylib",
+    "libsamplerate.0.dylib": "@@HOMEBREW_PREFIX@@/opt/libsamplerate/lib/libsamplerate.0.dylib",
+    "libuchardet.0.dylib": "@@HOMEBREW_PREFIX@@/opt/uchardet/lib/libuchardet.0.dylib",
+    "libzimg.2.dylib": "@@HOMEBREW_PREFIX@@/opt/zimg/lib/libzimg.2.dylib",
+    "libjpeg.8.dylib": "@@HOMEBREW_PREFIX@@/opt/jpeg-turbo/lib/libjpeg.8.dylib"
+  }
+}

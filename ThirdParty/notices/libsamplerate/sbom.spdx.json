@@ -1,0 +1,105 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libsamplerate-0.2.2",
+  "creationInfo": {
+    "created": "2021-09-05T11:51:13Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libsamplerate-0.2.2.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libsamplerate-src",
+    "SPDXRef-Patch-libsamplerate-0",
+    "SPDXRef-Patch-libsamplerate-1"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libsamplerate",
+      "fileName": "libsamplerate-0.2.2.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3258da280511d24b49d6b08615bbe824d0cacc9842b0e4caf11c52cf2b043893"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libsamplerate-src",
+      "name": "libsamplerate",
+      "versionInfo": "0.2.2",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2021-09-05T11:51:13Z",
+      "licenseConcluded": "BSD-2-Clause",
+      "downloadLocation": "https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libsamplerate@0.2.2",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3258da280511d24b49d6b08615bbe824d0cacc9842b0e4caf11c52cf2b043893"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Patch-libsamplerate-0",
+      "name": "libsamplerate patch 0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "downloadLocation": "https://github.com/libsndfile/libsamplerate/commit/e4a0ab46887029e0f65f145ba3987cc592f18200.patch?full_index=1",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0826fb59d733188645f3dc207c938580970700381b9bc87058b137723cb30bba"
+        }
+      ],
+      "externalRefs": []
+    },
+    {
+      "SPDXID": "SPDXRef-Patch-libsamplerate-1",
+      "name": "libsamplerate patch 1",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "downloadLocation": "https://github.com/libsndfile/libsamplerate/commit/1abc639420b2df8b9ff2e0bdcc28cf6613c7c0d0.patch?full_index=1",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b6fb61c763a0f072ef2ebb3a311037d2429a5e294141f6d5e552ccd25efabdc0"
+        }
+      ],
+      "externalRefs": []
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Patch-libsamplerate-0",
+      "relationshipType": "PATCH_APPLIED",
+      "relatedSpdxElement": "SPDXRef-Archive-libsamplerate-src"
+    },
+    {
+      "spdxElementId": "SPDXRef-Patch-libsamplerate-1",
+      "relationshipType": "PATCH_APPLIED",
+      "relatedSpdxElement": "SPDXRef-Archive-libsamplerate-src"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-libsamplerate",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libsamplerate-src"
+    }
+  ]
+}

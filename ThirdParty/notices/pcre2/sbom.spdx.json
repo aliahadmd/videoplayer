@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-pcre2-10.49",
+  "creationInfo": {
+    "created": "2026-09-28T12:02:27Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/pcre2-10.49.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-pcre2-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-pcre2",
+      "fileName": "pcre2-10.49.tar.bz2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-pcre2-src",
+      "name": "pcre2",
+      "versionInfo": "10.49",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-09-28T12:02:27Z",
+      "licenseConcluded": "BSD-3-Clause",
+      "downloadLocation": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/pcre2@10.49",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-pcre2",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-pcre2-src"
+    }
+  ]
+}

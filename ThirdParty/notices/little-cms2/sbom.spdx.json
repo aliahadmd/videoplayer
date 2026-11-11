@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-little-cms2-2.19.1",
+  "creationInfo": {
+    "created": "2026-05-06T08:18:51Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/little-cms2-2.19.1.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-little-cms2-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-little-cms2",
+      "fileName": "lcms2-2.19.1.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-little-cms2-src",
+      "name": "little-cms2",
+      "versionInfo": "2.19.1",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-05-06T08:18:51Z",
+      "licenseConcluded": "MIT",
+      "downloadLocation": "https://downloads.sourceforge.net/project/lcms/lcms/2.19.1/lcms2-2.19.1.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/little-cms2@2.19.1",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-little-cms2",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-little-cms2-src"
+    }
+  ]
+}

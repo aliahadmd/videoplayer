@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-lame-4.0",
+  "creationInfo": {
+    "created": "2026-07-11T07:43:46Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/lame-4.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-lame-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-lame",
+      "fileName": "lame-4.0.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-lame-src",
+      "name": "lame",
+      "versionInfo": "4.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-07-11T07:43:46Z",
+      "licenseConcluded": "LGPL-2.0-or-later",
+      "downloadLocation": "https://downloads.sourceforge.net/project/lame/lame/4.0/lame-4.0.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/lame@4.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-lame",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-lame-src"
+    }
+  ]
+}

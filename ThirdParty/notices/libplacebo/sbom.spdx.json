@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libplacebo-7.387.0",
+  "creationInfo": {
+    "created": "2026-10-25T17:55:23Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libplacebo-7.387.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libplacebo-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libplacebo",
+      "fileName": "libplacebo-v7.387.0.tar.bz2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "14ceeeb14d1c08fcdb1a782a06129da11f842c6fddbf3a43c1c4061406ad03d2"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libplacebo-src",
+      "name": "libplacebo",
+      "versionInfo": "7.387.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-10-25T17:55:23Z",
+      "licenseConcluded": "LGPL-2.1-or-later",
+      "downloadLocation": "https://code.videolan.org/videolan/libplacebo/-/archive/v7.387.0/libplacebo-v7.387.0.tar.bz2",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libplacebo@7.387.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "14ceeeb14d1c08fcdb1a782a06129da11f842c6fddbf3a43c1c4061406ad03d2"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-libplacebo",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libplacebo-src"
+    }
+  ]
+}

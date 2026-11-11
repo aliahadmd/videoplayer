@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libarchive-3.8.11",
+  "creationInfo": {
+    "created": "2026-10-30T20:36:39Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libarchive-3.8.11.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libarchive-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libarchive",
+      "fileName": "libarchive-3.8.11.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libarchive-src",
+      "name": "libarchive",
+      "versionInfo": "3.8.11",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-10-30T20:36:39Z",
+      "licenseConcluded": "BSD-2-Clause",
+      "downloadLocation": "https://www.libarchive.org/downloads/libarchive-3.8.11.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libarchive@3.8.11",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-libarchive",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libarchive-src"
+    }
+  ]
+}

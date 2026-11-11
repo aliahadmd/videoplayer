@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-opus-1.6.1",
+  "creationInfo": {
+    "created": "2026-01-15T00:30:48Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/opus-1.6.1.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-opus-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-opus",
+      "fileName": "opus-1.6.1.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-opus-src",
+      "name": "opus",
+      "versionInfo": "1.6.1",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-01-15T00:30:48Z",
+      "licenseConcluded": "BSD-3-Clause",
+      "downloadLocation": "https://ftp.osuosl.org/pub/xiph/releases/opus/opus-1.6.1.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/opus@1.6.1",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-opus",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-opus-src"
+    }
+  ]
+}

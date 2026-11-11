@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-vulkan-loader-1.4.363.0",
+  "creationInfo": {
+    "created": "2026-09-18T16:28:24Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/vulkan-loader-1.4.363.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-vulkan-loader-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-vulkan-loader",
+      "fileName": "vulkan-sdk-1.4.363.0.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "941eff558fc74f248745fb7df367640cf89a8457f216dae498a74ae14b6ba6f7"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-vulkan-loader-src",
+      "name": "vulkan-loader",
+      "versionInfo": "1.4.363.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-09-18T16:28:24Z",
+      "licenseConcluded": "Apache-2.0",
+      "downloadLocation": "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/vulkan-loader@1.4.363.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "941eff558fc74f248745fb7df367640cf89a8457f216dae498a74ae14b6ba6f7"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-vulkan-loader",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-vulkan-loader-src"
+    }
+  ]
+}

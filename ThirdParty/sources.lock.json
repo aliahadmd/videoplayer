@@ -1,0 +1,490 @@
+{
+  "sources": [
+    {
+      "component": "mpv",
+      "kind": "upstream",
+      "url": "https://github.com/mpv-player/mpv/archive/refs/tags/v0.42.0.tar.gz",
+      "upstream_url": "https://github.com/mpv-player/mpv/archive/refs/tags/v0.42.0.tar.gz",
+      "revision": null,
+      "sha256": "bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd",
+      "file": "mpv-v0.42.0.tar.gz"
+    },
+    {
+      "component": "libass",
+      "kind": "upstream",
+      "url": "https://github.com/libass/libass/releases/download/0.17.5/libass-0.17.5.tar.xz",
+      "upstream_url": "https://github.com/libass/libass/releases/download/0.17.5/libass-0.17.5.tar.xz",
+      "revision": null,
+      "sha256": "2dca25c0e0c837ddf00b52011b3f82cac1e4ddd3ad018227806b0c2288864acc",
+      "file": "libass-libass-0.17.5.tar.xz"
+    },
+    {
+      "component": "freetype",
+      "kind": "upstream",
+      "url": "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz",
+      "upstream_url": "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz",
+      "revision": null,
+      "sha256": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5",
+      "file": "freetype-freetype-2.15.0.tar.xz"
+    },
+    {
+      "component": "libpng",
+      "kind": "upstream",
+      "url": "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz",
+      "upstream_url": "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz",
+      "revision": null,
+      "sha256": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389",
+      "file": "libpng-libpng-1.6.59.tar.xz"
+    },
+    {
+      "component": "brotli",
+      "kind": "upstream",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz",
+      "upstream_url": "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz",
+      "revision": null,
+      "sha256": "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f",
+      "file": "brotli-v1.2.1.tar.gz"
+    },
+    {
+      "component": "fribidi",
+      "kind": "upstream",
+      "url": "https://github.com/fribidi/fribidi/releases/download/v1.0.18/fribidi-1.0.18.tar.xz",
+      "upstream_url": "https://github.com/fribidi/fribidi/releases/download/v1.0.18/fribidi-1.0.18.tar.xz",
+      "revision": null,
+      "sha256": "1de5e8073d035388b71d0b2d452b1da1f8caeea8a7702997b401fe1b6250727f",
+      "file": "fribidi-fribidi-1.0.18.tar.xz"
+    },
+    {
+      "component": "harfbuzz",
+      "kind": "upstream",
+      "url": "https://github.com/harfbuzz/harfbuzz/releases/download/15.1.0/harfbuzz-15.1.0.tar.xz",
+      "upstream_url": "https://github.com/harfbuzz/harfbuzz/releases/download/15.1.0/harfbuzz-15.1.0.tar.xz",
+      "revision": null,
+      "sha256": "0fc7c565443a5f4be7da65ac5ee5bd737d9b158dc908708b7689a0a5796b0c8d",
+      "file": "harfbuzz-harfbuzz-15.1.0.tar.xz"
+    },
+    {
+      "component": "glib",
+      "kind": "upstream",
+      "url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.1.tar.xz",
+      "upstream_url": "https://download.gnome.org/sources/glib/2.90/glib-2.90.1.tar.xz",
+      "revision": null,
+      "sha256": "93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396",
+      "file": "glib-glib-2.90.1.tar.xz"
+    },
+    {
+      "component": "gettext",
+      "kind": "upstream",
+      "url": "https://ftpmirror.gnu.org/gettext/gettext-1.0.tar.gz",
+      "upstream_url": "https://ftpmirror.gnu.org/gettext/gettext-1.0.tar.gz",
+      "revision": null,
+      "sha256": "85d99b79c981a404874c02e0342176cf75c7698e2b51fe41031cf6526d974f1a",
+      "file": "gettext-gettext-1.0.tar.gz"
+    },
+    {
+      "component": "pcre2",
+      "kind": "upstream",
+      "url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2",
+      "upstream_url": "https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.49/pcre2-10.49.tar.bz2",
+      "revision": null,
+      "sha256": "53c156e1ba416a20da8e65395daa132da0d80e76910424caca3fcdae7831d384",
+      "file": "pcre2-pcre2-10.49.tar.bz2"
+    },
+    {
+      "component": "graphite2",
+      "kind": "upstream",
+      "url": "https://github.com/silnrsi/graphite/releases/download/1.3.15/graphite2-1.3.15.tgz",
+      "upstream_url": "https://github.com/silnrsi/graphite/releases/download/1.3.15/graphite2-1.3.15.tgz",
+      "revision": null,
+      "sha256": "c6bc8b4252724665297f7cad0c55897285c673f9b8e6db3522ace833593fe0b1",
+      "file": "graphite2-graphite2-1.3.15.tgz"
+    },
+    {
+      "component": "libunibreak",
+      "kind": "upstream",
+      "url": "https://github.com/adah1972/libunibreak/releases/download/libunibreak_8_0/libunibreak-8.0.tar.gz",
+      "upstream_url": "https://github.com/adah1972/libunibreak/releases/download/libunibreak_8_0/libunibreak-8.0.tar.gz",
+      "revision": null,
+      "sha256": "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4",
+      "file": "libunibreak-libunibreak-8.0.tar.gz"
+    },
+    {
+      "component": "ffmpeg",
+      "kind": "upstream",
+      "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+      "upstream_url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+      "revision": null,
+      "sha256": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e",
+      "file": "ffmpeg-ffmpeg-9.0.2.tar.xz"
+    },
+    {
+      "component": "openssl@4",
+      "kind": "upstream",
+      "url": "https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz",
+      "upstream_url": "https://github.com/openssl/openssl/releases/download/openssl-4.1.0/openssl-4.1.0.tar.gz",
+      "revision": null,
+      "sha256": "50c17baf54cb008f6ce42d50deb4b28050a1aad711636cabd4b241c7e90cc2fd",
+      "file": "openssl@4-openssl-4.1.0.tar.gz"
+    },
+    {
+      "component": "libvpx",
+      "kind": "upstream",
+      "url": "https://github.com/webmproject/libvpx/archive/refs/tags/v1.17.0.tar.gz",
+      "upstream_url": "https://github.com/webmproject/libvpx/archive/refs/tags/v1.17.0.tar.gz",
+      "revision": null,
+      "sha256": "1020f184046187baa2985dbde38e0691f49c44088bca7a1842b0236c6081dc0a",
+      "file": "libvpx-v1.17.0.tar.gz"
+    },
+    {
+      "component": "xz",
+      "kind": "upstream",
+      "url": "https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.gz",
+      "upstream_url": "https://github.com/tukaani-project/xz/releases/download/v5.8.4/xz-5.8.4.tar.gz",
+      "revision": null,
+      "sha256": "0014c7886930454fe8bd4228665b51af55eeae560ea135c9c4cd33f55b2591d9",
+      "file": "xz-xz-5.8.4.tar.gz"
+    },
+    {
+      "component": "dav1d",
+      "kind": "upstream",
+      "url": "https://code.videolan.org/videolan/dav1d/-/archive/1.5.4/dav1d-1.5.4.tar.bz2",
+      "upstream_url": "https://code.videolan.org/videolan/dav1d/-/archive/1.5.4/dav1d-1.5.4.tar.bz2",
+      "revision": null,
+      "sha256": "2abfb0c89212e6e4733a54e0ae509ec00a5b845a6360946f918806e14aedb011",
+      "file": "dav1d-dav1d-1.5.4.tar.bz2"
+    },
+    {
+      "component": "lame",
+      "kind": "upstream",
+      "url": "https://downloads.sourceforge.net/project/lame/lame/4.0/lame-4.0.tar.gz",
+      "upstream_url": "https://downloads.sourceforge.net/project/lame/lame/4.0/lame-4.0.tar.gz",
+      "revision": null,
+      "sha256": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb",
+      "file": "lame-lame-4.0.tar.gz"
+    },
+    {
+      "component": "mpg123",
+      "kind": "upstream",
+      "url": "https://www.mpg123.de/download/mpg123-1.33.7.tar.bz2",
+      "upstream_url": "https://www.mpg123.de/download/mpg123-1.33.7.tar.bz2",
+      "revision": null,
+      "sha256": "31d0e35a4ca567ec9b5ebda6c3062bb4435d6d3eacd6ef0d95cadd7854dc03ee",
+      "file": "mpg123-mpg123-1.33.7.tar.bz2"
+    },
+    {
+      "component": "opus",
+      "kind": "upstream",
+      "url": "https://ftp.osuosl.org/pub/xiph/releases/opus/opus-1.6.1.tar.gz",
+      "upstream_url": "https://ftp.osuosl.org/pub/xiph/releases/opus/opus-1.6.1.tar.gz",
+      "revision": null,
+      "sha256": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1",
+      "file": "opus-opus-1.6.1.tar.gz"
+    },
+    {
+      "component": "svt-av1",
+      "kind": "upstream",
+      "url": "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v4.3.0/SVT-AV1-v4.3.0.tar.bz2",
+      "upstream_url": "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v4.3.0/SVT-AV1-v4.3.0.tar.bz2",
+      "revision": null,
+      "sha256": "9223ce06e6172ad41357ed23b3b00f036e03794b86b0e20ea9ccb3f648b8955d",
+      "file": "svt-av1-SVT-AV1-v4.3.0.tar.bz2"
+    },
+    {
+      "component": "x264",
+      "kind": "upstream",
+      "url": "https://code.videolan.org/videolan/x264/-/archive/b35605ace3ddf7c1a5d67a2eb553f034aef41d55/x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz",
+      "upstream_url": "https://code.videolan.org/videolan/x264.git",
+      "revision": "b35605ace3ddf7c1a5d67a2eb553f034aef41d55",
+      "sha256": "cd71a7515b0e9a012e1ac9b1f8415bebcaf6fc97d4db32286642ac4c0fbe24f9",
+      "file": "x264-x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz"
+    },
+    {
+      "component": "x265",
+      "kind": "upstream",
+      "url": "https://github.com/Multicorewareinc/x265/releases/download/4.3/x265_4.3.tar.gz",
+      "upstream_url": "https://github.com/Multicorewareinc/x265/releases/download/4.3/x265_4.3.tar.gz",
+      "revision": null,
+      "sha256": "83c53e4c8bbb8f1e33ed59e10a7d621d1d7801ca853910c3eb41f038b8ffb121",
+      "file": "x265-x265_4.3.tar.gz"
+    },
+    {
+      "component": "libvmaf",
+      "kind": "upstream",
+      "url": "https://github.com/Netflix/vmaf/archive/refs/tags/v3.2.1.tar.gz",
+      "upstream_url": "https://github.com/Netflix/vmaf/archive/refs/tags/v3.2.1.tar.gz",
+      "revision": null,
+      "sha256": "5df7386911bc15fd1ca783132528748d219768ae4fc5f8e0b61184f041648092",
+      "file": "libvmaf-v3.2.1.tar.gz"
+    },
+    {
+      "component": "libplacebo",
+      "kind": "upstream",
+      "url": "https://code.videolan.org/videolan/libplacebo/-/archive/v7.387.0/libplacebo-v7.387.0.tar.bz2",
+      "upstream_url": "https://code.videolan.org/videolan/libplacebo/-/archive/v7.387.0/libplacebo-v7.387.0.tar.bz2",
+      "revision": null,
+      "sha256": "14ceeeb14d1c08fcdb1a782a06129da11f842c6fddbf3a43c1c4061406ad03d2",
+      "file": "libplacebo-libplacebo-v7.387.0.tar.bz2"
+    },
+    {
+      "component": "shaderc",
+      "kind": "upstream",
+      "url": "https://github.com/google/shaderc/archive/refs/tags/v2026.4.tar.gz",
+      "upstream_url": "https://github.com/google/shaderc/archive/refs/tags/v2026.4.tar.gz",
+      "revision": null,
+      "sha256": "f06ce5bcca94e5df7f34e115743597d0ad2e13c5fe9213c67dc8c76031241947",
+      "file": "shaderc-v2026.4.tar.gz"
+    },
+    {
+      "component": "vulkan-loader",
+      "kind": "upstream",
+      "url": "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+      "upstream_url": "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+      "revision": null,
+      "sha256": "941eff558fc74f248745fb7df367640cf89a8457f216dae498a74ae14b6ba6f7",
+      "file": "vulkan-loader-vulkan-sdk-1.4.363.0.tar.gz"
+    },
+    {
+      "component": "little-cms2",
+      "kind": "upstream",
+      "url": "https://downloads.sourceforge.net/project/lcms/lcms/2.19.1/lcms2-2.19.1.tar.gz",
+      "upstream_url": "https://downloads.sourceforge.net/project/lcms/lcms/2.19.1/lcms2-2.19.1.tar.gz",
+      "revision": null,
+      "sha256": "bfc54f7bab59fbc921012014a8032e4cba4abd46db47d46b76416a8c0b2815c8",
+      "file": "little-cms2-lcms2-2.19.1.tar.gz"
+    },
+    {
+      "component": "mujs",
+      "kind": "upstream",
+      "url": "https://mujs.com/downloads/mujs-1.3.11.tar.gz",
+      "upstream_url": "https://mujs.com/downloads/mujs-1.3.11.tar.gz",
+      "revision": null,
+      "sha256": "456a395769daf110a30f9bf6f793044261e261481d5dca33b63cdc8714774ca4",
+      "file": "mujs-mujs-1.3.11.tar.gz"
+    },
+    {
+      "component": "libarchive",
+      "kind": "upstream",
+      "url": "https://www.libarchive.org/downloads/libarchive-3.8.11.tar.xz",
+      "upstream_url": "https://www.libarchive.org/downloads/libarchive-3.8.11.tar.xz",
+      "revision": null,
+      "sha256": "a3dc0872b1b39da34dc18ef1b944f0f11ffd37425d70ae04be679279f1cf43d2",
+      "file": "libarchive-libarchive-3.8.11.tar.xz"
+    },
+    {
+      "component": "zstd",
+      "kind": "upstream",
+      "url": "https://github.com/facebook/zstd/archive/refs/tags/v1.5.7.tar.gz",
+      "upstream_url": "https://github.com/facebook/zstd/archive/refs/tags/v1.5.7.tar.gz",
+      "revision": null,
+      "sha256": "37d7284556b20954e56e1ca85b80226768902e2edabd3b649e9e72c0c9012ee3",
+      "file": "zstd-v1.5.7.tar.gz"
+    },
+    {
+      "component": "lz4",
+      "kind": "upstream",
+      "url": "https://github.com/lz4/lz4/archive/refs/tags/v1.11.0.tar.gz",
+      "upstream_url": "https://github.com/lz4/lz4/archive/refs/tags/v1.11.0.tar.gz",
+      "revision": null,
+      "sha256": "247e5fa64da5f7b75ee3dd3bed484076396c9ebe8254d9ccf693eb62800c5e26",
+      "file": "lz4-v1.11.0.tar.gz"
+    },
+    {
+      "component": "libb2",
+      "kind": "upstream",
+      "url": "https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz",
+      "upstream_url": "https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz",
+      "revision": null,
+      "sha256": "53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e",
+      "file": "libb2-libb2-0.98.1.tar.gz"
+    },
+    {
+      "component": "libbluray",
+      "kind": "upstream",
+      "url": "https://download.videolan.org/videolan/libbluray/1.5.0/libbluray-1.5.0.tar.xz",
+      "upstream_url": "https://download.videolan.org/videolan/libbluray/1.5.0/libbluray-1.5.0.tar.xz",
+      "revision": null,
+      "sha256": "f676408e91a5d321abf8b8d4dfdae36205c297dab5c54c3ec519639025f474a2",
+      "file": "libbluray-libbluray-1.5.0.tar.xz"
+    },
+    {
+      "component": "fontconfig",
+      "kind": "upstream",
+      "url": "https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/2.18.3/fontconfig-2.18.3.tar.gz",
+      "upstream_url": "https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/2.18.3/fontconfig-2.18.3.tar.gz",
+      "revision": null,
+      "sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
+      "file": "fontconfig-fontconfig-2.18.3.tar.gz"
+    },
+    {
+      "component": "libudfread",
+      "kind": "upstream",
+      "url": "https://download.videolan.org/videolan/libudfread/libudfread-1.2.0.tar.xz",
+      "upstream_url": "https://download.videolan.org/videolan/libudfread/libudfread-1.2.0.tar.xz",
+      "revision": null,
+      "sha256": "bb477cbd4cfbfc7787d9d05b71ee5e70430f5cfebf1297497f7e83547958050f",
+      "file": "libudfread-libudfread-1.2.0.tar.xz"
+    },
+    {
+      "component": "luajit",
+      "kind": "upstream",
+      "url": "https://github.com/LuaJIT/LuaJIT/archive/39207edda83ba24d6fbd582b8d9f2d02674ad25d.tar.gz",
+      "upstream_url": "https://github.com/LuaJIT/LuaJIT/archive/39207edda83ba24d6fbd582b8d9f2d02674ad25d.tar.gz",
+      "revision": null,
+      "sha256": "74071a03a167d3125b14aeace43b436ac406c1251d30bd83dd7443541cc54243",
+      "file": "luajit-39207edda83ba24d6fbd582b8d9f2d02674ad25d.tar.gz"
+    },
+    {
+      "component": "rubberband",
+      "kind": "upstream",
+      "url": "https://breakfastquay.com/files/releases/rubberband-4.0.0.tar.bz2",
+      "upstream_url": "https://breakfastquay.com/files/releases/rubberband-4.0.0.tar.bz2",
+      "revision": null,
+      "sha256": "af050313ee63bc18b35b2e064e5dce05b276aaf6d1aa2b8a82ced1fe2f8028e9",
+      "file": "rubberband-rubberband-4.0.0.tar.bz2"
+    },
+    {
+      "component": "libsamplerate",
+      "kind": "upstream",
+      "url": "https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz",
+      "upstream_url": "https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz",
+      "revision": null,
+      "sha256": "3258da280511d24b49d6b08615bbe824d0cacc9842b0e4caf11c52cf2b043893",
+      "file": "libsamplerate-libsamplerate-0.2.2.tar.xz"
+    },
+    {
+      "component": "uchardet",
+      "kind": "upstream",
+      "url": "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz",
+      "upstream_url": "https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz",
+      "revision": null,
+      "sha256": "e97a60cfc00a1c147a674b097bb1422abd9fa78a2d9ce3f3fdcc2e78a34ac5f0",
+      "file": "uchardet-uchardet-0.0.8.tar.xz"
+    },
+    {
+      "component": "zimg",
+      "kind": "upstream",
+      "url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+      "upstream_url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+      "revision": null,
+      "sha256": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577",
+      "file": "zimg-release-3.0.6.tar.gz"
+    },
+    {
+      "component": "jpeg-turbo",
+      "kind": "upstream",
+      "url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.1/libjpeg-turbo-3.2.1.tar.gz",
+      "upstream_url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.2.1/libjpeg-turbo-3.2.1.tar.gz",
+      "revision": null,
+      "sha256": "c27ad72a68da151177929aa969ae773a2da5ac2af9ce946079314fdac8cece7f",
+      "file": "jpeg-turbo-libjpeg-turbo-3.2.1.tar.gz"
+    },
+    {
+      "component": "glib",
+      "kind": "gobject-introspection",
+      "url": "https://download.gnome.org/sources/gobject-introspection/1.86/gobject-introspection-1.86.0.tar.xz",
+      "sha256": "920d1a3fcedeadc32acff95c2e203b319039dd4b4a08dd1a2dfd283d19c0b9ae",
+      "file": "glib-gobject-introspection-gobject-introspection-1.86.0.tar.xz"
+    },
+    {
+      "component": "libplacebo",
+      "kind": "glad2",
+      "url": "https://files.pythonhosted.org/packages/6e/5a/d62b24fe1c7c2f34e15c2aa4418a5327a8550fdc272999a59e0dddebc3ee/glad2-2.0.8.tar.gz",
+      "sha256": "b84079b9fa404f37171b961bdd1d8da21370e6c818defb8481c5b3fe3d6436da",
+      "file": "libplacebo-glad2-glad2-2.0.8.tar.gz"
+    },
+    {
+      "component": "libplacebo",
+      "kind": "jinja2",
+      "url": "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz",
+      "sha256": "0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d",
+      "file": "libplacebo-jinja2-jinja2-3.1.6.tar.gz"
+    },
+    {
+      "component": "libplacebo",
+      "kind": "markupsafe",
+      "url": "https://files.pythonhosted.org/packages/38/9b/e422a865e1d5d57d0e509b4e0bf1c1a70a7f6382c29a5aa428df994c8bc8/markupsafe-3.0.4.tar.gz",
+      "sha256": "2e9ad7dd851bf45fab9f75cbff4cb493fee9979e8d8c7c9c3ee119022518edd6",
+      "file": "libplacebo-markupsafe-markupsafe-3.0.4.tar.gz"
+    },
+    {
+      "component": "mujs",
+      "kind": "patch",
+      "url": "https://github.com/ccxvii/mujs/commit/e21c6bfdce374e19800f2455f45828a90fce39da.patch?full_index=1",
+      "sha256": "e10de8b9c3a62ffe121b61fe60b67ba8faa68eaace9a3b17a13f46a2cc795a11",
+      "file": "mujs-patch-e21c6bfdce374e19800f2455f45828a90fce39da.patch"
+    },
+    {
+      "component": "libsamplerate",
+      "kind": "patch-1",
+      "url": "https://github.com/libsndfile/libsamplerate/commit/e4a0ab46887029e0f65f145ba3987cc592f18200.patch?full_index=1",
+      "sha256": "0826fb59d733188645f3dc207c938580970700381b9bc87058b137723cb30bba",
+      "file": "libsamplerate-patch-1-e4a0ab46887029e0f65f145ba3987cc592f18200.patch"
+    },
+    {
+      "component": "libsamplerate",
+      "kind": "patch-2",
+      "url": "https://github.com/libsndfile/libsamplerate/commit/1abc639420b2df8b9ff2e0bdcc28cf6613c7c0d0.patch?full_index=1",
+      "sha256": "b6fb61c763a0f072ef2ebb3a311037d2429a5e294141f6d5e552ccd25efabdc0",
+      "file": "libsamplerate-patch-2-1abc639420b2df8b9ff2e0bdcc28cf6613c7c0d0.patch"
+    },
+    {
+      "component": "shaderc",
+      "kind": "glslang",
+      "url": "https://github.com/KhronosGroup/glslang/archive/e1b562a8bed273a02f30b59b66a5d499793cede5.tar.gz",
+      "revision": "e1b562a8bed273a02f30b59b66a5d499793cede5",
+      "sha256": "907174a24713c6202c146f164bf81783f1fbc79c8cb821a30f18f159eb980312",
+      "file": "glslang-e1b562a8bed273a02f30b59b66a5d499793cede5.tar.gz"
+    },
+    {
+      "component": "shaderc",
+      "kind": "spirv-headers",
+      "url": "https://github.com/KhronosGroup/SPIRV-Headers/archive/04fd3caa1e8267e4d95c806cad901181728e1006.tar.gz",
+      "revision": "04fd3caa1e8267e4d95c806cad901181728e1006",
+      "sha256": "392f4801409aad9c4f1b77745f179952fd6264e4c8bd0fc1bc45dfa6807bf6d0",
+      "file": "spirv-headers-04fd3caa1e8267e4d95c806cad901181728e1006.tar.gz"
+    },
+    {
+      "component": "shaderc",
+      "kind": "spirv-tools",
+      "url": "https://github.com/KhronosGroup/SPIRV-Tools/archive/ef96ed763b43b59b33b31b362f09a02b729fa1c9.tar.gz",
+      "revision": "ef96ed763b43b59b33b31b362f09a02b729fa1c9",
+      "sha256": "82c62146083fd558735a3171cf97cfc47903ca7d368482e87f94bd44883c0f00",
+      "file": "spirv-tools-ef96ed763b43b59b33b31b362f09a02b729fa1c9.tar.gz"
+    },
+    {
+      "component": "glib",
+      "kind": "homebrew-patch",
+      "url": "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a09f572566b1b7c4695a4d169d1177248a/Patches/glib/hardcoded-paths.diff",
+      "sha256": "d846efd0bf62918350da94f850db33b0f8727fece9bfaf8164566e3094e80c97",
+      "file": "glib-hardcoded-paths.diff"
+    },
+    {
+      "component": "libb2",
+      "kind": "homebrew-patch",
+      "url": "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a09f572566b1b7c4695a4d169d1177248a/Patches/libtool/configure-big_sur.diff",
+      "sha256": "35acd6aebc19843f1a2b3a63e880baceb0f5278ab1ace661e57a502d9d78c93c",
+      "file": "libb2-configure-big_sur.diff"
+    },
+    {
+      "component": "fast_float",
+      "kind": "build-headers",
+      "url": "https://github.com/fastfloat/fast_float/archive/refs/tags/v8.3.2.tar.gz",
+      "sha256": "71bb9e865b888df01351558db5a39586d13ea97ada162156b3a07784d8c1b26b",
+      "file": "fast_float-v8.3.2.tar.gz"
+    },
+    {
+      "component": "vulkan-headers",
+      "kind": "build-headers",
+      "url": "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/vulkan-sdk-1.4.363.0.tar.gz",
+      "sha256": "4a078be12bef21cfebc09d878b77a63cff9d68f899254a0b00d0e37ef73e7f7e",
+      "file": "vulkan-headers-vulkan-sdk-1.4.363.0.tar.gz"
+    },
+    {
+      "component": "Homebrew",
+      "kind": "license",
+      "url": "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a09f572566b1b7c4695a4d169d1177248a/LICENSE.txt",
+      "sha256": "f80329e58613ad669c0e73cb132d8060b9b2c55e339c73848068e4d1567f4627",
+      "file": "Homebrew-LICENSE.txt"
+    }
+  ]
+}

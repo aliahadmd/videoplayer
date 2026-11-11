@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-glib-2.90.1",
+  "creationInfo": {
+    "created": "2026-10-06T15:22:44Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/glib-2.90.1.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-glib-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-glib",
+      "fileName": "glib-2.90.1.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-glib-src",
+      "name": "glib",
+      "versionInfo": "2.90.1",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-10-06T15:22:44Z",
+      "licenseConcluded": "LGPL-2.1-or-later",
+      "downloadLocation": "https://download.gnome.org/sources/glib/2.90/glib-2.90.1.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/glib@2.90.1",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93c941aa17d5eb1d53fe838365f29a8b4e539c222a256d974ec8f30fc413e396"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-glib",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-glib-src"
+    }
+  ]
+}

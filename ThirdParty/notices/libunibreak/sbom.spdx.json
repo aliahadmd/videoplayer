@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libunibreak-8.0",
+  "creationInfo": {
+    "created": "2026-09-15T04:15:30Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libunibreak-8.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libunibreak-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libunibreak",
+      "fileName": "libunibreak-8.0.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libunibreak-src",
+      "name": "libunibreak",
+      "versionInfo": "8.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-09-15T04:15:30Z",
+      "licenseConcluded": "Zlib",
+      "downloadLocation": "https://github.com/adah1972/libunibreak/releases/download/libunibreak_8_0/libunibreak-8.0.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libunibreak@8.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9c4fad6e517338a098373acc9f35579ae2c325e6446666fb9ac2666ba15ceba4"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-libunibreak",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libunibreak-src"
+    }
+  ]
+}

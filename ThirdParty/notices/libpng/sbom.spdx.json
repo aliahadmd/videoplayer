@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libpng-1.6.59",
+  "creationInfo": {
+    "created": "2026-09-28T20:58:10Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libpng-1.6.59.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libpng-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libpng",
+      "fileName": "libpng-1.6.59.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libpng-src",
+      "name": "libpng",
+      "versionInfo": "1.6.59",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-09-28T20:58:10Z",
+      "licenseConcluded": "libpng-2.0",
+      "downloadLocation": "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libpng@1.6.59",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-libpng",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libpng-src"
+    }
+  ]
+}

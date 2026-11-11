@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-harfbuzz-15.1.0",
+  "creationInfo": {
+    "created": "2026-11-04T21:03:36Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/harfbuzz-15.1.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-harfbuzz-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-harfbuzz",
+      "fileName": "harfbuzz-15.1.0.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0fc7c565443a5f4be7da65ac5ee5bd737d9b158dc908708b7689a0a5796b0c8d"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-harfbuzz-src",
+      "name": "harfbuzz",
+      "versionInfo": "15.1.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-11-04T21:03:36Z",
+      "licenseConcluded": "MIT",
+      "downloadLocation": "https://github.com/harfbuzz/harfbuzz/releases/download/15.1.0/harfbuzz-15.1.0.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/harfbuzz@15.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "0fc7c565443a5f4be7da65ac5ee5bd737d9b158dc908708b7689a0a5796b0c8d"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-harfbuzz",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-harfbuzz-src"
+    }
+  ]
+}

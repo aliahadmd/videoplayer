@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-svt-av1-4.3.0",
+  "creationInfo": {
+    "created": "2026-11-02T07:20:12Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/svt-av1-4.3.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-svt-av1-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-svt-av1",
+      "fileName": "SVT-AV1-v4.3.0.tar.bz2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9223ce06e6172ad41357ed23b3b00f036e03794b86b0e20ea9ccb3f648b8955d"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-svt-av1-src",
+      "name": "svt-av1",
+      "versionInfo": "4.3.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-11-02T07:20:12Z",
+      "licenseConcluded": "BSD-3-Clause",
+      "downloadLocation": "https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v4.3.0/SVT-AV1-v4.3.0.tar.bz2",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/svt-av1@4.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "9223ce06e6172ad41357ed23b3b00f036e03794b86b0e20ea9ccb3f648b8955d"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-svt-av1",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-svt-av1-src"
+    }
+  ]
+}

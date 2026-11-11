@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-ffmpeg-9.0.2",
+  "creationInfo": {
+    "created": "2026-09-18T02:29:35Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/ffmpeg-9.0.2.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-ffmpeg-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-ffmpeg",
+      "fileName": "ffmpeg-9.0.2.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-ffmpeg-src",
+      "name": "ffmpeg",
+      "versionInfo": "9.0.2",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-09-18T02:29:35Z",
+      "licenseConcluded": "GPL-3.0-or-later",
+      "downloadLocation": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/ffmpeg@9.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-ffmpeg",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-ffmpeg-src"
+    }
+  ]
+}

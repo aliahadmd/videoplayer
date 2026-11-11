@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-zimg-3.0.6",
+  "creationInfo": {
+    "created": "2025-08-15T05:03:07Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/zimg-3.0.6.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-zimg-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-zimg",
+      "fileName": "release-3.0.6.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-zimg-src",
+      "name": "zimg",
+      "versionInfo": "3.0.6",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2025-08-15T05:03:07Z",
+      "licenseConcluded": "WTFPL",
+      "downloadLocation": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/zimg@3.0.6",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-zimg",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-zimg-src"
+    }
+  ]
+}

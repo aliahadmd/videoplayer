@@ -1,0 +1,60 @@
+class Libsamplerate < Formula
+  desc "Library for sample rate conversion of audio data"
+  homepage "https://github.com/libsndfile/libsamplerate"
+  url "https://github.com/libsndfile/libsamplerate/releases/download/0.2.2/libsamplerate-0.2.2.tar.xz"
+  sha256 "3258da280511d24b49d6b08615bbe824d0cacc9842b0e4caf11c52cf2b043893"
+  license "BSD-2-Clause"
+  compatibility_version 1
+
+  depends_on "cmake" => :build
+  depends_on "pkgconf" => :build
+
+  # Fix CMake deprecation warning CMP0091 (prereq for cmake 4 compatibility fix below)
+  patch do
+    url "https://github.com/libsndfile/libsamplerate/commit/e4a0ab46887029e0f65f145ba3987cc592f18200.patch?full_index=1"
+    sha256 "0826fb59d733188645f3dc207c938580970700381b9bc87058b137723cb30bba"
+    type :backport
+    resolves "https://github.com/libsndfile/libsamplerate/pull/180"
+  end
+  # Fix to cmake 4 compatibility
+  patch do
+    url "https://github.com/libsndfile/libsamplerate/commit/1abc639420b2df8b9ff2e0bdcc28cf6613c7c0d0.patch?full_index=1"
+    sha256 "b6fb61c763a0f072ef2ebb3a311037d2429a5e294141f6d5e552ccd25efabdc0"
+    type :backport
+    resolves "https://github.com/libsndfile/libsamplerate/pull/225"
+  end
+
+  def install
+    args = ["-DLIBSAMPLERATE_EXAMPLES=OFF"]
+
+    system "cmake", "-S", ".", "-B", "build_shared", "-DBUILD_SHARED_LIBS=ON", *args, *std_cmake_args
+    system "cmake", "--build", "build_shared"
+    system "cmake", "--install", "build_shared"
+
+    system "cmake", "-S", ".", "-B", "build_static", "-DBUILD_SHARED_LIBS=OFF", *args, *std_cmake_args
+    system "cmake", "--build", "build_static"
+    lib.install "build_static/src/libsamplerate.a"
+  end
+
+  test do
+    (testpath/"test.c").write <<~C
+      #include <assert.h>
+      #include <samplerate.h>
+      int main() {
+        SRC_DATA src_data;
+        float input[] = {0.1, 0.9, 0.7, 0.4} ;
+        float output[2] ;
+        src_data.data_in = input ;
+        src_data.data_out = output ;
+        src_data.input_frames = 4 ;
+        src_data.output_frames = 2 ;
+        src_data.src_ratio = 0.5 ;
+        int res = src_simple (&src_data, 2, 1) ;
+        assert(res == 0);
+        return 0;
+      }
+    C
+    system ENV.cc, "test.c", "-I#{include}", "-L#{opt_lib}", "-lsamplerate", "-o", "test"
+    system "./test"
+  end
+end

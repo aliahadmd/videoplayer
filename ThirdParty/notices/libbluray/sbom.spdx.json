@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-libbluray-1.5.0",
+  "creationInfo": {
+    "created": "2026-07-17T09:55:51Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/libbluray-1.5.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-libbluray-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-libbluray",
+      "fileName": "libbluray-1.5.0.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f676408e91a5d321abf8b8d4dfdae36205c297dab5c54c3ec519639025f474a2"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-libbluray-src",
+      "name": "libbluray",
+      "versionInfo": "1.5.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-07-17T09:55:51Z",
+      "licenseConcluded": "LGPL-2.1-or-later",
+      "downloadLocation": "https://download.videolan.org/videolan/libbluray/1.5.0/libbluray-1.5.0.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/libbluray@1.5.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f676408e91a5d321abf8b8d4dfdae36205c297dab5c54c3ec519639025f474a2"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-libbluray",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-libbluray-src"
+    }
+  ]
+}

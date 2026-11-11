@@ -1,0 +1,10 @@
+/research/artifacts/
+/research/sources/
+.DS_Store
+/.build/
+/dist/
+/Vendor/lib/
+/Vendor/include/
+/Vendor/licenses/
+__pycache__/
+*.py[cod]

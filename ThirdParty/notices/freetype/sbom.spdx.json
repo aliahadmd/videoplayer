@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-freetype-2.15.0",
+  "creationInfo": {
+    "created": "2026-10-11T20:47:22Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/freetype-2.15.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-freetype-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-freetype",
+      "fileName": "freetype-2.15.0.tar.xz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-freetype-src",
+      "name": "freetype",
+      "versionInfo": "2.15.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-10-11T20:47:22Z",
+      "licenseConcluded": "FTL",
+      "downloadLocation": "https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/freetype@2.15.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-freetype",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-freetype-src"
+    }
+  ]
+}

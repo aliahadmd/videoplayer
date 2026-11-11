@@ -1,0 +1,61 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-mpv-0.42.0",
+  "creationInfo": {
+    "created": "2026-11-04T23:33:41Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/mpv-0.42.0.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-mpv-src"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-mpv",
+      "fileName": "v0.42.0.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-mpv-src",
+      "name": "mpv",
+      "versionInfo": "0.42.0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-11-04T23:33:41Z",
+      "licenseConcluded": "GPL-2.0-or-later AND LGPL-2.1-or-later",
+      "downloadLocation": "https://github.com/mpv-player/mpv/archive/refs/tags/v0.42.0.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/mpv@0.42.0",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bcfebbfa2b65a6d88dc97ea18117831072373e38b5785a2afb874ed4df5070dd"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-File-mpv",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-mpv-src"
+    }
+  ]
+}

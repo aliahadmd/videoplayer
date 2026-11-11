@@ -1,0 +1,83 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "name": "SBOM-SPDX-mujs-1.3.11",
+  "creationInfo": {
+    "created": "2026-10-19T19:19:20Z",
+    "creators": [
+      "Tool: https://github.com/Homebrew/brew"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://formulae.brew.sh/spdx/mujs-1.3.11.json",
+  "documentDescribes": [
+    "SPDXRef-Archive-mujs-src",
+    "SPDXRef-Patch-mujs-0"
+  ],
+  "files": [
+    {
+      "SPDXID": "SPDXRef-File-mujs",
+      "fileName": "mujs-1.3.11.tar.gz",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "456a395769daf110a30f9bf6f793044261e261481d5dca33b63cdc8714774ca4"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Archive-mujs-src",
+      "name": "mujs",
+      "versionInfo": "1.3.11",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "builtDate": "2026-10-19T19:19:20Z",
+      "licenseConcluded": "ISC",
+      "downloadLocation": "https://mujs.com/downloads/mujs-1.3.11.tar.gz",
+      "copyrightText": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:brew/homebrew/core/mujs@1.3.11",
+          "referenceType": "purl"
+        }
+      ],
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "456a395769daf110a30f9bf6f793044261e261481d5dca33b63cdc8714774ca4"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Patch-mujs-0",
+      "name": "mujs patch 0",
+      "filesAnalyzed": false,
+      "licenseDeclared": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "downloadLocation": "https://github.com/ccxvii/mujs/commit/e21c6bfdce374e19800f2455f45828a90fce39da.patch?full_index=1",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e10de8b9c3a62ffe121b61fe60b67ba8faa68eaace9a3b17a13f46a2cc795a11"
+        }
+      ],
+      "externalRefs": []
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Patch-mujs-0",
+      "relationshipType": "PATCH_APPLIED",
+      "relatedSpdxElement": "SPDXRef-Archive-mujs-src"
+    },
+    {
+      "spdxElementId": "SPDXRef-File-mujs",
+      "relationshipType": "PACKAGE_OF",
+      "relatedSpdxElement": "SPDXRef-Archive-mujs-src"
+    }
+  ]
+}
