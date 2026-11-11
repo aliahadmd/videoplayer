@@ -1,0 +1,95 @@
+{
+  "success": true,
+  "forced_termination_tested": true,
+  "checks": [
+    "Native surface is ready",
+    "Root displays immediate folders and media",
+    "Root has natural folder and file order",
+    "Nested season expands",
+    "Third-level folder expands",
+    "Selected nested video plays",
+    "Queue contains the selected folder's videos",
+    "Pause before saving",
+    "Autosave records early playback position and timing",
+    "Hiding the library retains folders",
+    "Library and expansion state save without quitting",
+    "Native surface is ready",
+    "Fresh process restores the last video paused at 2.25",
+    "Restored playback permits display sleep",
+    "Fresh process restores queue selection",
+    "Library remains visible",
+    "Expanded nested branches restore",
+    "Timing and speed restore",
+    "Checkpoint reaches disk before forced termination",
+    "Native surface is ready",
+    "Fresh process restores the last video paused at 8.0",
+    "Restored playback permits display sleep",
+    "Fresh process restores queue selection",
+    "Library remains visible",
+    "Expanded nested branches restore",
+    "Timing and speed restore",
+    "Unavailable folder stays in the library with a recoverable error",
+    "Locating a folder preserves its identity and recovers browsing",
+    "Removing a library root leaves its directory on disk",
+    "Adding the same root does not duplicate it",
+    "Refresh discovers newly added videos",
+    "Relocating a media root updates its queued file paths",
+    "Relocated root keeps its expanded branches"
+  ],
+  "phases": [
+    {
+      "checks": [
+        "Native surface is ready",
+        "Root displays immediate folders and media",
+        "Root has natural folder and file order",
+        "Nested season expands",
+        "Third-level folder expands",
+        "Selected nested video plays",
+        "Queue contains the selected folder's videos",
+        "Pause before saving",
+        "Autosave records early playback position and timing",
+        "Hiding the library retains folders",
+        "Library and expansion state save without quitting"
+      ],
+      "date": "2026-11-11T13:45:03Z",
+      "phase": "save",
+      "success": true
+    },
+    {
+      "checks": [
+        "Native surface is ready",
+        "Fresh process restores the last video paused at 2.25",
+        "Restored playback permits display sleep",
+        "Fresh process restores queue selection",
+        "Library remains visible",
+        "Expanded nested branches restore",
+        "Timing and speed restore",
+        "Checkpoint reaches disk before forced termination"
+      ],
+      "date": "2026-11-11T13:45:04Z",
+      "phase": "crash",
+      "success": true
+    },
+    {
+      "checks": [
+        "Native surface is ready",
+        "Fresh process restores the last video paused at 8.0",
+        "Restored playback permits display sleep",
+        "Fresh process restores queue selection",
+        "Library remains visible",
+        "Expanded nested branches restore",
+        "Timing and speed restore",
+        "Unavailable folder stays in the library with a recoverable error",
+        "Locating a folder preserves its identity and recovers browsing",
+        "Removing a library root leaves its directory on disk",
+        "Adding the same root does not duplicate it",
+        "Refresh discovers newly added videos",
+        "Relocating a media root updates its queued file paths",
+        "Relocated root keeps its expanded branches"
+      ],
+      "date": "2026-11-11T13:45:05Z",
+      "phase": "restore",
+      "success": true
+    }
+  ]
+}

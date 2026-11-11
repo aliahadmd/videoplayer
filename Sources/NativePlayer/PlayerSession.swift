@@ -17,15 +17,19 @@ struct MediaTrack: Identifiable {
 struct Chapter: Identifiable { let id: Int; let title: String; let time: Double }
 
 @Observable final class PlayerSession {
-    var queue = PlaybackQueue()
+    var queue = PlaybackQueue() { didSet { saveWorkspace() } }
+    let library: FolderLibrary
+    var showLibrary = false { didSet { saveWorkspace() } }
+    private(set) var workspaceSaveError: String?
+    private(set) var workspaceSaving = false
     var currentItem: MediaItem?
     var values: [String: EngineValue] = [:]
     var loaded = false
     var phase = "Ready"
     var errorMessage: String?
     var notice: String?
-    private enum Sidebar { case queue, inspector }
-    private var sidebar: Sidebar?
+    private enum Sidebar: String { case queue, inspector }
+    private var sidebar: Sidebar? { didSet { saveWorkspace() } }
     var showQueue: Bool {
         get { sidebar == .queue }
         set { if newValue { sidebar = .queue } else if sidebar == .queue { sidebar = nil } }
@@ -48,6 +52,18 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     var settingsAction: (() -> Void)?
     var bindingsChanged: (() -> Void)?
     private let store: DiskStore
+    private let workspaceWriter: WorkspaceWriter
+    private var workspaceRevision = 0
+    private var workspaceReady = false
+    private var closing = false
+    private var savedWorkspace: WorkspaceState
+    private var workspacePlayback: ResumeRecord?
+    private var restoreTask: Task<Void, Never>?
+    private var restoredSpeed: Double?
+    private var workspaceSpeed = 1.0
+    private var pendingWorkspacePosition: Double?
+    private var startupResumeTarget: Double?
+    private var pendingLibraryNotice: String?
     private var activeEntry: Int64?
     private var activeLoadID: UUID?
     private var currentLoadID = UUID()
@@ -68,9 +84,29 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     init(directory: URL? = nil) {
         let directory = directory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("VideoPlayer")
         store = DiskStore(directory: directory)
-        preferences = store.read(Preferences.self, name: "preferences.json") ?? Preferences()
+        workspaceWriter = WorkspaceWriter(directory: directory)
+        let settings = store.read(Preferences.self, name: "preferences.json") ?? Preferences()
+        preferences = settings
         history = store.read([ResumeRecord].self, name: "history.json") ?? []
-        if !preferences.rememberHistory { history = [] }
+        if !settings.rememberHistory { history = [] }
+        var restored = WorkspaceState()
+        var restorationError: String?
+        if settings.rememberWorkspace {
+            do {
+                let result = try WorkspaceStore(directory: directory).load()
+                restored = result.state
+                if result.recovered { notice = "Recovered your library and queue from the last saved backup." }
+            } catch { restorationError = error.localizedDescription }
+        }
+        savedWorkspace = restored
+        workspaceSpeed = restored.speed
+        workspacePlayback = settings.rememberHistory ? restored.playback : nil
+        library = FolderLibrary(folders: restored.folders)
+        queue.replace(restored.queue)
+        if let id = restored.currentID { queue.select(id) }
+        queue.repeatMode = restored.repeatMode
+        showLibrary = restored.showLibrary
+        sidebar = restored.sidebar.flatMap(Sidebar.init(rawValue:))
         do {
             engine = try PlaybackEngine { [weak self] events in
                 DispatchQueue.main.async { self?.receive(events) }
@@ -78,6 +114,11 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
             applyPreferences()
         } catch { errorMessage = error.localizedDescription }
         configureRemoteControls()
+        library.changed = { [weak self] in self?.saveWorkspace() }
+        library.reportError = { [weak self] in self?.errorMessage = $0 }
+        library.relocated = { [weak self] previous, next in self?.relocateWorkspace(from: previous, to: next) }
+        workspaceSaveError = restorationError
+        workspaceReady = true
     }
     var position: Double { finite("time-pos") }
     var duration: Double { finite("duration") }
@@ -105,6 +146,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         if !preferences.rememberHistory { clearHistory() }
         do { try store.write(preferences, name: "preferences.json") }
         catch { errorMessage = "Could not save preferences: \(error.localizedDescription)" }
+        saveWorkspace(sanitizeBackup: !preferences.rememberWorkspace || !preferences.rememberHistory)
     }
     func applyPreferenceChanges(from previous: Preferences) {
         if previous.hardwareDecoding != preferences.hardwareDecoding { engine?.set("hwdec", preferences.hardwareDecoding ? "videotoolbox" : "no") }
@@ -116,9 +158,11 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     }
     func clearHistory() {
         history = []
+        workspacePlayback = nil
         do { try store.write(history, name: "history.json") }
         catch { errorMessage = "Could not clear history: \(error.localizedDescription)" }
         NSDocumentController.shared.clearRecentDocuments(nil)
+        saveWorkspace(sanitizeBackup: true)
     }
     func openPanel(folder: Bool = false, append: Bool = false, subtitle: Bool = false) {
         window?.makeKeyAndOrderFront(nil)
@@ -126,10 +170,10 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         panel.canChooseDirectories = folder
         panel.canChooseFiles = !folder
         panel.allowsMultipleSelection = !subtitle
-        panel.message = subtitle ? "Choose a subtitle file to attach to the current video." : "Choose media files. Folders use natural file ordering."
+        panel.message = subtitle ? "Choose a subtitle file to attach to the current video." : folder ? "Add folders to your saved library. Expand subfolders to browse their videos." : "Choose media files."
         panel.prompt = append ? "Add" : "Open"
         guard panel.runModal() == .OK else { return }
-        if subtitle { panel.urls.forEach(attachSubtitle) } else { open(panel.urls, append: append) }
+        if subtitle { panel.urls.forEach(attachSubtitle) } else if folder { addLibraryFolders(panel.urls) } else { open(panel.urls, append: append) }
     }
     func openURL() {
         let alert = NSAlert(); alert.messageText = "Open Media URL"; alert.informativeText = "Enter a direct HTTP, HTTPS, RTSP, or RTMP media address."
@@ -143,14 +187,19 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     func open(_ urls: [URL], append: Bool = false) {
         guard !urls.isEmpty else { return }
         window?.makeKeyAndOrderFront(nil)
+        restoreTask?.cancel()
         if urls.allSatisfy(MediaFiles.isSubtitle) { urls.forEach(attachSubtitle); return }
         openTask?.cancel()
         let request = UUID(); openingID = request
-        for url in urls where url.isFileURL { if url.startAccessingSecurityScopedResource() { scopes.append(url) } }
+        for url in urls where url.isFileURL { retainAccess(to: url) }
         openTask = Task { [weak self] in
             do {
-                let expanded = try await MediaFiles.expand(urls)
+                let folders = try await Self.selectedFolders(in: urls)
+                let files = urls.filter { !folders.contains($0) }
+                let expanded = try await MediaFiles.expand(files)
                 guard !Task.isCancelled, let self, self.openingID == request else { return }
+                if !folders.isEmpty { self.addLibraryFolders(folders) }
+                if files.isEmpty { return }
                 let subtitles = expanded.filter(MediaFiles.isSubtitle)
                 let items = expanded.filter { !MediaFiles.isSubtitle($0) }.map { url in MediaItem(url: url, bookmark: url.isFileURL ? try? url.bookmarkData(options: .withSecurityScope) : nil) }
                 guard !items.isEmpty else { self.errorMessage = "No supported media files were found in this folder."; return }
@@ -177,19 +226,25 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         open([url])
     }
     func select(_ item: MediaItem) { saveProgress(); guard queue.select(item.id) else { return }; load(item) }
-    private func load(_ item: MediaItem) {
+    private func load(_ item: MediaItem, paused: Bool = false, restore: ResumeRecord? = nil, startupRestore: Bool = false) {
         currentLoadID = UUID()
         currentItem = item; loaded = false; phase = "Opening…"; errorMessage = nil; notice = nil
         values = values.filter { globalProperties.contains($0.key) }
-        pendingRestore = preferences.rememberHistory ? history.first { $0.url == item.url } : nil
+        pendingRestore = preferences.rememberHistory ? (restore ?? history.first { $0.url == item.url }) : nil
+        pendingWorkspacePosition = restore.flatMap { $0.position.isFinite && $0.position >= 0 && $0.duration.isFinite && $0.duration > 0 && $0.position < $0.duration - 0.25 ? $0.position : nil }
+        startupResumeTarget = startupRestore ? pendingWorkspacePosition ?? 0 : nil
+        if item.url.isFileURL {
+            if let folder = library.folders.first(where: { item.url.path.hasPrefix($0.url.path + "/") }) { retainAccess(to: folder.url) }
+            else { retainAccess(to: item.url) }
+        }
         engine?.command(["loadfile", item.url.isFileURL ? item.url.path : item.url.absoluteString, "replace"], itemID: currentLoadID)
-        engine?.set("pause", false)
+        engine?.set("pause", paused)
         window?.title = item.title
     }
     func attachSubtitle(_ url: URL) {
         guard loaded else { errorMessage = "Open a video before adding subtitles."; return }
         guard MediaFiles.isSubtitle(url) else { errorMessage = "Choose an SRT, ASS, VTT, or another supported subtitle file."; return }
-        if url.startAccessingSecurityScopedResource() { scopes.append(url) }
+        retainAccess(to: url)
         engine?.command(["sub-add", url.path, "select"])
     }
     func remove(_ item: MediaItem) {
@@ -201,7 +256,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     }
     func next(automatic: Bool = false) { saveProgress(); if let item = queue.next(automatic: automatic) { load(item) } }
     func previous() { saveProgress(); if let item = queue.previous() { load(item) } }
-    func stop() { saveProgress(); engine?.command(["stop"]); loaded = false; phase = "Stopped"; updateSystemPlayback() }
+    func stop() { saveProgress(); engine?.command(["stop"]); loaded = false; phase = "Stopped"; updateSystemPlayback(); saveWorkspace() }
     func seek(_ seconds: Double) {
         guard loaded, seekable, seconds.isFinite else { return }
         engine?.command(["seek", String(max(0, min(seconds, duration > 0 ? duration : seconds))), "absolute+exact"])
@@ -210,6 +265,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         guard value.isFinite else { return }
         let value = PlaybackEngine.normalized(name, value)
         values[name] = .number(value)
+        if name == "speed" { workspaceSpeed = min(4, max(0.25, value)) }
         if name == "volume" { preferences.volume = value }
         engine?.set(name, value)
     }
@@ -221,6 +277,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     func perform(_ command: PlayerCommand) {
         switch command {
         case .open: openPanel(); case .openFolder: openPanel(folder: true); case .openURL: openURL(); case .addFiles: openPanel(append: true); case .saveQueue: saveQueue(); case .attachSubtitle: openPanel(subtitle: true)
+        case .toggleLibrary: showLibrary.toggle()
         case .toggleQueue: showQueue.toggle(); if showQueue { showInspector = false }
         case .toggleInspector: showInspector.toggle(); if showInspector { showQueue = false }
         case .commands: showCommands = true; case .jumpToTime: showJump = true
@@ -309,7 +366,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
                 finishLoading()
             case let .loadFailed(itemID, message):
                 if itemID == currentLoadID { loaded = false; phase = "Could not play"; errorMessage = message; updateSystemPlayback() }
-            case .restarted: playbackRevision += 1
+            case .restarted: playbackRevision += 1; if loaded { saveProgress() }
             case let .screenshotWritten(path): notice = "Saved screenshot: \(URL(fileURLWithPath: path).lastPathComponent)"
             case let .ended(id, reason, error):
                 guard id == activeEntry, activeLoadID == currentLoadID else { continue }
@@ -327,9 +384,15 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     }
     private func updateProperty(_ name: String, _ value: EngineValue) {
         values[name] = value
+        if name == "time-pos", loaded, let target = startupResumeTarget, abs(value.number - target) < 0.12 {
+            startupResumeTarget = nil
+            saveProgress()
+        }
+        if name == "speed", value.number.isFinite, (0.25...4).contains(value.number) { workspaceSpeed = value.number }
         if name == "time-pos", loaded, Date().timeIntervalSince(lastHistoryWrite) > 5 { saveProgress() }
         if name == "time-pos", loaded, paused || Date().timeIntervalSince(lastSystemPlaybackUpdate) >= 1 { updateSystemPlayback() }
         if name == "pause" || name == "duration" || name == "speed" { updateSystemPlayback() }
+        if name == "pause", value.flag, loaded { saveProgress() }
         if name == "volume" { preferences.volume = value.number }
     }
     private func finishLoading() {
@@ -338,20 +401,28 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         resetAdjustments(); notice = nil
         if let record = pendingRestore {
             set("sub-delay", record.subtitleDelay); set("audio-delay", record.audioDelay)
-            if preferences.resumePlayback, record.resumePosition > 0 {
-                engine?.command(["seek", String(record.resumePosition), "absolute+exact"])
-                notice = "Resumed at \(TimeText.string(record.resumePosition))"
+            let resumePosition = pendingWorkspacePosition ?? record.resumePosition
+            if preferences.resumePlayback, resumePosition > 0 {
+                engine?.command(["seek", String(resumePosition), "absolute+exact"])
+                notice = "Resumed at \(TimeText.string(resumePosition))"
             }
         }
         pendingRestore = nil
+        pendingWorkspacePosition = nil
+        if let restoredSpeed { set("speed", restoredSpeed); self.restoredSpeed = nil }
+        if let pendingLibraryNotice { notice = pendingLibraryNotice; self.pendingLibraryNotice = nil }
         if let itemID = currentItem?.id { pendingSubtitles.removeValue(forKey: itemID)?.forEach(attachSubtitle) }
         engine?.refresh(itemID: currentLoadID)
         updateSystemPlayback()
+        saveWorkspace()
     }
     func saveProgress(completed: Bool = false) {
-        guard preferences.rememberHistory, loaded, let item = currentItem, item.url.isFileURL else { return }
+        lastHistoryWrite = Date()
+        defer { saveWorkspace() }
+        guard preferences.rememberHistory, loaded, startupResumeTarget == nil, let item = currentItem, item.url.isFileURL else { return }
         let record = ResumeRecord(url: item.url, bookmark: item.bookmark, position: completed ? 0 : position, duration: duration, subtitleDelay: subtitleDelay, audioDelay: audioDelay)
         history = DiskStore.retaining(history, replacing: record)
+        workspacePlayback = record
         lastHistoryWrite = Date()
         do { try store.write(history, name: "history.json") }
         catch { Logger(subsystem: "com.aliahad.videoplayer", category: "history").error("Could not save playback history") }
@@ -378,13 +449,131 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         } else if !playing, powerAssertion != 0 { IOPMAssertionRelease(powerAssertion); powerAssertion = 0 }
     }
     func shutdown(_ completion: @escaping @Sendable () -> Void) {
-        openTask?.cancel(); saveProgress()
+        openTask?.cancel(); restoreTask?.cancel(); library.stop(); saveProgress()
+        let finalState = workspaceState()
+        workspaceRevision += 1
+        let revision = workspaceRevision
+        closing = true
         try? store.write(preferences, name: "preferences.json")
         remoteTargets.forEach { $0.0.removeTarget($0.1) }; remoteTargets = []
         if powerAssertion != 0 { IOPMAssertionRelease(powerAssertion); powerAssertion = 0 }
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
         renderer?.stop(); renderer = nil
         scopes.forEach { $0.stopAccessingSecurityScopedResource() }; scopes = []
-        if let engine { engine.shutdown(completion: completion) } else { completion() }
+        let sanitizeBackup = !preferences.rememberWorkspace || !preferences.rememberHistory
+        Task.detached(priority: .utility) { [workspaceWriter, engine] in
+            do { try await workspaceWriter.save(finalState, revision: revision, sanitizeBackup: sanitizeBackup) }
+            catch { Logger(subsystem: "com.aliahad.videoplayer", category: "workspace").error("Could not save the final workspace: \(error.localizedDescription)") }
+            if let engine { engine.shutdown(completion: completion) } else { completion() }
+        }
+    }
+
+    @concurrent private static func selectedFolders(in urls: [URL]) async throws -> [URL] {
+        try urls.filter { url in
+            try Task.checkCancellation()
+            return url.isFileURL && (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true
+        }
+    }
+    func addLibraryFolders(_ urls: [URL]) { library.add(urls); showLibrary = true }
+    func playLibraryNode(_ node: LibraryNode) {
+        guard !node.isFolder else { return }
+        restoreTask?.cancel(); openTask?.cancel(); openingID = UUID()
+        saveProgress()
+        if let folder = library.folders.first(where: { $0.id == node.location.rootID }) { retainAccess(to: folder.url) }
+        let siblings = library.mediaSiblings(of: node)
+        let window = LibraryFiles.queueWindow(siblings, selecting: node.id)
+        pendingLibraryNotice = window.count < siblings.count ? "This queue contains 10,000 nearby videos. Every video is still available in Library." : nil
+        // One root bookmark grants access to its children; avoid filesystem work per file.
+        let items = window.map { MediaItem(url: $0.url) }
+        queue.replace(items)
+        if let item = items.first(where: { $0.url == node.url }) { queue.select(item.id); load(item) }
+    }
+    private func retainAccess(to url: URL) {
+        if !scopes.contains(url), url.startAccessingSecurityScopedResource() { scopes.append(url) }
+    }
+    func prepareForLaunch(restorePlayback: Bool) {
+        library.refreshAll()
+        guard restorePlayback, preferences.rememberWorkspace, let item = queue.current else { return }
+        currentItem = item; phase = "Ready to resume"
+        restoreTask = Task { [weak self] in
+            guard let self else { return }
+            await self.library.waitForRoot(containing: item.url)
+            guard !Task.isCancelled, let current = self.queue.current, current.id == item.id else { return }
+            let result = await Self.resolveSavedItem(current)
+            let resolved = result.item
+            guard !Task.isCancelled, self.queue.current?.id == item.id else { return }
+            self.currentItem = resolved
+            guard resolved.url.isFileURL else { self.phase = "Ready to resume"; return }
+            guard result.readable else { self.phase = "File unavailable"; self.notice = "Reconnect the drive or select a video in your library. Your queue has been kept."; return }
+            self.restoredSpeed = self.savedWorkspace.speed
+            self.load(resolved, paused: true, restore: self.preferences.resumePlayback ? self.workspacePlayback : nil, startupRestore: true)
+        }
+    }
+    @concurrent private static func resolveSavedItem(_ item: MediaItem) async -> (item: MediaItem, readable: Bool) {
+        var resolved = item
+        if let bookmark = item.bookmark {
+            var stale = false
+            if let url = try? URL(resolvingBookmarkData: bookmark, options: [.withSecurityScope, .withoutUI, .withoutMounting], bookmarkDataIsStale: &stale) {
+                resolved = MediaItem(url: url, id: item.id, bookmark: stale ? try? url.bookmarkData(options: .withSecurityScope) : bookmark)
+            }
+        }
+        let scoped = resolved.url.startAccessingSecurityScopedResource()
+        defer { if scoped { resolved.url.stopAccessingSecurityScopedResource() } }
+        return (resolved, !resolved.url.isFileURL || FileManager.default.isReadableFile(atPath: resolved.url.path))
+    }
+    private func workspaceState() -> WorkspaceState {
+        guard preferences.rememberWorkspace else { return WorkspaceState() }
+        var state = WorkspaceState()
+        state.folders = library.folders; state.queue = queue.items; state.currentID = queue.currentID
+        state.repeatMode = queue.repeatMode; state.showLibrary = showLibrary; state.sidebar = sidebar?.rawValue
+        state.speed = workspaceSpeed
+        if preferences.rememberHistory, let item = currentItem, item.url.isFileURL {
+            if loaded && startupResumeTarget == nil { state.playback = ResumeRecord(url: item.url, bookmark: item.bookmark, position: position, duration: duration, subtitleDelay: subtitleDelay, audioDelay: audioDelay) }
+            else if workspacePlayback?.url == item.url { state.playback = workspacePlayback }
+        }
+        return state
+    }
+    func saveWorkspace(sanitizeBackup: Bool = false) {
+        guard workspaceReady, !closing else { return }
+        let state = workspaceState()
+        workspaceRevision += 1
+        let revision = workspaceRevision
+        workspaceSaving = true
+        Task { [weak self, workspaceWriter] in
+            do {
+                try await workspaceWriter.save(state, revision: revision, sanitizeBackup: sanitizeBackup)
+                guard let self, self.workspaceRevision == revision else { return }
+                self.workspaceSaving = false; self.workspaceSaveError = nil
+            } catch {
+                guard let self, self.workspaceRevision == revision else { return }
+                self.workspaceSaving = false; self.workspaceSaveError = "Could not save the library: \(error.localizedDescription)"
+            }
+        }
+    }
+    private func relocateWorkspace(from previous: URL, to next: URL) {
+        func moved(_ url: URL) -> URL {
+            guard url.isFileURL, url.path.hasPrefix(previous.path + "/") else { return url }
+            return next.appendingPathComponent(String(url.path.dropFirst(previous.path.count + 1)))
+        }
+        func record(_ original: ResumeRecord) -> ResumeRecord {
+            var result = original
+            result.url = moved(original.url)
+            if result.url != original.url { result.bookmark = nil }
+            return result
+        }
+        workspacePlayback = workspacePlayback.map(record)
+        pendingRestore = pendingRestore.map(record)
+        let selected = queue.currentID
+        let items = queue.items.map { item in
+            let url = moved(item.url)
+            return url == item.url ? item : MediaItem(url: url, id: item.id)
+        }
+        queue.replace(items)
+        if let selected { queue.select(selected) }
+        if let item = currentItem { currentItem = items.first { $0.id == item.id } ?? item }
+        history = history.map(record)
+        do { try store.write(history, name: "history.json") }
+        catch { errorMessage = "Could not update history for the relocated folder." }
+        saveWorkspace()
     }
 }

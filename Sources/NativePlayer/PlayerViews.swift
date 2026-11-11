@@ -9,6 +9,7 @@ struct PlayerRootView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
+                if session.showLibrary && !session.compact { LibraryView(session: session).frame(width: 260); Divider() }
                 ZStack {
                     Color.black
                     VideoSurface(session: session)
@@ -21,6 +22,7 @@ struct PlayerRootView: View {
                             Text("A place to press play.").font(.system(size: 25, weight: .medium)).foregroundStyle(.white)
                             Text("Drop a video here, or choose a file.").font(.system(size: 14)).foregroundStyle(.gray)
                             Button("Open File…") { session.perform(.open) }.controlSize(.large).keyboardShortcut("o", modifiers: .command)
+                            Button("Open Folder…") { session.perform(.openFolder) }.controlSize(.large)
                             if !session.history.isEmpty {
                                 Menu("Open Recent") { ForEach(session.history.prefix(8)) { record in Button(record.url.lastPathComponent) { session.openRecent(record) } } }
                                     .menuStyle(.borderlessButton).frame(width: 160).foregroundStyle(.white)
@@ -39,11 +41,12 @@ struct PlayerRootView: View {
                 else if session.showInspector { Divider(); InspectorView(session: session).frame(width: 292) }
             }
             Divider()
-            if let error = session.errorMessage {
+            if let error = session.errorMessage ?? (session.showLibrary ? nil : session.workspaceSaveError) {
                 HStack(alignment: .top, spacing: 10) {
                     Image(systemName: "exclamationmark.circle").foregroundStyle(.red)
                     Text(error).font(.system(size: 12)).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
-                    Button { session.errorMessage = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss error")
+                    if session.errorMessage == nil { Button("Retry Save") { session.saveWorkspace() }.buttonStyle(.link) }
+                    else { Button { session.errorMessage = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss error") }
                 }.padding(12).background(.red.opacity(0.06))
                 Divider()
             } else if let notice = session.notice {

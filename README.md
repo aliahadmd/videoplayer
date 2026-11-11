@@ -6,11 +6,12 @@ The current bundle targets **Apple Silicon running macOS 27.2 or later**, matchi
 
 ## Use the app
 
-Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahadmd/videoplayer/releases/tag/v0.1.0), unzip it, and move `Video Player.app` into Applications. Open a file with ⌘O or drop media into the window. Quit earlier builds before opening another copy.
+Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahadmd/videoplayer/releases/tag/v0.2.0), unzip it, and move `Video Player.app` into Applications. Open a file with ⌘O or open a persistent folder Library with ⌘⇧O. Show/hide Library with ⌘⇧L. Quit earlier builds before opening another copy.
 
 **Signing:** this initial release is ad hoc signed and is not notarized. macOS may block a downloaded copy. A Developer ID signed release is future work; building from source is available below. No automatic updater is included.
 
 - Local video/audio files and direct HTTP/HTTPS/RTSP/RTMP media addresses.
+- A persistent folder Library with expandable subfolders, background browsing, natural ordering, missing-drive recovery, and local session restoration.
 - A queue with natural folder ordering, reorder/remove, repeat, saved `.vpqueue` files, and local M3U import. HLS manifests remain a single media source.
 - Seeking, frame stepping, speed with pitch correction, A–B repeat, chapters, and screenshots.
 - Embedded/external subtitles, primary/secondary tracks, timing, scale, and position; ASS styling and multilingual rendering.
@@ -39,6 +40,7 @@ python3 scripts/package.py --output "dist/Video Player 0.1.0/Video Player.app"
 python3 scripts/make-fixtures.py
 python3 scripts/package.py --configuration debug --qa
 python3 scripts/verify.py
+python3 scripts/verify-workspace.py
 ```
 
 Fixture generation requires FFmpeg with x264, x265, VP9 and SVT-AV1 encoders. Tests use generated media, loopback HTTP and untrusted HTTPS servers, and isolated QA data. Add `--https-url <direct-media-url>` to test a trusted online stream. Use `--app <bundle-path>` to verify a particular release bundle. The real playback report is saved to [docs/validation/playback.json](docs/validation/playback.json); assertion failures return a failure status.

@@ -10,8 +10,25 @@ public struct Preferences: Codable, Equatable, Sendable {
     public var subtitleFont = "sans-serif"
     public var subtitleSize = 40.0
     public var appearance = "system"
+    public var rememberWorkspace = true
     public var shortcuts: [String: String] = [:]
     public init() {}
+    private enum CodingKeys: String, CodingKey { case rememberHistory, resumePlayback, autoNext, seekSeconds, volume, hardwareDecoding, subtitleFont, subtitleSize, appearance, shortcuts, rememberWorkspace }
+    public init(from decoder: any Decoder) throws {
+        self.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        rememberHistory = try values.decodeIfPresent(Bool.self, forKey: .rememberHistory) ?? rememberHistory
+        resumePlayback = try values.decodeIfPresent(Bool.self, forKey: .resumePlayback) ?? resumePlayback
+        autoNext = try values.decodeIfPresent(Bool.self, forKey: .autoNext) ?? autoNext
+        seekSeconds = try values.decodeIfPresent(Double.self, forKey: .seekSeconds) ?? seekSeconds
+        volume = try values.decodeIfPresent(Double.self, forKey: .volume) ?? volume
+        hardwareDecoding = try values.decodeIfPresent(Bool.self, forKey: .hardwareDecoding) ?? hardwareDecoding
+        subtitleFont = try values.decodeIfPresent(String.self, forKey: .subtitleFont) ?? subtitleFont
+        subtitleSize = try values.decodeIfPresent(Double.self, forKey: .subtitleSize) ?? subtitleSize
+        appearance = try values.decodeIfPresent(String.self, forKey: .appearance) ?? appearance
+        shortcuts = try values.decodeIfPresent([String: String].self, forKey: .shortcuts) ?? shortcuts
+        rememberWorkspace = try values.decodeIfPresent(Bool.self, forKey: .rememberWorkspace) ?? rememberWorkspace
+    }
 }
 
 public struct ResumeRecord: Codable, Identifiable, Equatable, Sendable {

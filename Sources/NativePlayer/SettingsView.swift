@@ -20,6 +20,11 @@ struct SettingsView: View {
                     Toggle("Resume unfinished files", isOn: $session.preferences.resumePlayback).disabled(!session.preferences.rememberHistory)
                     HStack { Text("History stays on this Mac, limited to 200 files.").font(.system(size: 12)).foregroundStyle(.secondary); Spacer(); Button("Clear History") { session.clearHistory() } }
                 }
+                Section("Library and session") {
+                    Toggle("Remember folders, queue and open panels", isOn: $session.preferences.rememberWorkspace)
+                    Text("Your library stays on this Mac. The last video reopens paused; its position follows the history and resume settings above.").font(.system(size: 12)).foregroundStyle(.secondary)
+                    Text("Folders are read in place. Removing one from the library never deletes its files.").font(.system(size: 12)).foregroundStyle(.secondary)
+                }
                 Section("Appearance and subtitles") {
                     Picker("Appearance", selection: $session.preferences.appearance) { Text("System").tag("system"); Text("Light").tag("light"); Text("Dark").tag("dark") }
                     TextField("Default subtitle font", text: $session.preferences.subtitleFont)
@@ -43,7 +48,7 @@ struct SettingsView: View {
                 Text("Video Player").font(.system(size: 24, weight: .semibold))
                 Text("A native Mac player with precise playback controls.").foregroundStyle(.secondary)
                 Divider()
-                Text("Version 0.1.0 · Apple Silicon · macOS 27.2 or later")
+                Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development") · Apple Silicon · macOS 27.2 or later")
                 Text("Built with Swift, AppKit, SwiftUI, libmpv, FFmpeg and libass. This application is licensed under GPLv3. Native dependency notices and source locations are bundled with the app.").font(.system(size: 13)).foregroundStyle(.secondary)
                 Text("Video presentation uses OpenGL. HDR input is tone mapped to SDR; native HDR presentation and system Picture in Picture are not advertised in this version.").font(.system(size: 12)).foregroundStyle(.secondary)
                 Button("Open Dependency Notices") { if let url = Bundle.main.resourceURL?.appendingPathComponent("Licenses") { NSWorkspace.shared.open(url) } }

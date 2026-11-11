@@ -20,17 +20,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     private var pendingURLs: [URL] = []
     private var terminating = false
     private var selfTest: PlaybackSelfTest?
+    private var workspaceTest: WorkspaceSelfTest?
+    private var sleepObserver: NSObjectProtocol?
     var testExitStatus: Int32 = 0
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         let arguments = CommandLine.arguments
         let testIndex = arguments.firstIndex(of: "--self-test")
         let testDirectory = testIndex.flatMap { $0 + 1 < arguments.count ? URL(fileURLWithPath: arguments[$0 + 1]) : nil }
+        let workspaceIndex = arguments.firstIndex(of: "--workspace-self-test")
+        let workspaceDirectory = workspaceIndex.flatMap { $0 + 1 < arguments.count ? URL(fileURLWithPath: arguments[$0 + 1]) : nil }
         let isQA = Bundle.main.bundleIdentifier?.hasSuffix(".qa") == true
-        let isolatedDirectory = testDirectory?.appendingPathComponent("Session-\(UUID().uuidString)") ?? (isQA ? FileManager.default.temporaryDirectory.appendingPathComponent("VideoPlayer-QA-\(UUID().uuidString)") : nil)
+        let isolatedDirectory = workspaceDirectory?.appendingPathComponent("State") ?? testDirectory?.appendingPathComponent("Session-\(UUID().uuidString)") ?? (isQA ? FileManager.default.temporaryDirectory.appendingPathComponent("VideoPlayer-QA-\(UUID().uuidString)") : nil)
         let session = PlayerSession(directory: isolatedDirectory)
         if isolatedDirectory != nil { session.preferences.volume = 0; session.preferences.rememberHistory = false; session.applyPreferences() }
+        if workspaceDirectory != nil { session.preferences.rememberHistory = true; session.preferences.resumePlayback = true; session.preferences.rememberWorkspace = true }
         self.session = session
+        sleepObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.willSleepNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { self?.session?.saveProgress() }
+        }
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 680), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
         window.title = "Video Player"; window.minSize = NSSize(width: 720, height: 480)
         window.isReleasedWhenClosed = false; window.delegate = self
@@ -47,23 +55,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             return self.handleKey(event)
         }
         window.makeKeyAndOrderFront(nil); NSApp.activate(ignoringOtherApps: true)
-        if let testDirectory {
+        if let workspaceDirectory {
+            let test = WorkspaceSelfTest(session: session, directory: workspaceDirectory)
+            workspaceTest = test; test.start()
+        }
+        else if let testDirectory {
             let test = PlaybackSelfTest(session: session, directory: testDirectory)
             selfTest = test; test.start()
         }
-        else if !pendingURLs.isEmpty { session.open(pendingURLs); pendingURLs = [] }
+        else if !pendingURLs.isEmpty { session.prepareForLaunch(restorePlayback: false); session.open(pendingURLs); pendingURLs = [] }
         else {
             let paths = CommandLine.arguments.dropFirst().filter { !$0.hasPrefix("-") }.map { URL(fileURLWithPath: $0) }
+            session.prepareForLaunch(restorePlayback: paths.isEmpty)
             if !paths.isEmpty { session.open(paths) }
         }
     }
     func application(_ sender: NSApplication, open urls: [URL]) { if let session { playerWindow?.makeKeyAndOrderFront(nil); session.open(urls) } else { pendingURLs += urls } }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { playerWindow?.makeKeyAndOrderFront(nil); return true }
-    func applicationWillTerminate(_ notification: Notification) { if selfTest != nil { exit(testExitStatus) } }
+    func applicationDidResignActive(_ notification: Notification) { session?.saveProgress() }
+    func applicationDidBecomeActive(_ notification: Notification) { if session?.showLibrary == true { session?.library.refreshIfNeeded() } }
+    func applicationWillTerminate(_ notification: Notification) { if selfTest != nil || workspaceTest != nil { exit(testExitStatus) } }
     func windowWillClose(_ notification: Notification) { if (notification.object as? NSWindow) === playerWindow { session?.stop() } }
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard !terminating else { return .terminateLater }
         terminating = true
+        if let sleepObserver { NSWorkspace.shared.notificationCenter.removeObserver(sleepObserver) }
         if let keyMonitor { NSEvent.removeMonitor(keyMonitor) }
         guard let session else { return .terminateNow }
         session.shutdown {
@@ -99,6 +115,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     func validateMenuItem(_ item: NSMenuItem) -> Bool {
         guard let session, let raw = item.representedObject as? String, let command = PlayerCommand(rawValue: raw) else { return true }
         switch command {
+        case .toggleLibrary: item.state = session.showLibrary ? .on : .off
         case .toggleQueue: item.state = session.showQueue ? .on : .off
         case .toggleInspector: item.state = session.showInspector ? .on : .off
         case .alwaysOnTop: item.state = session.floating ? .on : .off
@@ -106,7 +123,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         default: break
         }
         switch command {
-        case .open, .openFolder, .openURL, .addFiles, .toggleQueue, .toggleInspector, .commands, .fullscreen, .alwaysOnTop, .compactPlayer: return true
+        case .open, .openFolder, .openURL, .addFiles, .toggleLibrary, .toggleQueue, .toggleInspector, .commands, .fullscreen, .alwaysOnTop, .compactPlayer: return true
         case .saveQueue: return !session.queue.items.isEmpty
         case .togglePause: return session.currentItem != nil
         case .next: return session.queue.followingIndex(automatic: false) != nil
@@ -129,7 +146,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         }
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
-    @objc func about(_ sender: Any?) { NSApp.orderFrontStandardAboutPanel(options: [.applicationName: "Video Player", .applicationVersion: "0.1.0", .credits: NSAttributedString(string: "Native playback with libmpv, FFmpeg and libass.\nGPLv3 · See Settings → About for dependency notices.")]) }
+    @objc func about(_ sender: Any?) { NSApp.orderFrontStandardAboutPanel(options: [.applicationName: "Video Player", .applicationVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development", .credits: NSAttributedString(string: "Native playback with libmpv, FFmpeg and libass.\nGPLv3 · See Settings → About for dependency notices.")]) }
     private func buildMenu() {
         let main = NSMenu()
         func submenu(_ title: String) -> NSMenu {
@@ -161,7 +178,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         add([.fullscreen, .alwaysOnTop, .screenshot, .resetAdjustments], to: submenu("Video"))
         add([.volumeDown, .volumeUp, .mute, .audioEarlier, .audioLater], to: submenu("Audio"))
         add([.attachSubtitle, .subtitleEarlier, .subtitleLater], to: submenu("Subtitles"))
-        add([.toggleQueue, .toggleInspector, .compactPlayer, .commands], to: submenu("View"))
+        add([.toggleLibrary, .toggleQueue, .toggleInspector, .compactPlayer, .commands], to: submenu("View"))
         let windows = submenu("Window")
         windows.addItem(withTitle: "Minimize", action: #selector(NSWindow.miniaturize(_:)), keyEquivalent: "m")
         windows.addItem(withTitle: "Close", action: #selector(NSWindow.performClose(_:)), keyEquivalent: "w")
@@ -193,6 +210,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         guard let key = named[event.keyCode] ?? event.charactersIgnoringModifiers?.lowercased() else { return event }
         var modifiers: Set<String> = []
         if event.modifierFlags.contains(.command) { modifiers.insert("cmd") }; if event.modifierFlags.contains(.control) { modifiers.insert("ctrl") }; if event.modifierFlags.contains(.option) { modifiers.insert("alt") }; if event.modifierFlags.contains(.shift) { modifiers.insert("shift") }
+        if modifiers.isEmpty, ["left", "right", "up", "down"].contains(key) {
+            var view = event.window?.firstResponder as? NSView
+            while let focused = view {
+                if focused is NSTableView { return event }
+                view = focused.superview
+            }
+        }
         for command in PlayerCommand.allCases {
             if let shortcut = Shortcut(session.preferences.shortcuts[command.rawValue] ?? command.defaultShortcut), shortcut.key == key, shortcut.modifiers == modifiers {
                 let repeatable: Set<PlayerCommand> = [.backward, .forward, .longBackward, .longForward, .frameForward, .frameBackward, .volumeUp, .volumeDown, .speedUp, .speedDown, .subtitleEarlier, .subtitleLater, .audioEarlier, .audioLater]
@@ -214,13 +238,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
 final class PlayerToolbar: NSObject, NSToolbarDelegate {
     weak var target: AppDelegate?
     init(target: AppDelegate) { self.target = target }
-    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { [.init("open"), .flexibleSpace, .init("toggleQueue"), .init("toggleInspector")] }
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { [.init("toggleLibrary"), .init("open"), .init("openFolder"), .flexibleSpace, .init("toggleQueue"), .init("toggleInspector")] }
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] { toolbarDefaultItemIdentifiers(toolbar) }
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier identifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         guard let command = PlayerCommand(rawValue: identifier.rawValue) else { return nil }
         let item = NSToolbarItem(itemIdentifier: identifier)
         item.label = command.title; item.toolTip = command.title
-        item.image = NSImage(systemSymbolName: command == .open ? "folder" : command == .toggleQueue ? "list.bullet" : "sidebar.right", accessibilityDescription: command.title)
+        let symbols: [PlayerCommand: String] = [.open: "doc", .openFolder: "folder.badge.plus", .toggleLibrary: "sidebar.left", .toggleQueue: "list.bullet", .toggleInspector: "sidebar.right"]
+        item.image = NSImage(systemSymbolName: symbols[command] ?? "sidebar.right", accessibilityDescription: command.title)
         item.target = target; item.action = #selector(AppDelegate.toolbarAction(_:)); return item
     }
 }

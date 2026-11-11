@@ -1,7 +1,7 @@
 import Foundation
 
 public enum PlayerCommand: String, Codable, CaseIterable, Identifiable, Sendable {
-    case open, openFolder, openURL, addFiles, saveQueue, attachSubtitle, togglePause, stop, backward, forward, longBackward, longForward, previous, next, frameForward, frameBackward, speedUp, speedDown, normalSpeed, volumeUp, volumeDown, mute, fullscreen, alwaysOnTop, compactPlayer, toggleQueue, toggleInspector, screenshot, loopA, loopB, clearLoop, subtitleEarlier, subtitleLater, audioEarlier, audioLater, resetAdjustments, jumpToTime, commands
+    case open, openFolder, openURL, addFiles, saveQueue, attachSubtitle, togglePause, stop, backward, forward, longBackward, longForward, previous, next, frameForward, frameBackward, speedUp, speedDown, normalSpeed, volumeUp, volumeDown, mute, fullscreen, alwaysOnTop, compactPlayer, toggleLibrary, toggleQueue, toggleInspector, screenshot, loopA, loopB, clearLoop, subtitleEarlier, subtitleLater, audioEarlier, audioLater, resetAdjustments, jumpToTime, commands
     public var id: String { rawValue }
     public var title: String {
         switch self {
@@ -11,6 +11,7 @@ public enum PlayerCommand: String, Codable, CaseIterable, Identifiable, Sendable
         case .speedUp: "Increase Speed"; case .speedDown: "Decrease Speed"; case .normalSpeed: "Normal Speed"
         case .volumeUp: "Increase Volume"; case .volumeDown: "Decrease Volume"; case .mute: "Mute / Unmute"
         case .fullscreen: "Toggle Full Screen"; case .alwaysOnTop: "Float on Top"; case .compactPlayer: "Toggle Compact Player"; case .toggleQueue: "Show Queue"; case .toggleInspector: "Show Inspector"
+        case .toggleLibrary: "Show Library"
         case .screenshot: "Save Screenshot"; case .loopA: "Set Loop Start"; case .loopB: "Set Loop End"; case .clearLoop: "Clear A–B Loop"
         case .subtitleEarlier: "Subtitles 0.1s Earlier"; case .subtitleLater: "Subtitles 0.1s Later"; case .audioEarlier: "Audio 0.1s Earlier"; case .audioLater: "Audio 0.1s Later"
         case .resetAdjustments: "Reset Current File Adjustments"; case .jumpToTime: "Go to Time…"; case .commands: "Find Command…"
@@ -24,6 +25,7 @@ public enum PlayerCommand: String, Codable, CaseIterable, Identifiable, Sendable
         case .speedUp: "]"; case .speedDown: "["; case .normalSpeed: "backspace"
         case .volumeUp: "up"; case .volumeDown: "down"; case .mute: "m"
         case .fullscreen: "cmd+ctrl+f"; case .alwaysOnTop: "cmd+t"; case .compactPlayer: "cmd+shift+m"; case .toggleQueue: "cmd+shift+p"; case .toggleInspector: "cmd+i"
+        case .toggleLibrary: "cmd+shift+l"
         case .screenshot: "cmd+s"; case .loopA: "a"; case .loopB: "b"; case .clearLoop: "shift+b"
         case .subtitleEarlier: "z"; case .subtitleLater: "x"; case .audioEarlier: "shift+z"; case .audioLater: "shift+x"
         case .resetAdjustments: "cmd+shift+r"; case .jumpToTime: "cmd+j"; case .commands: "cmd+shift+k"
