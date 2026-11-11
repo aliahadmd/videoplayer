@@ -229,6 +229,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     private func load(_ item: MediaItem, paused: Bool = false, restore: ResumeRecord? = nil, startupRestore: Bool = false) {
         currentLoadID = UUID()
         currentItem = item; loaded = false; phase = "Opening…"; errorMessage = nil; notice = nil
+        if !startupRestore { workspaceSpeed = 1 }
         values = values.filter { globalProperties.contains($0.key) }
         pendingRestore = preferences.rememberHistory ? (restore ?? history.first { $0.url == item.url }) : nil
         pendingWorkspacePosition = restore.flatMap { $0.position.isFinite && $0.position >= 0 && $0.duration.isFinite && $0.duration > 0 && $0.position < $0.duration - 0.25 ? $0.position : nil }
@@ -240,6 +241,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         engine?.command(["loadfile", item.url.isFileURL ? item.url.path : item.url.absoluteString, "replace"], itemID: currentLoadID)
         engine?.set("pause", paused)
         window?.title = item.title
+        saveWorkspace()
     }
     func attachSubtitle(_ url: URL) {
         guard loaded else { errorMessage = "Open a video before adding subtitles."; return }
@@ -502,11 +504,17 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
             let result = await Self.resolveSavedItem(current)
             let resolved = result.item
             guard !Task.isCancelled, self.queue.current?.id == item.id else { return }
+            if let previous = self.queue.current?.url, previous != resolved.url, self.workspacePlayback?.url == previous {
+                self.workspacePlayback?.url = resolved.url
+                self.workspacePlayback?.bookmark = resolved.bookmark
+            }
             self.currentItem = resolved
+            self.queue.update(resolved)
             guard resolved.url.isFileURL else { self.phase = "Ready to resume"; return }
             guard result.readable else { self.phase = "File unavailable"; self.notice = "Reconnect the drive or select a video in your library. Your queue has been kept."; return }
             self.restoredSpeed = self.savedWorkspace.speed
-            self.load(resolved, paused: true, restore: self.preferences.resumePlayback ? self.workspacePlayback : nil, startupRestore: true)
+            let checkpoint = self.workspacePlayback.flatMap { $0.url == resolved.url ? $0 : nil }
+            self.load(resolved, paused: true, restore: self.preferences.resumePlayback ? checkpoint : nil, startupRestore: true)
         }
     }
     @concurrent private static func resolveSavedItem(_ item: MediaItem) async -> (item: MediaItem, readable: Bool) {
@@ -527,7 +535,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         state.folders = library.folders; state.queue = queue.items; state.currentID = queue.currentID
         state.repeatMode = queue.repeatMode; state.showLibrary = showLibrary; state.sidebar = sidebar?.rawValue
         state.speed = workspaceSpeed
-        if preferences.rememberHistory, let item = currentItem, item.url.isFileURL {
+        if preferences.rememberHistory, let item = currentItem, item.id == queue.currentID, item.url == queue.current?.url, item.url.isFileURL {
             if loaded && startupResumeTarget == nil { state.playback = ResumeRecord(url: item.url, bookmark: item.bookmark, position: position, duration: duration, subtitleDelay: subtitleDelay, audioDelay: audioDelay) }
             else if workspacePlayback?.url == item.url { state.playback = workspacePlayback }
         }

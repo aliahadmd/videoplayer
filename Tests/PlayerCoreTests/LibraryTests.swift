@@ -99,3 +99,17 @@ private func temporaryFolder() throws -> URL {
     #expect(nodes.count == 10_005)
     #expect(LibraryFiles.queueWindow(nodes, selecting: nodes[0].id).first?.id == nodes[0].id)
 }
+
+@Test func workspaceCannotAssociatePlaybackWithAnotherQueueItem() throws {
+    let first = MediaItem(url: URL(fileURLWithPath: "/first.mp4"))
+    let second = MediaItem(url: URL(fileURLWithPath: "/second.mp4"))
+    var state = WorkspaceState(); state.queue = [first, second]; state.currentID = second.id
+    state.playback = ResumeRecord(url: first.url, position: 8, duration: 14)
+    #expect(throws: WorkspaceFailure.self) { try state.validate() }
+    state.playback = ResumeRecord(url: second.url, position: 8, duration: 14)
+    try state.validate()
+    var queue = PlaybackQueue(); queue.replace([first, second]); queue.select(second.id)
+    let moved = MediaItem(url: URL(fileURLWithPath: "/moved.mp4"), id: second.id)
+    queue.update(moved)
+    #expect(queue.current == moved && queue.currentIndex == 1)
+}

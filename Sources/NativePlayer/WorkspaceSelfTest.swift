@@ -94,6 +94,12 @@ final class WorkspaceSelfTest {
                 session.library.relink(root.id, to: relocated)
                 try await wait("Relocating a media root updates its queued file paths") { session.queue.items.allSatisfy { $0.url.path.hasPrefix(relocated.path + "/") } && session.queue.currentIndex == 1 && session.currentItem?.url.path.hasPrefix(relocated.path + "/") == true }
                 try await wait("Relocated root keeps its expanded branches") { session.library.children[extras]?.count == 1 && session.library.folders[0].expandedPaths.contains("Season 2/Extras") }
+                let selected = session.queue.current!
+                session.queue.select(session.queue.items[0].id)
+                try await wait("Selection changes cannot save another video's checkpoint") { persisted()?.currentID == session.queue.currentID && persisted()?.playback == nil }
+                session.select(selected)
+                try await wait("Playback and queue selection remain consistent after a switch") { session.loaded && session.currentItem?.id == selected.id && session.queue.currentID == selected.id }
+                session.set("pause", true)
             }
         }
     }

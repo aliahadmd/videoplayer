@@ -78,6 +78,10 @@ public struct WorkspaceState: Codable, Equatable, Sendable {
               folders.allSatisfy({ $0.url.isFileURL && $0.expandedPaths.count <= 50_000 && $0.expandedPaths.allSatisfy(LibraryLocation.valid) }),
               queue.allSatisfy({ ["file", "http", "https", "rtsp", "rtmp"].contains($0.url.scheme?.lowercased() ?? "") }),
               speed.isFinite && (0.25...4).contains(speed) else { throw WorkspaceFailure.invalid }
+        if let playback {
+            guard queue.first(where: { $0.id == currentID })?.url == playback.url,
+                  [playback.position, playback.duration, playback.subtitleDelay, playback.audioDelay].allSatisfy(\.isFinite), playback.position >= 0, playback.duration >= 0 else { throw WorkspaceFailure.invalid }
+        }
     }
 }
 

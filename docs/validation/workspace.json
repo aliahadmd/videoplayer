@@ -34,7 +34,9 @@
     "Adding the same root does not duplicate it",
     "Refresh discovers newly added videos",
     "Relocating a media root updates its queued file paths",
-    "Relocated root keeps its expanded branches"
+    "Relocated root keeps its expanded branches",
+    "Selection changes cannot save another video's checkpoint",
+    "Playback and queue selection remain consistent after a switch"
   ],
   "phases": [
     {
@@ -51,7 +53,7 @@
         "Hiding the library retains folders",
         "Library and expansion state save without quitting"
       ],
-      "date": "2026-11-11T13:45:03Z",
+      "date": "2026-11-11T13:50:29Z",
       "phase": "save",
       "success": true
     },
@@ -66,7 +68,7 @@
         "Timing and speed restore",
         "Checkpoint reaches disk before forced termination"
       ],
-      "date": "2026-11-11T13:45:04Z",
+      "date": "2026-11-11T13:50:30Z",
       "phase": "crash",
       "success": true
     },
@@ -85,9 +87,11 @@
         "Adding the same root does not duplicate it",
         "Refresh discovers newly added videos",
         "Relocating a media root updates its queued file paths",
-        "Relocated root keeps its expanded branches"
+        "Relocated root keeps its expanded branches",
+        "Selection changes cannot save another video's checkpoint",
+        "Playback and queue selection remain consistent after a switch"
       ],
-      "date": "2026-11-11T13:45:05Z",
+      "date": "2026-11-11T13:50:31Z",
       "phase": "restore",
       "success": true
     }

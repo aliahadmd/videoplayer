@@ -65,6 +65,10 @@ public struct PlaybackQueue: Sendable {
         let item = items.remove(at: index)
         items.insert(item, at: destination)
     }
+    public mutating func update(_ item: MediaItem) {
+        guard let index = items.firstIndex(where: { $0.id == item.id }) else { return }
+        items[index] = item
+    }
 }
 
 public enum MediaFiles {
