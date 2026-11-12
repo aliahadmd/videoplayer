@@ -72,10 +72,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
     }
     func application(_ sender: NSApplication, open urls: [URL]) { if let session { playerWindow?.makeKeyAndOrderFront(nil); session.open(urls) } else { pendingURLs += urls } }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool { playerWindow?.makeKeyAndOrderFront(nil); return true }
-    func applicationDidResignActive(_ notification: Notification) { session?.saveProgress() }
+    func applicationDidResignActive(_ notification: Notification) { session?.fullscreen.reveal(); session?.saveProgress() }
     func applicationDidBecomeActive(_ notification: Notification) { if session?.showLibrary == true { session?.library.refreshIfNeeded() } }
     func applicationWillTerminate(_ notification: Notification) { if selfTest != nil || workspaceTest != nil { exit(testExitStatus) } }
-    func windowWillClose(_ notification: Notification) { if (notification.object as? NSWindow) === playerWindow { session?.stop() } }
+    func windowWillClose(_ notification: Notification) { if (notification.object as? NSWindow) === playerWindow { session?.fullscreen.exit(); session?.stop() } }
+    func window(_ window: NSWindow, willUseFullScreenPresentationOptions proposedOptions: NSApplication.PresentationOptions) -> NSApplication.PresentationOptions {
+        proposedOptions.subtracting(.hideMenuBar).union([.fullScreen, .autoHideMenuBar, .autoHideToolbar])
+    }
+    func windowWillEnterFullScreen(_ notification: Notification) { if let window = notification.object as? NSWindow, window === playerWindow { session?.fullscreen.enter(window) } }
+    func windowDidEnterFullScreen(_ notification: Notification) { session?.fullscreen.entered() }
+    func windowWillExitFullScreen(_ notification: Notification) { session?.fullscreen.willExit() }
+    func windowDidExitFullScreen(_ notification: Notification) { session?.fullscreen.exit() }
+    func windowDidFailToEnterFullScreen(_ window: NSWindow) { session?.fullscreen.exit() }
+    func windowDidFailToExitFullScreen(_ window: NSWindow) { session?.fullscreen.entered() }
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard !terminating else { return .terminateLater }
         terminating = true
@@ -205,9 +214,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         return flags
     }
     private func handleKey(_ event: NSEvent) -> NSEvent? {
+        if event.window === playerWindow { session?.fullscreen.reveal() }
         guard let session, event.window === playerWindow, !(event.window?.firstResponder is NSTextView), !session.showCommands, !session.showJump else { return event }
         let named: [UInt16: String] = [49: "space", 123: "left", 124: "right", 125: "down", 126: "up", 51: "backspace", 36: "return", 53: "escape"]
         guard let key = named[event.keyCode] ?? event.charactersIgnoringModifiers?.lowercased() else { return event }
+        if key == "escape", session.fullscreen.active { session.perform(.fullscreen); return nil }
         var modifiers: Set<String> = []
         if event.modifierFlags.contains(.command) { modifiers.insert("cmd") }; if event.modifierFlags.contains(.control) { modifiers.insert("ctrl") }; if event.modifierFlags.contains(.option) { modifiers.insert("alt") }; if event.modifierFlags.contains(.shift) { modifiers.insert("shift") }
         if modifiers.isEmpty, ["left", "right", "up", "down"].contains(key) {

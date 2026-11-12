@@ -9,7 +9,7 @@ struct PlayerRootView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                if session.showLibrary && !session.compact { LibraryView(session: session).frame(width: 260); Divider() }
+                if session.showLibrary && !session.compact && !session.fullscreen.active { LibraryView(session: session).frame(width: 260); Divider() }
                 ZStack {
                     Color.black
                     VideoSurface(session: session)
@@ -37,28 +37,38 @@ struct PlayerRootView: View {
                         }.padding(24)
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                if session.showQueue { Divider(); QueueView(session: session).frame(width: 255) }
-                else if session.showInspector { Divider(); InspectorView(session: session).frame(width: 292) }
+                if session.showQueue && !session.fullscreen.active { Divider(); QueueView(session: session).frame(width: 255) }
+                else if session.showInspector && !session.fullscreen.active { Divider(); InspectorView(session: session).frame(width: 292) }
             }
-            Divider()
-            if let error = session.errorMessage ?? (session.showLibrary ? nil : session.workspaceSaveError) {
-                HStack(alignment: .top, spacing: 10) {
-                    Image(systemName: "exclamationmark.circle").foregroundStyle(.red)
-                    Text(error).font(.system(size: 12)).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
-                    if session.errorMessage == nil { Button("Retry Save") { session.saveWorkspace() }.buttonStyle(.link) }
-                    else { Button { session.errorMessage = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss error") }
-                }.padding(12).background(.red.opacity(0.06))
-                Divider()
-            } else if let notice = session.notice {
-                HStack {
-                    Text(notice).font(.system(size: 12)).foregroundStyle(.secondary)
-                    if notice.hasPrefix("Resumed") { Button("Start Over") { session.seek(0); session.notice = nil }.buttonStyle(.link) }
-                    Spacer()
-                    Button { session.notice = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss message")
-                }.padding(.horizontal, 16).padding(.vertical, 8)
-                Divider()
+            if !session.fullscreen.active { Divider(); bottomChrome }
+        }
+        .overlay(alignment: .top) {
+            if session.fullscreen.active {
+                FullscreenHeader(session: session).padding(.top, 48)
+                    .environment(\.colorScheme, .dark)
+                    .opacity(session.fullscreen.visible ? 1 : 0)
+                    .allowsHitTesting(session.fullscreen.visible).accessibilityHidden(!session.fullscreen.visible)
+                    .onGeometryChange(for: Double.self, of: { $0.size.height }) { session.fullscreen.topHeight = $0 }
             }
-            TransportView(session: session)
+        }
+        .overlay(alignment: .bottom) {
+            if session.fullscreen.active {
+                VStack(spacing: 0) { bottomChrome }.environment(\.colorScheme, .dark)
+                    .opacity(session.fullscreen.visible ? 1 : 0)
+                    .allowsHitTesting(session.fullscreen.visible).accessibilityHidden(!session.fullscreen.visible)
+                    .onGeometryChange(for: Double.self, of: { $0.size.height }) { session.fullscreen.bottomHeight = $0 }
+            }
+        }
+        .overlay(alignment: .leading) {
+            if session.fullscreen.active && session.showLibrary {
+                LibraryView(session: session).frame(width: 260).padding(.top, session.fullscreen.topHeight).padding(.bottom, session.fullscreen.bottomHeight).environment(\.colorScheme, .dark)
+            }
+        }
+        .overlay(alignment: .trailing) {
+            if session.fullscreen.active && (session.showQueue || session.showInspector) {
+                Group { if session.showQueue { QueueView(session: session) } else { InspectorView(session: session) } }
+                    .frame(width: 292).padding(.top, session.fullscreen.topHeight).padding(.bottom, session.fullscreen.bottomHeight).environment(\.colorScheme, .dark)
+            }
         }
         .onDrop(of: [.fileURL, .url], isTargeted: nil) { providers in
             let group = DispatchGroup()
@@ -82,6 +92,26 @@ struct PlayerRootView: View {
                 HStack { Button("Cancel") { session.showJump = false }.keyboardShortcut(.cancelAction); Spacer(); Button("Go", action: jump).keyboardShortcut(.defaultAction) }
             }.padding(24).frame(width: 370)
         }
+    }
+    @ViewBuilder private var bottomChrome: some View {
+        if let error = session.errorMessage ?? (session.showLibrary ? nil : session.workspaceSaveError) {
+            HStack(alignment: .top, spacing: 10) {
+                Image(systemName: "exclamationmark.circle").foregroundStyle(.red)
+                Text(error).font(.system(size: 12)).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
+                if session.errorMessage == nil { Button("Retry Save") { session.saveWorkspace() }.buttonStyle(.link) }
+                else { Button { session.errorMessage = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss error") }
+            }.padding(12).background(.red.opacity(0.06))
+            Divider()
+        } else if let notice = session.notice {
+            HStack {
+                Text(notice).font(.system(size: 12)).foregroundStyle(.secondary)
+                if notice.hasPrefix("Resumed") { Button("Start Over") { session.seek(0); session.notice = nil }.buttonStyle(.link) }
+                Spacer()
+                Button { session.notice = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss message")
+            }.padding(.horizontal, 16).padding(.vertical, 8).background(.bar)
+            Divider()
+        }
+        TransportView(session: session)
     }
     private func jump() {
         guard let value = TimeText.parse(jumpText), session.seekable, value <= session.duration || session.duration == 0 else { jumpError = "Enter a valid time within this media file."; return }
@@ -107,6 +137,7 @@ struct TransportView: View {
                 Slider(value: Binding(get: { scrubbing ? scrubPosition : min(session.position, max(session.duration, 1)) }, set: { scrubPosition = $0; if !scrubbing { session.seek($0) } }), in: 0...max(session.duration, 1), onEditingChanged: { editing in
                     if editing { scrubbing = true }
                     else { session.seek(scrubPosition); scrubbing = false }
+                    session.fullscreen.setScrubbing(editing)
                 }).disabled(!session.loaded || !session.seekable).accessibilityLabel("Playback position").accessibilityValue("\(TimeText.string(session.position)) of \(TimeText.string(session.duration))")
                 Text(session.duration > 0 ? "−" + TimeText.string(max(0, session.duration - (scrubbing ? scrubPosition : session.position))) : "—:—").monospacedDigit().frame(width: 70, alignment: .trailing)
             }.font(.system(size: 12)).foregroundStyle(.secondary)
@@ -130,6 +161,23 @@ struct TransportView: View {
     }
     private func control(_ command: PlayerCommand, _ symbol: String) -> some View {
         Button { session.perform(command) } label: { Image(systemName: symbol).frame(width: 24, height: 28) }.buttonStyle(.plain).help("\(command.title)  \(session.shortcut(command))").accessibilityLabel(command.title)
+    }
+}
+
+private struct FullscreenHeader: View {
+    var session: PlayerSession
+    var body: some View {
+        HStack(spacing: 20) {
+            Button { session.perform(.fullscreen) } label: { Image(systemName: "arrow.down.right.and.arrow.up.left") }.help("Exit full screen (Esc)").accessibilityLabel("Exit Full Screen")
+            Text(session.currentItem?.title ?? "Video Player").font(.system(size: 13, weight: .medium)).lineLimit(1)
+            Spacer()
+            button(.toggleLibrary, "sidebar.left")
+            button(.toggleQueue, "list.bullet")
+            button(.toggleInspector, "sidebar.right")
+        }.font(.system(size: 14)).buttonStyle(.plain).padding(.horizontal, 24).padding(.vertical, 14).background(.bar)
+    }
+    private func button(_ command: PlayerCommand, _ symbol: String) -> some View {
+        Button { session.perform(command) } label: { Image(systemName: symbol).frame(width: 24, height: 24) }.help(command.title).accessibilityLabel(command.title)
     }
 }
 

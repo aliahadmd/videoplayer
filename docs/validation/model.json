@@ -1,7 +1,7 @@
 {
   "command": "swift test",
   "success": true,
-  "test_count": 21,
-  "date": "2026-11-11T13:53:13.162782+00:00",
-  "log_sha256": "610908d2313a0918858d306fde4d7ffe2f161483fc570aee30cefaf8fd988d5f"
+  "test_count": 26,
+  "date": "2026-11-12T12:40:18.178506+00:00",
+  "log_sha256": "9e513c853cad10df2d30705df9f32a943afb927e2ef6c56fdccdeec276e1ae59"
 }

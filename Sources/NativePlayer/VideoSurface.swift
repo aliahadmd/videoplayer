@@ -80,6 +80,7 @@ final class VideoOpenGLView: NSOpenGLView {
         let attributes: [NSOpenGLPixelFormatAttribute] = [UInt32(NSOpenGLPFAOpenGLProfile), UInt32(NSOpenGLProfileVersion3_2Core), UInt32(NSOpenGLPFADoubleBuffer), UInt32(NSOpenGLPFAAccelerated), UInt32(NSOpenGLPFAColorSize), 24, UInt32(NSOpenGLPFAAlphaSize), 8, 0]
         super.init(frame: .zero, pixelFormat: NSOpenGLPixelFormat(attributes: attributes))
         wantsBestResolutionOpenGLSurface = true
+        session.videoView = self
         setAccessibilityLabel("Video playback")
         registerForDraggedTypes([.fileURL, .URL])
     }

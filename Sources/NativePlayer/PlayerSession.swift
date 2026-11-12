@@ -19,7 +19,14 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
 @Observable final class PlayerSession {
     var queue = PlaybackQueue() { didSet { saveWorkspace() } }
     let library: FolderLibrary
-    var showLibrary = false { didSet { saveWorkspace() } }
+    let fullscreen = FullscreenControls()
+    private var windowLibrary = false { didSet { saveWorkspace() } }
+    private var fullscreenLibrary = false
+    private var fullscreenSidebar: Sidebar?
+    var showLibrary: Bool {
+        get { fullscreen.active ? fullscreenLibrary : windowLibrary }
+        set { if fullscreen.active { fullscreenLibrary = newValue; fullscreen.reveal() } else { windowLibrary = newValue } }
+    }
     private(set) var workspaceSaveError: String?
     private(set) var workspaceSaving = false
     var currentItem: MediaItem?
@@ -31,12 +38,18 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     private enum Sidebar: String { case queue, inspector }
     private var sidebar: Sidebar? { didSet { saveWorkspace() } }
     var showQueue: Bool {
-        get { sidebar == .queue }
-        set { if newValue { sidebar = .queue } else if sidebar == .queue { sidebar = nil } }
+        get { (fullscreen.active ? fullscreenSidebar : sidebar) == .queue }
+        set {
+            if fullscreen.active { if newValue { fullscreenSidebar = .queue } else if fullscreenSidebar == .queue { fullscreenSidebar = nil }; fullscreen.reveal() }
+            else { if newValue { sidebar = .queue } else if sidebar == .queue { sidebar = nil } }
+        }
     }
     var showInspector: Bool {
-        get { sidebar == .inspector }
-        set { if newValue { sidebar = .inspector } else if sidebar == .inspector { sidebar = nil } }
+        get { (fullscreen.active ? fullscreenSidebar : sidebar) == .inspector }
+        set {
+            if fullscreen.active { if newValue { fullscreenSidebar = .inspector } else if fullscreenSidebar == .inspector { fullscreenSidebar = nil }; fullscreen.reveal() }
+            else { if newValue { sidebar = .inspector } else if sidebar == .inspector { sidebar = nil } }
+        }
     }
     var showCommands = false
     var showJump = false
@@ -48,6 +61,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     var history: [ResumeRecord]
     var engine: PlaybackEngine?
     var renderer: GLRenderer?
+    weak var videoView: NSView?
     weak var window: NSWindow?
     var settingsAction: (() -> Void)?
     var bindingsChanged: (() -> Void)?
@@ -119,6 +133,11 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         library.relocated = { [weak self] previous, next in self?.relocateWorkspace(from: previous, to: next) }
         workspaceSaveError = restorationError
         workspaceReady = true
+        fullscreen.canHide = { [weak self] in
+            guard let self else { return false }
+            return self.playing && self.tracks.contains { $0.type == "video" } && self.values["paused-for-cache"]?.flag != true && self.errorMessage == nil && self.workspaceSaveError == nil && !self.showCommands && !self.showJump && !self.fullscreenLibrary && self.fullscreenSidebar == nil
+        }
+        fullscreen.onExit = { [weak self] in self?.fullscreenLibrary = false; self?.fullscreenSidebar = nil }
     }
     var position: Double { finite("time-pos") }
     var duration: Double { finite("duration") }
@@ -283,7 +302,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         case .toggleQueue: showQueue.toggle(); if showQueue { showInspector = false }
         case .toggleInspector: showInspector.toggle(); if showInspector { showQueue = false }
         case .commands: showCommands = true; case .jumpToTime: showJump = true
-        case .fullscreen: window?.toggleFullScreen(nil)
+        case .fullscreen: if !fullscreen.transitioning { window?.toggleFullScreen(nil) }
         case .alwaysOnTop: floating.toggle(); window?.level = floating ? .floating : .normal
         case .compactPlayer: toggleCompact()
         case .togglePause: togglePause(); case .stop: stop(); case .previous: previous(); case .next: next()
@@ -318,7 +337,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         catch { errorMessage = error.localizedDescription }
     }
     private func toggleCompact() {
-        guard let window, !window.styleMask.contains(.fullScreen) else { return }
+        guard let window, !fullscreen.active, !fullscreen.transitioning, !window.styleMask.contains(.fullScreen) else { return }
         if compact {
             compact = false; window.minSize = NSSize(width: 720, height: 480)
             if let frame = normalFrame { window.setFrame(frame, display: true) }
@@ -395,6 +414,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         if name == "time-pos", loaded, paused || Date().timeIntervalSince(lastSystemPlaybackUpdate) >= 1 { updateSystemPlayback() }
         if name == "pause" || name == "duration" || name == "speed" { updateSystemPlayback() }
         if name == "pause", value.flag, loaded { saveProgress() }
+        if ["pause", "paused-for-cache", "track-list"].contains(name) { fullscreen.evaluate() }
         if name == "volume" { preferences.volume = value.number }
     }
     private func finishLoading() {
@@ -451,7 +471,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         } else if !playing, powerAssertion != 0 { IOPMAssertionRelease(powerAssertion); powerAssertion = 0 }
     }
     func shutdown(_ completion: @escaping @Sendable () -> Void) {
-        openTask?.cancel(); restoreTask?.cancel(); library.stop(); saveProgress()
+        openTask?.cancel(); restoreTask?.cancel(); library.stop(); fullscreen.exit(); saveProgress()
         let finalState = workspaceState()
         workspaceRevision += 1
         let revision = workspaceRevision
@@ -533,7 +553,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         guard preferences.rememberWorkspace else { return WorkspaceState() }
         var state = WorkspaceState()
         state.folders = library.folders; state.queue = queue.items; state.currentID = queue.currentID
-        state.repeatMode = queue.repeatMode; state.showLibrary = showLibrary; state.sidebar = sidebar?.rawValue
+        state.repeatMode = queue.repeatMode; state.showLibrary = windowLibrary; state.sidebar = sidebar?.rawValue
         state.speed = workspaceSpeed
         if preferences.rememberHistory, let item = currentItem, item.id == queue.currentID, item.url == queue.current?.url, item.url.isFileURL {
             if loaded && startupResumeTarget == nil { state.playback = ResumeRecord(url: item.url, bookmark: item.bookmark, position: position, duration: duration, subtitleDelay: subtitleDelay, audioDelay: audioDelay) }

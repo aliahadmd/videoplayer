@@ -6,7 +6,7 @@ os.chdir(root)
 parser = argparse.ArgumentParser()
 parser.add_argument('--configuration', choices=['debug', 'release'], default='release')
 parser.add_argument('--qa', action='store_true')
-parser.add_argument('--version', default='0.2.0')
+parser.add_argument('--version', default='0.2.1')
 parser.add_argument('--output', type=pathlib.Path, help='Destination .app path; use a new path while another build is running')
 args = parser.parse_args()
 subprocess.run(['swift', 'build', '-c', args.configuration], check=True)
@@ -30,7 +30,7 @@ if (root / 'ThirdParty/README.md').exists():
 info = {
     'CFBundleName': 'Video Player', 'CFBundleDisplayName': 'Video Player',
     'CFBundleIdentifier': 'com.aliahad.videoplayer.qa' if args.qa else 'com.aliahad.videoplayer', 'CFBundleExecutable': 'VideoPlayer',
-    'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': args.version, 'CFBundleVersion': '2',
+    'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': args.version, 'CFBundleVersion': '3',
     'LSMinimumSystemVersion': '27.2', 'NSHighResolutionCapable': True,
     'NSPrincipalClass': 'NSApplication', 'LSApplicationCategoryType': 'public.app-category.video',
     'CFBundleIconFile': 'AppIcon',

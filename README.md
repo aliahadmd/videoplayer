@@ -6,7 +6,7 @@ The current bundle targets **Apple Silicon running macOS 27.2 or later**, matchi
 
 ## Use the app
 
-Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahadmd/videoplayer/releases/tag/v0.2.0), unzip it, and move `Video Player.app` into Applications. Open a file with ⌘O or open a persistent folder Library with ⌘⇧O. Show/hide Library with ⌘⇧L. Quit earlier builds before opening another copy.
+Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahadmd/videoplayer/releases/tag/v0.2.1), unzip it, and move `Video Player.app` into Applications. Open a file with ⌘O or open a persistent folder Library with ⌘⇧O. Show/hide Library with ⌘⇧L. Quit earlier builds before opening another copy.
 
 **Signing:** this initial release is ad hoc signed and is not notarized. macOS may block a downloaded copy. A Developer ID signed release is future work; building from source is available below. No automatic updater is included.
 
@@ -17,7 +17,7 @@ Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahad
 - Embedded/external subtitles, primary/secondary tracks, timing, scale, and position; ASS styling and multilingual rendering.
 - Audio tracks/output devices, A/V delay, volume, and mute.
 - Image adjustments, aspect ratio, rotation, zoom/pan, and deinterlacing.
-- Native full screen, floating/compact mode, searchable commands, and customizable shortcuts.
+- Native full screen with controls that hide after three idle seconds and return with pointer/keyboard input; floating/compact mode, searchable commands, and customizable shortcuts.
 - Local resume/history controls, light/dark/system appearance, and media-key integration.
 
 The inspector exposes codec, decoder, dimensions, frame-rate, and dropped-frame information. Reset Current File Adjustments restores session controls without changing global preferences.
@@ -29,7 +29,7 @@ Requires the Xcode 27.2 toolchain (Swift 6.2 or newer language support), Python 
 ```sh
 python3 scripts/bootstrap.py
 swift test
-python3 scripts/package.py --output "dist/Video Player 0.1.0/Video Player.app"
+python3 scripts/package.py --output "dist/Video Player 0.2.1/Video Player.app"
 ```
 
 `bootstrap.py` verifies and extracts locked dependencies into `Vendor`. It does not install or upgrade Homebrew formulae. A deliberate update uses `--refresh` and requires Homebrew. The packaged app includes its libraries and does not require Homebrew or a separately installed mpv. Open `Package.swift` for Xcode editing.

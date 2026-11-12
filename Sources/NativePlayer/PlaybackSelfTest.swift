@@ -197,6 +197,30 @@ final class PlaybackSelfTest {
         try check("Compact player uses a floating small window", session.compact && session.floating && (session.window?.frame.width ?? 1000) < 600)
         session.perform(.compactPlayer)
         try check("Compact player restores normal window", !session.compact && !session.floating && (session.window?.frame.width ?? 0) >= 720)
+        let originalPanels = (session.showLibrary, session.showQueue, session.showInspector)
+        let renderIdentity = session.renderer.map(ObjectIdentifier.init)
+        session.showLibrary = true; session.showQueue = true
+        session.perform(.fullscreen)
+        try await wait("Native full-screen transition completes") { session.fullscreen.active && !session.fullscreen.transitioning && session.window?.styleMask.contains(.fullScreen) == true }
+        try check("Full-screen chrome starts visible", session.fullscreen.visible)
+        try check("Full screen temporarily tucks away windowed sidebars", !session.showLibrary && !session.showQueue && !session.showInspector)
+        try check("Full screen hides the window toolbar", session.window?.toolbar?.isVisible == false)
+        try check("Video keeps the same native renderer in full screen", session.renderer.map(ObjectIdentifier.init) == renderIdentity)
+        let contentWidth = session.window?.contentView?.bounds.width ?? 0
+        try check("Full-screen video spans the content width", abs((session.videoView?.bounds.width ?? 0) - contentWidth) < 2 && contentWidth > 0)
+        let frame = session.window?.frame ?? .zero
+        try check("Pointer in the measured top bar holds controls visible", session.fullscreen.pointerIsOverControls(NSPoint(x: frame.width / 2, y: frame.height - session.fullscreen.topHeight / 2)))
+        try check("Pointer in the measured bottom bar holds controls visible", session.fullscreen.pointerIsOverControls(NSPoint(x: frame.width / 2, y: session.fullscreen.bottomHeight / 2)))
+        try check("Pointer in the video center permits auto-hide", !session.fullscreen.pointerIsOverControls(NSPoint(x: frame.width / 2, y: frame.height / 2)))
+        try check("Pointer outside the player does not pin controls", !session.fullscreen.pointerIsOverControls(NSPoint(x: -10, y: 20)))
+        try await Task.sleep(for: .seconds(3.5))
+        try check("Paused full-screen playback keeps controls visible", session.fullscreen.visible && session.paused)
+        session.showInspector = true
+        try check("Full-screen inspector can open without altering windowed panels", session.showInspector)
+        session.perform(.fullscreen)
+        try await wait("Leaving full screen restores windowed mode") { !session.fullscreen.active && !session.fullscreen.transitioning && session.window?.styleMask.contains(.fullScreen) == false }
+        try check("Leaving full screen restores the toolbar and panels", session.window?.toolbar?.isVisible == true && session.showLibrary && session.showQueue && !session.showInspector)
+        session.showLibrary = originalPanels.0; session.showQueue = originalPanels.1; session.showInspector = originalPanels.2
     }
     private func write(success: Bool, error: String?) {
         (NSApp.delegate as? AppDelegate)?.testExitStatus = success ? 0 : 1

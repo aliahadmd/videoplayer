@@ -50,6 +50,12 @@ Show Queue with ⌘⇧P. Select a row to play it; its context menu provides move
 
 Playback keys are suppressed while editing text. Standard editing actions are in the Edit menu. Settings → Shortcuts validates conflicts and reserves standard Mac editing/window commands. Blank bindings disable a shortcut.
 
+## Full screen
+
+Use the bottom-right full-screen button or **⌃⌘F**. During video playback, the top bar, transport bar and cursor hide after **three seconds** without input. Move the mouse or press a key to reveal controls immediately. Keep the pointer over the top or bottom bar to leave it visible; moving away starts another three-second delay. Playback shortcuts continue to work while controls are hidden. **Esc** exits full screen.
+
+Controls stay visible while paused, buffering, scrubbing, opening menus, editing text, using Tab navigation, or showing Library/Queue/Inspector. VoiceOver also keeps controls visible. Reduced Motion skips the short fade. Full screen begins with sidebars tucked away; exiting restores the windowed layout without changing the saved Library/session layout. The bars overlay the video so hiding them does not resize playback.
+
 ## Inspector
 
 Play contains speed, frame stepping, exact time navigation, A–B points, and chapters. A loop end must follow its start. Live media may not support seeking or a known duration.
