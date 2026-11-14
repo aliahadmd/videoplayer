@@ -1,6 +1,8 @@
-# Third-party notices
+# Copyright & Third-Party Notices
 
-LiPlayer (formerly Video Player) is an original Swift/AppKit/SwiftUI application distributed under the GNU General Public License version 3. See [LICENSE](LICENSE).
+Copyright (C) 2026 [Ali Ahad](https://aliahad.com) · [LI Labs](https://github.com/LiLabsAI).
+
+LiPlayer (formerly Video Player) is an original Swift/AppKit/SwiftUI application and brand asset set licensed under the **GNU General Public License v3.0 (`GPL-3.0-or-later`)**. See [LICENSE](LICENSE). Under the GPLv3, you are free to study, use, modify, fork, and distribute the software, provided that all copies and distributed derivative works remain licensed under GPLv3 with complete corresponding source code and original copyright and attribution notices preserved.
 
 Playback uses libmpv, FFmpeg, libass and their linked dependencies. The native build includes GPL and LGPL components; it is not a proprietary or LGPL-only application bundle. Dependencies retain their copyright notices and their own licenses. The pinned versions, source URLs and license identifiers are recorded in [Vendor/manifest.json](Vendor/manifest.json).
 

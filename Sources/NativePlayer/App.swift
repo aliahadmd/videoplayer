@@ -1,3 +1,21 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// LiPlayer — Native macOS video player built with Swift, AppKit, SwiftUI, and libmpv.
+// Copyright (C) 2026 Ali Ahad <https://aliahad.com>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 import AppKit
 import SwiftUI
 import PlayerCore
@@ -155,7 +173,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         }
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
-    @objc func about(_ sender: Any?) { NSApp.orderFrontStandardAboutPanel(options: [.applicationName: "LiPlayer", .applicationVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development", .credits: NSAttributedString(string: "Native playback with libmpv, FFmpeg and libass.\nGPLv3 · See Settings → About for dependency notices.")]) }
+    @objc func about(_ sender: Any?) {
+        NSApp.orderFrontStandardAboutPanel(options: [
+            .applicationName: "LiPlayer",
+            .applicationVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development",
+            .credits: NSAttributedString(string: "Copyright © 2026 Ali Ahad · LI Labs\nNative playback with libmpv, FFmpeg and libass.\nGNU General Public License v3.0 (GPLv3) · See Settings → About for source and notices.")
+        ])
+    }
     private func buildMenu() {
         let main = NSMenu()
         func submenu(_ title: String) -> NSMenu {

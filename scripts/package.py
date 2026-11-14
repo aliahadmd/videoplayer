@@ -1,4 +1,21 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# LiPlayer — Native macOS video player built with Swift, AppKit, SwiftUI, and libmpv.
+# Copyright (C) 2026 Ali Ahad <https://aliahad.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <https://www.gnu.org/licenses/>.
 import argparse, json, os, pathlib, plistlib, shutil, subprocess
 
 root = pathlib.Path(__file__).resolve().parents[1]
@@ -34,7 +51,7 @@ info = {
     'LSMinimumSystemVersion': '27.2', 'NSHighResolutionCapable': True,
     'NSPrincipalClass': 'NSApplication', 'LSApplicationCategoryType': 'public.app-category.video',
     'CFBundleIconFile': 'AppIcon',
-    'NSHumanReadableCopyright': 'LiPlayer contributors. GPLv3. Third-party notices included.',
+    'NSHumanReadableCopyright': 'Copyright © 2026 Ali Ahad · LI Labs. Licensed under GPLv3. Third-party notices included.',
     'UTExportedTypeDeclarations': [{'UTTypeIdentifier': 'com.aliahad.liplayer.queue', 'UTTypeDescription': 'LiPlayer Queue', 'UTTypeConformsTo': ['public.json'], 'UTTypeIconFile': 'LiPlayerQueue', 'UTTypeTagSpecification': {'public.filename-extension': ['lpqueue']}}],
     'UTImportedTypeDeclarations': [{'UTTypeIdentifier': 'com.aliahad.videoplayer.queue', 'UTTypeDescription': 'Legacy Video Player Queue', 'UTTypeConformsTo': ['public.json'], 'UTTypeIconFile': 'LiPlayerQueue', 'UTTypeTagSpecification': {'public.filename-extension': ['vpqueue']}}],
     'CFBundleDocumentTypes': [

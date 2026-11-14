@@ -1,3 +1,21 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+//
+// LiPlayer — Native macOS video player built with Swift, AppKit, SwiftUI, and libmpv.
+// Copyright (C) 2026 Ali Ahad <https://aliahad.com>
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 import SwiftUI
 import PlayerCore
 
@@ -54,9 +72,15 @@ struct SettingsView: View {
                 }
                 Divider()
                 Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development") · Apple Silicon · macOS 27.2 or later")
-                Text("Built with Swift, AppKit, SwiftUI, libmpv, FFmpeg and libass. This application is licensed under GPLv3. Native dependency notices and source locations are bundled with the app.").font(.system(size: 13)).foregroundStyle(.secondary)
+                Text("Copyright © 2026 Ali Ahad · LI Labs. Built with Swift, AppKit, SwiftUI, libmpv, FFmpeg and libass.").font(.system(size: 13)).foregroundStyle(.secondary)
+                Text("Licensed under the GNU General Public License v3.0 (GPLv3). Distributed derivatives must remain open source under GPLv3 with attribution preserved. Native dependency notices and source locations are bundled with the app.").font(.system(size: 12)).foregroundStyle(.secondary)
                 Text("Video presentation uses OpenGL. HDR input is tone mapped to SDR; native HDR presentation and system Picture in Picture are not advertised in this version.").font(.system(size: 12)).foregroundStyle(.secondary)
-                Button("Open Dependency Notices") { if let url = Bundle.main.resourceURL?.appendingPathComponent("Licenses") { NSWorkspace.shared.open(url) } }
+                HStack(spacing: 12) {
+                    Button("Open Dependency Notices") { if let url = Bundle.main.resourceURL?.appendingPathComponent("Licenses") { NSWorkspace.shared.open(url) } }
+                    if let repoURL = URL(string: "https://github.com/LiLabsAI/LiPlayer") {
+                        Link("Source & License on GitHub", destination: repoURL)
+                    }
+                }
                 Spacer()
             }.padding(28).tabItem { Label("About", systemImage: "info.circle") }
         }.frame(width: 650, height: 520).padding(12).onAppear { bindings = session.preferences.shortcuts }

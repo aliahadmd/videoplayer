@@ -53,7 +53,7 @@
         "Hiding the library retains folders",
         "Library and expansion state save without quitting"
       ],
-      "date": "2026-11-14T09:48:57Z",
+      "date": "2026-11-14T10:00:54Z",
       "phase": "save",
       "success": true
     },
@@ -68,7 +68,7 @@
         "Timing and speed restore",
         "Checkpoint reaches disk before forced termination"
       ],
-      "date": "2026-11-14T09:48:58Z",
+      "date": "2026-11-14T10:00:55Z",
       "phase": "crash",
       "success": true
     },
@@ -91,7 +91,7 @@
         "Selection changes cannot save another video's checkpoint",
         "Playback and queue selection remain consistent after a switch"
       ],
-      "date": "2026-11-14T09:49:00Z",
+      "date": "2026-11-14T10:00:57Z",
       "phase": "restore",
       "success": true
     }
