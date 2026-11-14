@@ -5,7 +5,7 @@ import CMPV
 import PlayerCore
 
 nonisolated final class GLRenderer: @unchecked Sendable {
-    private let queue = DispatchQueue(label: "app.videoplayer.render", qos: .userInteractive)
+    private let queue = DispatchQueue(label: "app.liplayer.render", qos: .userInteractive)
     private let context: CGLContextObj
     private var render: OpaquePointer?
     private var width: Int32 = 1

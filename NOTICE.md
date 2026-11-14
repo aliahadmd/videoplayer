@@ -1,6 +1,6 @@
 # Third-party notices
 
-Video Player is an original Swift/AppKit/SwiftUI application distributed under the GNU General Public License version 3. See [LICENSE](LICENSE).
+LiPlayer (formerly Video Player) is an original Swift/AppKit/SwiftUI application distributed under the GNU General Public License version 3. See [LICENSE](LICENSE).
 
 Playback uses libmpv, FFmpeg, libass and their linked dependencies. The native build includes GPL and LGPL components; it is not a proprietary or LGPL-only application bundle. Dependencies retain their copyright notices and their own licenses. The pinned versions, source URLs and license identifiers are recorded in [Vendor/manifest.json](Vendor/manifest.json).
 

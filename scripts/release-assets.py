@@ -25,11 +25,11 @@ assert model_report['success']
 def digest(path):
     with path.open('rb') as file: return hashlib.file_digest(file, 'sha256').hexdigest()
 
-binary = output / f'VideoPlayer-{version}-macOS-arm64.zip'
+binary = output / f'LiPlayer-{version}-macOS-arm64.zip'
 subprocess.run(['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', str(app), str(binary)], check=True)
 with zipfile.ZipFile(binary) as archive: assert archive.testzip() is None
-source = output / f'VideoPlayer-{version}-source.tar.gz'
-subprocess.run(['git', 'archive', '--format=tar.gz', f'--prefix=VideoPlayer-{version}-source/', '-o', str(source), commit], cwd=ROOT, check=True)
+source = output / f'LiPlayer-{version}-source.tar.gz'
+subprocess.run(['git', 'archive', '--format=tar.gz', f'--prefix=LiPlayer-{version}-source/', '-o', str(source), commit], cwd=ROOT, check=True)
 records = json.loads((ROOT / 'ThirdParty/sources.lock.json').read_text())['sources']
 if args.reuse_dependency_release:
     tag = args.reuse_dependency_release
@@ -43,11 +43,11 @@ if args.reuse_dependency_release:
     assert not previous['draft']
     asset = next(asset for asset in previous['assets'] if asset['name'].endswith('-third-party-sources.tar.gz'))
     assert asset['state'] == 'uploaded' and asset['digest'].startswith('sha256:')
-    third_party = output / f'VideoPlayer-{version}-dependency-sources.json'
+    third_party = output / f'LiPlayer-{version}-dependency-sources.json'
     third_party.write_text(json.dumps({'release': tag, 'url': asset['browser_download_url'], 'bytes': asset['size'], 'sha256': asset['digest'].removeprefix('sha256:'), 'native_manifest_sha256': digest(ROOT / 'Vendor/manifest.json'), 'source_files': len(records)}, indent=2) + '\n')
 else:
-    third_party = output / f'VideoPlayer-{version}-third-party-sources.tar.gz'
-    prefix = f'VideoPlayer-{version}-third-party-sources'
+    third_party = output / f'LiPlayer-{version}-third-party-sources.tar.gz'
+    prefix = f'LiPlayer-{version}-third-party-sources'
     with tarfile.open(third_party, 'w:gz', compresslevel=1) as archive:
         for name in ['ThirdParty', 'Vendor/manifest.json', 'scripts/bootstrap.py', 'scripts/package.py', 'scripts/collect-sources.py', 'scripts/source-notices.py', 'LICENSE', 'NOTICE.md']:
             archive.add(ROOT / name, arcname=f'{prefix}/{name}')

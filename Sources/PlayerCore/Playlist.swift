@@ -18,7 +18,7 @@ public enum Playlist {
     }
     public static func read(_ url: URL) throws -> [URL]? {
         guard url.isFileURL else { return nil }
-        if url.pathExtension.lowercased() == "vpqueue" { return try decode(Data(contentsOf: url)) }
+        if ["lpqueue", "vpqueue"].contains(url.pathExtension.lowercased()) { return try decode(Data(contentsOf: url)) }
         guard ["m3u", "m3u8"].contains(url.pathExtension.lowercased()) else { return nil }
         let data = try Data(contentsOf: url)
         guard data.count <= 8_000_000, let text = String(data: data, encoding: .utf8) else { throw Failure.invalid }

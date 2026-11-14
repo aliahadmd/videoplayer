@@ -1,18 +1,22 @@
-# Video Player
+<p align="center">
+  <img src="Assets/LiPlayer-Logo-512.png" width="128" height="128" alt="LiPlayer Logo">
+</p>
 
-A native Mac media player inspired by PotPlayer's precise playback controls. Built with Swift, AppKit, SwiftUI, and libmpv. Original interface and assets; no PotPlayer application code or skins are used.
+# LiPlayer
+
+A native Mac media player inspired by PotPlayer's precise playback controls (formerly Video Player). Built with Swift, AppKit, SwiftUI, and libmpv. Original interface and assets; no PotPlayer application code or skins are used.
 
 The current bundle targets **Apple Silicon running macOS 27.2 or later**, matching the native dependency builds and the Mac used for validation.
 
 ## Use the app
 
-Download the Apple Silicon app from [GitHub Releases](https://github.com/aliahadmd/videoplayer/releases/tag/v0.2.1), unzip it, and move `Video Player.app` into Applications. Open a file with ⌘O or open a persistent folder Library with ⌘⇧O. Show/hide Library with ⌘⇧L. Quit earlier builds before opening another copy.
+Download the Apple Silicon app from [GitHub Releases](https://github.com/LiLabsAI/LiPlayer/releases/tag/v0.2.1) (released prior to the rename as `Video Player.app`) or build `LiPlayer.app` from source below, and move it into Applications. Open a file with ⌘O or open a persistent folder Library with ⌘⇧O. Show/hide Library with ⌘⇧L. Quit earlier builds before opening another copy.
 
-**Signing:** this initial release is ad hoc signed and is not notarized. macOS may block a downloaded copy. A Developer ID signed release is future work; building from source is available below. No automatic updater is included.
+**Signing:** this build is ad hoc signed and is not notarized. macOS may block a downloaded copy. A Developer ID signed release is future work; building from source is available below. No automatic updater is included.
 
 - Local video/audio files and direct HTTP/HTTPS/RTSP/RTMP media addresses.
 - A persistent folder Library with expandable subfolders, background browsing, natural ordering, missing-drive recovery, and local session restoration.
-- A queue with natural folder ordering, reorder/remove, repeat, saved `.vpqueue` files, and local M3U import. HLS manifests remain a single media source.
+- A queue with natural folder ordering, reorder/remove, repeat, saved `.lpqueue` files (plus legacy `.vpqueue` compatibility), and local M3U import. HLS manifests remain a single media source.
 - Seeking, frame stepping, speed with pitch correction, A–B repeat, chapters, and screenshots.
 - Embedded/external subtitles, primary/secondary tracks, timing, scale, and position; ASS styling and multilingual rendering.
 - Audio tracks/output devices, A/V delay, volume, and mute.
@@ -29,7 +33,7 @@ Requires the Xcode 27.2 toolchain (Swift 6.2 or newer language support), Python 
 ```sh
 python3 scripts/bootstrap.py
 swift test
-python3 scripts/package.py --output "dist/Video Player 0.2.1/Video Player.app"
+python3 scripts/package.py --output "dist/LiPlayer.app"
 ```
 
 `bootstrap.py` verifies and extracts locked dependencies into `Vendor`. It does not install or upgrade Homebrew formulae. A deliberate update uses `--refresh` and requires Homebrew. The packaged app includes its libraries and does not require Homebrew or a separately installed mpv. Open `Package.swift` for Xcode editing.

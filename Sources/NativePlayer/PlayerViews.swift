@@ -18,9 +18,12 @@ struct PlayerRootView: View {
                         VStack(spacing: 10) { Text(session.currentItem?.title ?? "").font(.system(size: 20, weight: .medium)).foregroundStyle(.white); Text("Audio playback").font(.system(size: 13)).foregroundStyle(.gray) }.padding(24)
                     }
                     if session.currentItem == nil {
-                        VStack(spacing: 18) {
-                            Text("A place to press play.").font(.system(size: 25, weight: .medium)).foregroundStyle(.white)
-                            Text("Drop a video here, or choose a file.").font(.system(size: 14)).foregroundStyle(.gray)
+                        VStack(spacing: 16) {
+                            LiPlayerBrandMark(size: 84)
+                            VStack(spacing: 6) {
+                                Text("LiPlayer").font(.system(size: 26, weight: .semibold)).foregroundStyle(.white)
+                                Text("Drop a video here, or choose a file.").font(.system(size: 14)).foregroundStyle(.gray)
+                            }
                             Button("Open File…") { session.perform(.open) }.controlSize(.large).keyboardShortcut("o", modifiers: .command)
                             Button("Open Folder…") { session.perform(.openFolder) }.controlSize(.large)
                             if !session.history.isEmpty {
@@ -169,7 +172,7 @@ private struct FullscreenHeader: View {
     var body: some View {
         HStack(spacing: 20) {
             Button { session.perform(.fullscreen) } label: { Image(systemName: "arrow.down.right.and.arrow.up.left") }.help("Exit full screen (Esc)").accessibilityLabel("Exit Full Screen")
-            Text(session.currentItem?.title ?? "Video Player").font(.system(size: 13, weight: .medium)).lineLimit(1)
+            Text(session.currentItem?.title ?? "LiPlayer").font(.system(size: 13, weight: .medium)).lineLimit(1)
             Spacer()
             button(.toggleLibrary, "sidebar.left")
             button(.toggleQueue, "list.bullet")
@@ -230,4 +233,32 @@ struct CommandSearchView: View {
         }.frame(width: 480, height: 460).onAppear { focused = true }
     }
     private func run(_ command: PlayerCommand) { session.showCommands = false; session.perform(command) }
+}
+
+struct LiPlayerBrandMark: View {
+    let size: CGFloat
+    private static let bundledLogo: NSImage? = {
+        guard let url = Bundle.main.url(forResource: "LiPlayerLogo", withExtension: "png") else { return nil }
+        return NSImage(contentsOf: url)
+    }()
+    var body: some View {
+        Group {
+            if let image = Self.bundledLogo {
+                Image(nsImage: image).resizable().interpolation(.high).aspectRatio(contentMode: .fit)
+            } else {
+                ZStack {
+                    RoundedRectangle(cornerRadius: size * 0.225, style: .continuous)
+                        .fill(LinearGradient(colors: [Color(red: 0.11, green: 0.14, blue: 0.20), Color(red: 0.03, green: 0.04, blue: 0.07)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .overlay(RoundedRectangle(cornerRadius: size * 0.225, style: .continuous).stroke(.white.opacity(0.18), lineWidth: 1))
+                    HStack(spacing: size * 0.05) {
+                        Text("Li").font(.system(size: size * 0.34, weight: .bold, design: .rounded)).foregroundStyle(.white)
+                        Image(systemName: "play.fill").font(.system(size: size * 0.30, weight: .bold))
+                            .foregroundStyle(LinearGradient(colors: [Color(red: 0.45, green: 0.87, blue: 1), Color(red: 0.15, green: 0.39, blue: 0.92)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    }
+                }.padding(size * 0.09)
+            }
+        }
+        .frame(width: size, height: size)
+        .accessibilityHidden(true)
+    }
 }

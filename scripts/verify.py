@@ -5,7 +5,7 @@ import argparse, functools, http.server, json, os, pathlib, re, ssl, subprocess,
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / '.build/Fixtures'
 parser = argparse.ArgumentParser()
-parser.add_argument('--app', type=pathlib.Path, default=ROOT / 'dist/Video Player QA.app')
+parser.add_argument('--app', type=pathlib.Path, default=ROOT / 'dist/LiPlayer QA.app')
 parser.add_argument('--stay-open', action='store_true')
 parser.add_argument('--https-url', help='Optional trusted public HTTPS media URL for an online check')
 args = parser.parse_args()
@@ -53,8 +53,8 @@ with urllib.request.urlopen(request) as response:
     assert response.status == 206 and len(response.read()) == 64, 'Range server preflight failed'
 report = FIXTURES / 'SelfTest.json'
 if report.exists(): report.unlink()
-command = [str(args.app.resolve() / 'Contents/MacOS/VideoPlayer'), '--self-test', str(FIXTURES), '--http-test-url', url]
-tls_directory = tempfile.TemporaryDirectory(prefix='videoplayer-tls-')
+command = [str(args.app.resolve() / 'Contents/MacOS/LiPlayer'), '--self-test', str(FIXTURES), '--http-test-url', url]
+tls_directory = tempfile.TemporaryDirectory(prefix='liplayer-tls-')
 tls_path = pathlib.Path(tls_directory.name)
 subprocess.run(['/usr/bin/openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-keyout', str(tls_path / 'key.pem'), '-out', str(tls_path / 'cert.pem'), '-days', '1', '-subj', '/CN=localhost'], check=True, capture_output=True)
 tls_server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(RangeHandler, directory=str(FIXTURES)))

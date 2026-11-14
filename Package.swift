@@ -5,9 +5,9 @@ import Foundation
 let projectRoot = URL(fileURLWithPath: #filePath).deletingLastPathComponent().path
 
 let package = Package(
-    name: "VideoPlayer",
+    name: "LiPlayer",
     platforms: [.macOS("27.2")],
-    products: [.executable(name: "VideoPlayer", targets: ["NativePlayer"])],
+    products: [.executable(name: "LiPlayer", targets: ["NativePlayer"])],
     targets: [
         .systemLibrary(name: "CMPV", path: "Sources/CMPV"),
         .target(name: "PlayerCore"),

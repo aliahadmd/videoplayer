@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 import PlayerCore
 
-@main struct VideoPlayerApp {
+@main struct LiPlayerApp {
     static func main() {
         let app = NSApplication.shared
         let delegate = AppDelegate()
@@ -31,7 +31,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         let workspaceIndex = arguments.firstIndex(of: "--workspace-self-test")
         let workspaceDirectory = workspaceIndex.flatMap { $0 + 1 < arguments.count ? URL(fileURLWithPath: arguments[$0 + 1]) : nil }
         let isQA = Bundle.main.bundleIdentifier?.hasSuffix(".qa") == true
-        let isolatedDirectory = workspaceDirectory?.appendingPathComponent("State") ?? testDirectory?.appendingPathComponent("Session-\(UUID().uuidString)") ?? (isQA ? FileManager.default.temporaryDirectory.appendingPathComponent("VideoPlayer-QA-\(UUID().uuidString)") : nil)
+        let isolatedDirectory = workspaceDirectory?.appendingPathComponent("State") ?? testDirectory?.appendingPathComponent("Session-\(UUID().uuidString)") ?? (isQA ? FileManager.default.temporaryDirectory.appendingPathComponent("LiPlayer-QA-\(UUID().uuidString)") : nil)
         let session = PlayerSession(directory: isolatedDirectory)
         if isolatedDirectory != nil { session.preferences.volume = 0; session.preferences.rememberHistory = false; session.applyPreferences() }
         if workspaceDirectory != nil { session.preferences.rememberHistory = true; session.preferences.resumePlayback = true; session.preferences.rememberWorkspace = true }
@@ -40,7 +40,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
             MainActor.assumeIsolated { self?.session?.saveProgress() }
         }
         let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1080, height: 680), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
-        window.title = "Video Player"; window.minSize = NSSize(width: 720, height: 480)
+        window.title = "LiPlayer"; window.minSize = NSSize(width: 720, height: 480)
         window.isReleasedWhenClosed = false; window.delegate = self
         window.collectionBehavior = [.fullScreenPrimary]
         window.contentView = NSHostingView(rootView: PlayerRootView(session: session))
@@ -155,21 +155,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSMe
         }
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
-    @objc func about(_ sender: Any?) { NSApp.orderFrontStandardAboutPanel(options: [.applicationName: "Video Player", .applicationVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development", .credits: NSAttributedString(string: "Native playback with libmpv, FFmpeg and libass.\nGPLv3 · See Settings → About for dependency notices.")]) }
+    @objc func about(_ sender: Any?) { NSApp.orderFrontStandardAboutPanel(options: [.applicationName: "LiPlayer", .applicationVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development", .credits: NSAttributedString(string: "Native playback with libmpv, FFmpeg and libass.\nGPLv3 · See Settings → About for dependency notices.")]) }
     private func buildMenu() {
         let main = NSMenu()
         func submenu(_ title: String) -> NSMenu {
             let item = NSMenuItem(); let menu = NSMenu(title: title); item.submenu = menu; main.addItem(item); return menu
         }
-        let app = submenu("Video Player")
-        app.addItem(withTitle: "About Video Player", action: #selector(about(_:)), keyEquivalent: "").target = self
+        let app = submenu("LiPlayer")
+        app.addItem(withTitle: "About LiPlayer", action: #selector(about(_:)), keyEquivalent: "").target = self
         app.addItem(.separator())
         app.addItem(withTitle: "Settings…", action: #selector(showSettings(_:)), keyEquivalent: ",").target = self
         app.addItem(.separator())
-        app.addItem(withTitle: "Hide Video Player", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        app.addItem(withTitle: "Hide LiPlayer", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
         let hide = app.addItem(withTitle: "Hide Others", action: #selector(NSApplication.hideOtherApplications(_:)), keyEquivalent: "h"); hide.keyEquivalentModifierMask = [.command, .option]
         app.addItem(withTitle: "Show All", action: #selector(NSApplication.unhideAllApplications(_:)), keyEquivalent: "")
-        app.addItem(.separator()); app.addItem(withTitle: "Quit Video Player", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        app.addItem(.separator()); app.addItem(withTitle: "Quit LiPlayer", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         let files = submenu("File")
         add([.open, .openFolder, .openURL, .addFiles, .saveQueue, .attachSubtitle], to: files)
         files.addItem(.separator())

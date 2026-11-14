@@ -20,9 +20,9 @@ Library roots, expanded branches, queue order/selection/repeat and open sidebars
 
 After relaunch or a normal computer restart, the library/queue return and the last local video opens **paused**. Position, speed and timing are restored; very recent power-loss changes may not have reached storage. Network sources remain in the queue and require Play to connect again. An unavailable file does not erase your queue. A valid backup recovers an unreadable primary state; future-version state is preserved instead of overwritten.
 
-Settings → General → Library and session controls whether folders, queue and panels are remembered. Playback position follows Keep local playback history and Resume unfinished files. Disabling history removes saved positions without forgetting your explicitly saved Library; disabling session saving clears the saved workspace and its backup. Preferences, history and `workspace.json` live in `~/Library/Application Support/VideoPlayer`.
+Settings → General → Library and session controls whether folders, queue and panels are remembered. Playback position follows Keep local playback history and Resume unfinished files. Disabling history removes saved positions without forgetting your explicitly saved Library; disabling session saving clears the saved workspace and its backup. Preferences, history and `workspace.json` live in `~/Library/Application Support/LiPlayer` (existing `VideoPlayer` data migrates automatically on first launch).
 
-Show Queue with ⌘⇧P. Select a row to play it; its context menu provides move up/down, remove, and Show in Finder. Save Queue (⌘⇧E) writes a `.vpqueue` document containing media addresses. Reopen it through Open File. Saved queues do not copy the underlying media.
+Show Queue with ⌘⇧P. Select a row to play it; its context menu provides move up/down, remove, and Show in Finder. Save Queue (⌘⇧E) writes a `.lpqueue` document containing media addresses (legacy `.vpqueue` files remain readable). Reopen it through Open File. Saved queues do not copy the underlying media.
 
 ## Playback
 
@@ -66,6 +66,6 @@ Video contains reversible geometry/image adjustments and deinterlacing. Reset Cu
 
 ## Resume and privacy
 
-Settings controls local history and unfinished-file resume. History is bounded to 200 local files and can be cleared. A resumed file shows Start Over. History/preferences live in `~/Library/Application Support/VideoPlayer`; no account or telemetry service is required.
+Settings controls local history and unfinished-file resume. History is bounded to 200 local files and can be cleared. A resumed file shows Start Over. History/preferences live in `~/Library/Application Support/LiPlayer`; no account or telemetry service is required.
 
 An unavailable drive or damaged file produces an inline error. The queue remains available. A screenshot success message appears after the engine confirms writing it.

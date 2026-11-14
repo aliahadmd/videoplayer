@@ -63,4 +63,17 @@ public struct DiskStore: Sendable {
     public static func retaining(_ records: [ResumeRecord], replacing record: ResumeRecord, limit: Int = 200) -> [ResumeRecord] {
         Array(([record] + records.filter { $0.id != record.id }).prefix(max(0, limit)))
     }
+    public static func migrateIfNeeded(from legacyDirectory: URL, to targetDirectory: URL) {
+        let manager = FileManager.default
+        let files = ["preferences.json", "history.json", "workspace.json", "workspace.backup.json"]
+        guard !files.contains(where: { manager.fileExists(atPath: targetDirectory.appendingPathComponent($0).path) }),
+              files.contains(where: { manager.fileExists(atPath: legacyDirectory.appendingPathComponent($0).path) }) else { return }
+        try? manager.createDirectory(at: targetDirectory, withIntermediateDirectories: true)
+        for name in files {
+            let source = legacyDirectory.appendingPathComponent(name)
+            let destination = targetDirectory.appendingPathComponent(name)
+            guard manager.fileExists(atPath: source.path), !manager.fileExists(atPath: destination.path) else { continue }
+            try? manager.copyItem(at: source, to: destination)
+        }
+    }
 }

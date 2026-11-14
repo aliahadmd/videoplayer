@@ -95,8 +95,12 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     var preventsDisplaySleep: Bool { powerAssertion != 0 }
     private let globalProperties: Set<String> = ["pause", "volume", "mute", "audio-device-list", "audio-device"]
 
-    init(directory: URL? = nil) {
-        let directory = directory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("VideoPlayer")
+    init(directory explicitDirectory: URL? = nil) {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let directory = explicitDirectory ?? appSupport.appendingPathComponent("LiPlayer")
+        if explicitDirectory == nil {
+            DiskStore.migrateIfNeeded(from: appSupport.appendingPathComponent("VideoPlayer"), to: directory)
+        }
         store = DiskStore(directory: directory)
         workspaceWriter = WorkspaceWriter(directory: directory)
         let settings = store.read(Preferences.self, name: "preferences.json") ?? Preferences()
@@ -330,8 +334,8 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
     }
     func saveQueue() {
         guard !queue.items.isEmpty else { errorMessage = "Add media files before saving a queue."; return }
-        let panel = NSSavePanel(); panel.nameFieldStringValue = "Watch queue.vpqueue"
-        panel.allowedContentTypes = [UTType(exportedAs: "com.aliahad.videoplayer.queue", conformingTo: .json)]
+        let panel = NSSavePanel(); panel.nameFieldStringValue = "Watch queue.lpqueue"
+        panel.allowedContentTypes = [UTType(exportedAs: "com.aliahad.liplayer.queue", conformingTo: .json)]
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do { try Playlist.encode(queue.items.map(\.url)).write(to: url, options: .atomic); notice = "Queue saved" }
         catch { errorMessage = error.localizedDescription }
@@ -447,7 +451,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         workspacePlayback = record
         lastHistoryWrite = Date()
         do { try store.write(history, name: "history.json") }
-        catch { Logger(subsystem: "com.aliahad.videoplayer", category: "history").error("Could not save playback history") }
+        catch { Logger(subsystem: "com.aliahad.liplayer", category: "history").error("Could not save playback history") }
     }
     private func configureRemoteControls() {
         let center = MPRemoteCommandCenter.shared()
@@ -485,7 +489,7 @@ struct Chapter: Identifiable { let id: Int; let title: String; let time: Double 
         let sanitizeBackup = !preferences.rememberWorkspace || !preferences.rememberHistory
         Task.detached(priority: .utility) { [workspaceWriter, engine] in
             do { try await workspaceWriter.save(finalState, revision: revision, sanitizeBackup: sanitizeBackup) }
-            catch { Logger(subsystem: "com.aliahad.videoplayer", category: "workspace").error("Could not save the final workspace: \(error.localizedDescription)") }
+            catch { Logger(subsystem: "com.aliahad.liplayer", category: "workspace").error("Could not save the final workspace: \(error.localizedDescription)") }
             if let engine { engine.shutdown(completion: completion) } else { completion() }
         }
     }

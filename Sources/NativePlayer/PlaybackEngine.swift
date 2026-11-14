@@ -38,8 +38,8 @@ nonisolated enum EngineEvent: Sendable {
 // The render API has its own independent serial queue and is released first.
 nonisolated final class PlaybackEngine: @unchecked Sendable {
     let handle: OpaquePointer
-    private let queue = DispatchQueue(label: "app.videoplayer.engine", qos: .userInitiated)
-    private let logger = Logger(subsystem: "com.aliahad.videoplayer", category: "playback")
+    private let queue = DispatchQueue(label: "app.liplayer.engine", qos: .userInitiated)
+    private let logger = Logger(subsystem: "com.aliahad.liplayer", category: "playback")
     private var timer: DispatchSourceTimer?
     private var stopped = false
     private var requestID: UInt64 = 0

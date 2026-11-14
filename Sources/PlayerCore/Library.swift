@@ -90,7 +90,7 @@ public enum WorkspaceFailure: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .invalid: "The saved library or queue is unreadable. Its original data has been preserved."
-        case .newerVersion: "The saved library was created by a newer version of Video Player. It has not been changed."
+        case .newerVersion: "The saved library was created by a newer version of LiPlayer. It has not been changed."
         }
     }
 }

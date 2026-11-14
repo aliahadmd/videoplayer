@@ -97,8 +97,6 @@
     "HTTP range seeking",
     "TLS certificate verification is enabled",
     "TLS uses the system CA file",
-    "Trusted HTTPS media opens",
-    "HTTPS media pauses",
     "Untrusted HTTPS certificate is rejected",
     "Corrupt media shows recoverable error",
     "Player recovers after corrupt input",
@@ -136,7 +134,7 @@
     "Leaving full screen restores windowed mode",
     "Leaving full screen restores the toolbar and panels"
   ],
-  "date": "2026-11-12T12:40:17Z",
+  "date": "2026-11-14T09:48:55Z",
   "engine": "libmpv 0.42.0",
   "final_video_parameters": {
     "height": 720,
@@ -150,6 +148,5 @@
   "bundle_libraries_loaded": 50,
   "http_requests_served": 4,
   "no_homebrew_runtime_dependency": true,
-  "homebrew_filesystem_denied": true,
-  "trusted_https_test_url": "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+  "homebrew_filesystem_denied": true
 }

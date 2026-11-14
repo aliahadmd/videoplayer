@@ -62,6 +62,7 @@ private func temporaryFolder() throws -> URL {
     try future.write(to: directory.appendingPathComponent("workspace.json"))
     #expect(throws: WorkspaceFailure.self) { try store.load() }
     #expect(throws: WorkspaceFailure.self) { try store.write(first) }
+    #expect(WorkspaceFailure.newerVersion.errorDescription?.contains("LiPlayer") == true)
     #expect(try Data(contentsOf: directory.appendingPathComponent("workspace.json")) == future)
 }
 

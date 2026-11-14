@@ -116,3 +116,43 @@ func rejectsInvalidTimes(_ value: String) { #expect(TimeText.parse(value) == nil
     try Data("#EXTM3U\n#EXT-X-TARGETDURATION:10\nsegment1.ts\n".utf8).write(to: url)
     #expect(try Playlist.read(url) == nil)
 }
+
+@Test func readsCurrentAndLegacyQueueExtensions() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let urls = [URL(fileURLWithPath: "/Volumes/Media/clip1.mkv"), URL(string: "https://example.com/clip2.mp4")!]
+    let data = try Playlist.encode(urls)
+    let lpqueue = directory.appendingPathComponent("Watch.lpqueue")
+    let vpqueue = directory.appendingPathComponent("Legacy.vpqueue")
+    try data.write(to: lpqueue)
+    try data.write(to: vpqueue)
+    #expect(try Playlist.read(lpqueue) == urls)
+    #expect(try Playlist.read(vpqueue) == urls)
+}
+
+@Test func diskStoreMigratesLegacySupportFilesWithoutOverwriting() throws {
+    let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let legacy = root.appendingPathComponent("VideoPlayer")
+    let target = root.appendingPathComponent("LiPlayer")
+    DiskStore.migrateIfNeeded(from: legacy, to: target)
+    #expect(!FileManager.default.fileExists(atPath: target.path))
+
+    let legacyStore = DiskStore(directory: legacy)
+    var prefs = Preferences(); prefs.volume = 42; prefs.appearance = "dark"
+    try legacyStore.write(prefs, name: "preferences.json")
+    let record = ResumeRecord(url: URL(fileURLWithPath: "/sample.mp4"), position: 15, duration: 90)
+    try legacyStore.write([record], name: "history.json")
+
+    DiskStore.migrateIfNeeded(from: legacy, to: target)
+    let migratedStore = DiskStore(directory: target)
+    #expect(migratedStore.read(Preferences.self, name: "preferences.json") == prefs)
+    #expect(migratedStore.read([ResumeRecord].self, name: "history.json") == [record])
+    #expect(FileManager.default.fileExists(atPath: legacy.appendingPathComponent("preferences.json").path))
+
+    var updated = prefs; updated.volume = 85
+    try migratedStore.write(updated, name: "preferences.json")
+    DiskStore.migrateIfNeeded(from: legacy, to: target)
+    #expect(migratedStore.read(Preferences.self, name: "preferences.json")?.volume == 85)
+}

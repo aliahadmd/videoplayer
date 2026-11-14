@@ -6,7 +6,7 @@ root = Path(__file__).resolve().parents[1] / '.build/Fixtures'
 root.mkdir(parents=True, exist_ok=True)
 def ffmpeg(*args): subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *args], check=True)
 ffmpeg('-f', 'lavfi', '-i', 'testsrc2=size=1280x720:rate=30', '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=48000', '-t', '14', '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '24', '-pix_fmt', 'yuv420p', '-c:a', 'aac', str(root / 'Sample.mp4'))
-(root / 'Sample.srt').write_text('1\n00:00:01,000 --> 00:00:06,000\nVideo Player · Subtitle timing test\n\n2\n00:00:07,000 --> 00:00:12,000\nSecond subtitle · café · 中文\n')
+(root / 'Sample.srt').write_text('1\n00:00:01,000 --> 00:00:06,000\nLiPlayer · Subtitle timing test\n\n2\n00:00:07,000 --> 00:00:12,000\nSecond subtitle · café · 中文\n')
 (root / 'Styled.ass').write_text('''[Script Info]
 ScriptType: v4.00+
 PlayResX: 1280

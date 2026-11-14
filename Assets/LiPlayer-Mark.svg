@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="LiPlayer Logo">
+  <defs>
+    <linearGradient id="bg" x1="14%" y1="12%" x2="86%" y2="88%">
+      <stop offset="0%" stop-color="#1B2232"/>
+      <stop offset="52%" stop-color="#0D111B"/>
+      <stop offset="100%" stop-color="#07090F"/>
+    </linearGradient>
+    <radialGradient id="prismGlow" cx="60%" cy="50%" r="44%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0.34"/>
+      <stop offset="48%" stop-color="#2563EB" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0D1428" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="16%" y1="12%" x2="86%" y2="88%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="45%" stop-color="#61CCFA" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="letterGrad" x1="0%" y1="0%" x2="10%" y2="100%">
+      <stop offset="0%" stop-color="#FCFDFF"/>
+      <stop offset="55%" stop-color="#E6EEF9"/>
+      <stop offset="100%" stop-color="#B8C9E0"/>
+    </linearGradient>
+    <linearGradient id="dotGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#BFF2FF"/>
+      <stop offset="45%" stop-color="#24B8FA"/>
+      <stop offset="100%" stop-color="#1F5CE6"/>
+    </linearGradient>
+    <linearGradient id="prismGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7DDFFF"/>
+      <stop offset="34%" stop-color="#0EA5EF"/>
+      <stop offset="72%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#493FD6"/>
+    </linearGradient>
+    <linearGradient id="facetGrad" x1="20%" y1="0%" x2="65%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.36"/>
+      <stop offset="50%" stop-color="#BFF2FF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="prismBloom" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="18" flood-color="#0FA6F2" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+  <g filter="url(#dropShadow)">
+    <rect x="100" y="100" width="824" height="824" rx="188" fill="url(#bg)"/>
+    <rect x="100" y="100" width="824" height="824" rx="188" fill="url(#prismGlow)"/>
+    <rect x="103" y="103" width="818" height="818" rx="185" fill="none" stroke="url(#rim)" stroke-width="6"/>
+  </g>
+  <path d="M 254 356 H 276 Q 294 356 294 374 V 596 Q 294 610 308 610 H 348 Q 366 610 366 628 V 650 Q 366 668 348 668 H 254 Q 236 668 236 650 V 374 Q 236 356 254 356 Z" fill="url(#letterGrad)"/>
+  <rect x="388" y="454" width="56" height="214" rx="20" fill="url(#letterGrad)"/>
+  <circle cx="416" cy="387" r="31" fill="url(#dotGrad)"/>
+  <g filter="url(#prismBloom)">
+    <path d="M 492 378 Q 492 342 524 360 L 754 494 Q 786 512 754 530 L 524 664 Q 492 682 492 646 Z" fill="url(#prismGrad)"/>
+    <path d="M 492 378 Q 492 342 524 360 L 754 494 Q 772 504 756 512 L 492 524 Z" fill="url(#facetGrad)"/>
+  </g>
+</svg>

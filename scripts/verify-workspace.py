@@ -4,7 +4,7 @@ import argparse, json, pathlib, shutil, subprocess, tempfile, time
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--app', type=pathlib.Path, default=ROOT / 'dist/Video Player QA.app')
+parser.add_argument('--app', type=pathlib.Path, default=ROOT / 'dist/LiPlayer QA.app')
 parser.add_argument('--stay-open', action='store_true')
 args = parser.parse_args()
 directory = pathlib.Path(tempfile.mkdtemp(prefix='Workspace-', dir=ROOT / '.build/Fixtures'))
@@ -15,7 +15,7 @@ for name in ['Episode 2.mp4', 'Episode 10.mp4', 'Season 2/Episode 1.mp4', 'Seaso
     shutil.copy2(ROOT / '.build/Fixtures/Sample.mp4', tree / name)
 reports = []
 for phase in ['save', 'crash', 'restore']:
-    command = [str(args.app.resolve() / 'Contents/MacOS/VideoPlayer'), '--workspace-self-test', str(directory), '--workspace-phase', phase]
+    command = [str(args.app.resolve() / 'Contents/MacOS/LiPlayer'), '--workspace-self-test', str(directory), '--workspace-phase', phase]
     if args.stay_open and phase == 'restore': command.append('--stay-open')
     log = (ROOT / f'.build/verification/workspace-{phase}.log').open('w')
     process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)

@@ -45,8 +45,13 @@ struct SettingsView: View {
                 HStack { Button("Restore Defaults") { bindings = [:]; saved = false }; Spacer(); if saved { Text("Saved").foregroundStyle(.secondary) }; Button("Save Shortcuts") { saveBindings() }.keyboardShortcut("s", modifiers: .command) }
             }.padding(20).tabItem { Label("Shortcuts", systemImage: "keyboard") }
             VStack(alignment: .leading, spacing: 16) {
-                Text("Video Player").font(.system(size: 24, weight: .semibold))
-                Text("A native Mac player with precise playback controls.").foregroundStyle(.secondary)
+                HStack(spacing: 16) {
+                    LiPlayerBrandMark(size: 64)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("LiPlayer").font(.system(size: 24, weight: .semibold))
+                        Text("A native Mac player with precise playback controls.").foregroundStyle(.secondary)
+                    }
+                }
                 Divider()
                 Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development") · Apple Silicon · macOS 27.2 or later")
                 Text("Built with Swift, AppKit, SwiftUI, libmpv, FFmpeg and libass. This application is licensed under GPLv3. Native dependency notices and source locations are bundled with the app.").font(.system(size: 13)).foregroundStyle(.secondary)
